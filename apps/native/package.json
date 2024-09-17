@@ -11,7 +11,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@repo/ui": "*",
+    "@repo/ui": "workspace:*",
     "expo": "^49.0.21",
     "expo-status-bar": "~1.7.0",
     "react": "^18.2.0",
