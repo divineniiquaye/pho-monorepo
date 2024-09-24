@@ -1,18 +1,31 @@
 {
+  "name": "myapp",
   "private": true,
+  "packageManager": "pnpm@9.7.1",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "clean": "turbo run clean && rm -rf node_modules",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "patch": "npx pnpm-patch-i",
+    "watchman": "watchman watch-del './' ; watchman watch-project './'",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore"
   },
+  "nohoist": [
+    "**/expo-router",
+    "**/expo-router/**"
+  ],
   "devDependencies": {
-    "prettier": "^3.1.1",
+    "prettier": "^3.3.3",
     "turbo": "^2.1.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
-  "name": "with-react-native-web",
-  "packageManager": "pnpm@9.7.1"
+  "pnpm": {
+    "patchedDependencies": {
+      "@react-native/assets-registry": "patches/@react-native__assets-registry.patch"
+    }
+  }
 }
