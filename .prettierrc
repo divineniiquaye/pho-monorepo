@@ -1,0 +1,21 @@
+{
+  "trailingComma": "all",
+  "endOfLine": "lf",
+  "printWidth": 90,
+  "tabWidth": 4,
+  "semi": true,
+  "overrides": [
+    {
+      "files": ["*.jsx", "*.tsx", "*.json", "*.prettierrc"],
+      "options": {
+        "tabWidth": 2
+      }
+    },
+    {
+      "files": ["*.ts", "*.js"],
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}
