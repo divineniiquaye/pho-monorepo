@@ -3,6 +3,7 @@
   "display": "Next.js",
   "extends": "./base.json",
   "compilerOptions": {
+    "jsxImportSource": "nativewind",
     "allowJs": true,
     "declaration": false,
     "declarationMap": false,
