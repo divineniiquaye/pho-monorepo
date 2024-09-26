@@ -66,7 +66,7 @@ let config: ExpoConfig = {
         supportsTablet: false,
         usesIcloudStorage: false,
         bundleIdentifier: "app.myapp.com",
-        // googleServicesFile: './certs/google-services/GoogleService-Info.plist',
+        googleServicesFile: './certs/GoogleService-Info.plist',
         buildNumber: BUILD_NUMBER,
         entitlements: {
             "aps-environment": "production" === PROFILE ? "production" : "development",
@@ -88,7 +88,7 @@ let config: ExpoConfig = {
     android: {
         package: "app.myapp.com",
         softwareKeyboardLayoutMode: "pan",
-        // googleServicesFile: './certs/google-services/google-services.json',
+        googleServicesFile: './certs/google-services.json',
         versionCode: parseInt(BUILD_NUMBER),
         adaptiveIcon: {
             foregroundImage: `${ASSET_URL}/adaptive-icon.png`,
