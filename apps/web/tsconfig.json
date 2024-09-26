@@ -1,8 +1,23 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
-    "plugins": [{ "name": "next" }]
+    "strict": true,
+    "types": ["@testing-library/jest-dom"],
+    "plugins": [{ "name": "next" }],
+    "moduleResolution": "NodeNext",
+    "isolatedModules": true,
+    "module": "NodeNext",
+    "paths": {
+      "@/assets/*": ["./public/*"],
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "next.config.js"
+  ],
   "exclude": ["node_modules"]
 }
