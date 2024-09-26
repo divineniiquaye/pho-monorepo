@@ -3,6 +3,12 @@
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
-    "strict": true
+    "noUncheckedIndexedAccess": true,
+    "strictNullChecks": true,
+    "jsx": "preserve",
+    "strict": false,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }
