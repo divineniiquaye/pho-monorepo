@@ -1,0 +1,28 @@
+name: 🚀 Feature Request
+description: RFC and ideas for new features and improvements 🙂
+labels: [enhancement, feature]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature report!
+  - type: checkboxes
+    attributes:
+      label: Is there an existing feature for this?
+      description: Please search to see if a feature already exists or have been reported.
+      options:
+      - label: I have did my search before proposing a feature request
+        required: true
+  - type: textarea
+    attributes:
+      label: Proposal or Solution
+      description: Provide a concise and clear description of the feature.
+      placeholder: |
+        1. Provide a description of why this feature is necessary. Include code examples, if possible.
+        2. If your feature request is related to a problem? Please describe...
+        3. Explain your intentions for the proposed feature.
+        4. Describe any alternative solutions or features you've considered and references if any.
+
+        Tip: It's up to you to make a strong case to convince the project's developers of the merits of this feature.
+    validations:
+      required: true
