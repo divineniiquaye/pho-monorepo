@@ -13,6 +13,6 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "nativewind": "4.1.10",
-    "tailwindcss": "3.4.1"
+    "tailwindcss": "3.4.13"
   }
 }
