@@ -6,7 +6,11 @@ const config: Pick<
     Config,
     "corePlugin" | "content" | "presets" | "plugins" | "darkMode"
 > = {
-    content: ["./app/**/*.tsx", "./node_modules/@repo/ui/**/*.tsx"],
+    content: [
+        "./app/**/*.tsx",
+        "../../packages/ui/**/*.tsx",
+        "!../../packages/ui/**/node_modules/**",
+    ],
     presets: [require("nativewind/preset")],
     corePlugin: { backgroundOpacity: true },
     darkMode: "class",
