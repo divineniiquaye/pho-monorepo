@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
+    "target": "ESNext",
     "composite": false,
     "declaration": true,
     "declarationMap": true,
@@ -15,6 +16,5 @@
     "preserveWatchOutput": true,
     "skipLibCheck": true,
     "strict": true
-  },
-  "exclude": ["node_modules"]
+  }
 }

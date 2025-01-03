@@ -4,5 +4,10 @@
   "private": true,
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@babel/core": "7.26.0",
+    "@types/node": "22.10.4",
+    "typescript": "5.7.2"
   }
 }
