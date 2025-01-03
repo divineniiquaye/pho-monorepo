@@ -1,41 +1,62 @@
 "use client";
 
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import { AlertTriangle } from "lucide-react-native";
-import { toast } from "sonner-native";
-
-import { Alert, AlertDescription, AlertTitle } from "@repo/ui/themed/alert";
-import { useColorScheme } from "@repo/ui/hooks/useColorScheme";
-import { Button } from "@repo/ui/themed/button";
-import { Text } from "@repo/ui/themed/text";
+import { useColorScheme } from "@repo/design/hooks/useColorScheme";
+import * as Typography from "@repo/design/ui/typography";
+import { HStack, VStack } from "@repo/design/ui/stack";
+import { Separator } from "@repo/design/ui/separator";
+import { Progress } from "@repo/design/ui/progress";
+import { Button } from "@repo/design/ui/button";
+import { toast } from "@repo/design/ui/sonner";
+import { Text } from "@repo/design/ui/text";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@repo/ui/themed/select";
+} from "@repo/design/ui/select";
+import {
+  AccordionExample,
+  AlertDialogExample,
+  AspectRatioExample,
+  AvatarExample,
+  CalendarExample,
+  DialogExample,
+  DropdownMenuExample,
+  HoverCardExample,
+  PopoverExample,
+  SelectExample,
+  TableExample,
+  TooltipExample,
+} from "@repo/design/components/example";
+import { CheckboxExample } from "@repo/design/components/example/Checkbox";
+import { CollapsibleExample } from "@repo/design/components/example/Collapsible";
+import { ContextMenuExample } from "@repo/design/components/example/ContextMenu";
+import { MenubarExample } from "@repo/design/components/example/Menubar";
+import { NavigationMenuExample } from "@repo/design/components/example/NavigationMenu";
+import { RadioGroupExample } from "@repo/design/components/example/RadioGroup";
+import { SliderExample } from "@repo/design/components/example/Slider";
+import { SwitchExample } from "@repo/design/components/example/Switch";
+import { TabsExample } from "@repo/design/components/example/Tabs";
+import { ToggleExample } from "@repo/design/components/example/Toggle";
+import { SheetExample } from "@repo/design/components/example/Sheet";
+import { CommandExample } from "@repo/design/components/example/Command";
+import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
+import { SidebarDialogExample } from "@repo/design/components/example/SidebarDialog";
+import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
 
 export default function Web() {
   const { setColorScheme } = useColorScheme();
 
   return (
     <div className="flex flex-1 mt-10 flex-col text-center items-center">
-      <h1 className="text-2xl text-foreground font-bold mb-2">Web</h1>
+      <Typography.Lead className="mb-2">Web</Typography.Lead>
       <Button
         testID="button"
         onPress={() => {
           console.log("Pressed!");
-          toast.custom(
-            <Animated.View entering={FadeIn} exiting={FadeOut} className="max-w-lg">
-              <Alert icon={AlertTriangle} variant="destructive">
-                <AlertTitle>Toast!</AlertTitle>
-                <AlertDescription>
-                  Testing the toaster. This is a long description. You can describe your
-                  toast in detail.
-                </AlertDescription>
-              </Alert>
-            </Animated.View>,
+          toast.info(
+            "Testing the toaster. This is a long description. You can describe your toast in detail.",
           );
           // alert("Pressed!");
         }}
@@ -46,23 +67,64 @@ export default function Web() {
       <div className="mt-10 space-y-2">
         <Text className="text-center text-muted-foreground pb-2">Theme Switch</Text>
         <Select
+          className="z-10"
           onValueChange={(option) =>
             setColorScheme(option?.value as "system" | "light" | "dark")
           }
         >
-          <SelectTrigger className="w-[250px]">
+          <SelectTrigger>
             <SelectValue
               className="text-foreground text-sm native:text-lg"
               placeholder="Select a theme"
             />
           </SelectTrigger>
-          <SelectContent className="w-[250px]">
+          <SelectContent>
             <SelectItem label="System" value="system" />
             <SelectItem label="Light" value="light" />
             <SelectItem label="Dark" value="dark" />
           </SelectContent>
         </Select>
       </div>
+      <VStack space="md" className="my-3">
+        <HStack space="sm">
+          <Typography.H1>@rn-primitives</Typography.H1>
+          <Typography.P className="font-medium">
+            Styled with{" "}
+            <a className="hover:underline" href="https://www.nativewind.dev/v4/overview">
+              NativeWind
+            </a>
+          </Typography.P>
+        </HStack>
+        <AccordionExample />
+        <AlertDialogExample />
+        <AspectRatioExample />
+        <AvatarExample />
+        <CalendarExample />
+        <CheckboxExample />
+        <CollapsibleExample />
+        <ContextMenuExample />
+        <DialogExample />
+        <DropdownMenuExample />
+        <HoverCardExample />
+        <MenubarExample />
+        <NavigationMenuExample />
+        <PopoverExample />
+        <Progress value={50} />
+        <RadioGroupExample />
+        <SelectExample />
+        <Separator />
+        <SliderExample />
+        <SwitchExample />
+        <TableExample />
+        <TabsExample />
+        <BreadcrumbExample />
+        <SheetExample />
+        <ToggleExample />
+        <ToggleGroupExample />
+        <TooltipExample />
+        <SidebarDialogExample />
+        <CommandExample />
+      </VStack>
     </div>
   );
 }

@@ -1,10 +1,15 @@
-import { Metadata } from "next";
+import "@repo/tailwind-config/global.css";
 
 import "raf/polyfill";
 import "setimmediate";
 
-import "@repo/tailwind-config/global.css";
-import { Providers } from "@repo/ui/providers";
+import { ViewTransitions } from "next-view-transitions";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { Metadata } from "next";
+
+import { Providers } from "@repo/design/providers";
+import { cn } from "@repo/design/lib/utils";
 
 export const metadata: Metadata = {
   title: "Create My App",
@@ -17,10 +22,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning style={{ scrollBehavior: "smooth" }}>
-      <body className="antialiased">
-        <Providers>{children}</Providers>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html
+        lang="en"
+        suppressHydrationWarning
+        className={cn(
+          GeistSans.variable,
+          GeistMono.variable,
+          "bg-background touch-manipulation font-sans antialiased scroll-smooth",
+        )}
+      >
+        <head />
+        <body className="transition-colors">
+          <Providers>{children}</Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

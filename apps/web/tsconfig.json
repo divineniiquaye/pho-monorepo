@@ -1,23 +1,24 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
-    "strict": true,
-    "types": ["@testing-library/jest-dom"],
-    "plugins": [{ "name": "next" }],
-    "moduleResolution": "NodeNext",
-    "isolatedModules": true,
-    "module": "NodeNext",
     "paths": {
-      "@/assets/*": ["./public/*"],
-      "@/*": ["./src/*"]
-    }
+      "@/assets/*": [
+        "./public/*"
+      ],
+      "@/*": ["./src/*"],
+      "@repo/design/*": ["../../packages/design-system/*"],
+      "@repo/*": ["../../packages/*"]
+    },
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "next.config.js"
+    "nativewind-env.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
