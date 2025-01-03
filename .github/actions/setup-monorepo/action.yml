@@ -8,7 +8,7 @@ inputs:
 
     pnpm-version:
         description: Version of pnpm to use
-        default: 9.11.0
+        default: 9.15.2
 
     eas-version:
         description: Version of EAS CLI to use
