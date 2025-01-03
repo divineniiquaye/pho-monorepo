@@ -1,7 +1,9 @@
-import { hairlineWidth } from "nativewind/dist/theme";
-import type { Config } from "tailwindcss";
+import { hairlineWidth, platformSelect } from "nativewind/theme";
+import defaultTheme from "tailwindcss/defaultTheme";
 
-const config: Omit<Config, "content"> = {
+const config: Omit<import("tailwindcss").Config, "content"> = {
+    plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+    presets: [require("nativewind/preset")],
     theme: {
         extend: {
             colors: {
@@ -38,9 +40,66 @@ const config: Omit<Config, "content"> = {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
+                success: {
+                    DEFAULT: "hsl(var(--success))",
+                    foreground: "hsl(var(--success-foreground))",
+                },
+                warning: {
+                    DEFAULT: "hsl(var(--warning))",
+                    foreground: "hsl(var(--warning-foreground))",
+                },
+                brand: {
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
+                },
+                sidebar: {
+                    DEFAULT: "hsl(var(--sidebar-background))",
+                    foreground: "hsl(var(--sidebar-foreground))",
+                    primary: "hsl(var(--sidebar-primary))",
+                    "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+                    accent: "hsl(var(--sidebar-accent))",
+                    "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+                    border: "hsl(var(--sidebar-border))",
+                    ring: "hsl(var(--sidebar-ring))",
+                },
             },
             borderWidth: {
                 hairline: hairlineWidth(),
+            },
+            fontFamily: {
+                sans: [
+                    platformSelect({
+                        web: "var(--font-geist-sans)",
+                        default: "GeistSans_400Regular",
+                    }),
+                    ...defaultTheme.fontFamily.sans,
+                ],
+                mono: [
+                    platformSelect({
+                        web: "var(--font-geist-mono)",
+                        default: "GeistMono_400Regular",
+                    }),
+                    ...defaultTheme.fontFamily.mono,
+                ],
+                ...platformSelect({
+                    web: {},
+                    default: {
+                        "geist-sans-thin": "GeistSans_100Thin",
+                        "geist-sans-light": "GeistSans_300Light",
+                        "geist-sans-medium": "GeistSans_500Medium",
+                        "geist-sans-semibold": "GeistSans_600SemiBold",
+                        "geist-sans-bold": "GeistSans_700Bold",
+                        "geist-sans-black": "GeistSans_800Black",
+                        "geist-mono-thin": "GeistMono_100Thin",
+                        "geist-mono-ultralight": "GeistMono_200UltraLight",
+                        "geist-mono-light": "GeistMono_300Light",
+                        "geist-mono-medium": "GeistMono_500Medium",
+                        "geist-mono-semibold": "GeistMono_600SemiBold",
+                        "geist-mono-bold": "GeistMono_700Bold",
+                        "geist-mono-black": "GeistMono_800Black",
+                        "geist-mono-ultrablack": "GeistMono_900UltraBlack",
+                    },
+                }),
             },
             keyframes: {
                 "accordion-down": {
@@ -58,7 +117,6 @@ const config: Omit<Config, "content"> = {
             },
         },
     },
-    plugins: [],
 };
 
 export default config;
