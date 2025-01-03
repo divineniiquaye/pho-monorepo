@@ -1,6 +1,12 @@
 {
-  "name": "myapp",
-  "private": true,
+  "name": "phox",
+  "version": "0.1.0",
+  "bin": {
+    "phox": "scripts/init.mjs"
+  },
+  "files": [
+    "scripts/init.mjs"
+  ],
   "packageManager": "pnpm@9.15.2",
   "scripts": {
     "dev": "turbo run dev",
