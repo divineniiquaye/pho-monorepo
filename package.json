@@ -25,7 +25,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@react-native/assets-registry": "patches/@react-native__assets-registry.patch"
+      "@react-native/assets-registry": "patches/@react-native__assets-registry.patch",
+      "react-native-web": "patches/react-native-web.patch"
     }
   }
 }
