@@ -8,9 +8,7 @@ type SubQuery = {
 type Query = Array<SubQuery>;
 
 export function useMediaQuery(query: SubQuery | Query) {
-    const dims = useWindowDimensions();
-    const height = dims?.height;
-    const width = dims?.width;
+    const { height, width } = useWindowDimensions();
 
     return iterateQuery(query, height, width);
 }
@@ -21,6 +19,7 @@ function queryResolver(query: SubQuery | Query, width?: number, height?: number)
             return false;
         }
     }
+
     return true;
 }
 
