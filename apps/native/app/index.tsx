@@ -1,35 +1,59 @@
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { AlertTriangle } from "lucide-react-native";
-import { Platform, View } from "react-native";
-import { toast } from "sonner-native";
+import { View } from "react-native";
+import Animated from "react-native-reanimated";
+import { Link } from "expo-router";
 
-import { Alert, AlertDescription, AlertTitle } from "@repo/ui/themed/alert";
-import { useColorScheme } from "@repo/ui/hooks/useColorScheme";
-import { Button } from "@repo/ui/themed/button";
-import { Text } from "@repo/ui/themed/text";
-import ScreenLayout from "@repo/ui/layout";
+import { useColorScheme } from "@repo/design/hooks/useColorScheme";
+import * as Typography from "@repo/design/ui/typography";
+import { Separator } from "@repo/design/ui/separator";
+import { Progress } from "@repo/design/ui/progress";
+import { Button } from "@repo/design/ui/button";
+import { HStack } from "@repo/design/ui/stack";
+import ScreenLayout from "@repo/design/layout";
+import { toast } from "@repo/design/ui/sonner";
+import { Text } from "@repo/design/ui/text";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@repo/ui/themed/select";
+} from "@repo/design/ui/select";
+import {
+  AccordionExample,
+  AlertDialogExample,
+  AspectRatioExample,
+  AvatarExample,
+  CalendarExample,
+  DialogExample,
+  DropdownMenuExample,
+  HoverCardExample,
+  PopoverExample,
+  SelectExample,
+  TableExample,
+  TooltipExample,
+} from "@repo/design/components/example";
+import { CheckboxExample } from "@repo/design/components/example/Checkbox";
+import { CollapsibleExample } from "@repo/design/components/example/Collapsible";
+import { ContextMenuExample } from "@repo/design/components/example/ContextMenu";
+import { MenubarExample } from "@repo/design/components/example/Menubar";
+import { NavigationMenuExample } from "@repo/design/components/example/NavigationMenu";
+import { RadioGroupExample } from "@repo/design/components/example/RadioGroup";
+import { SliderExample } from "@repo/design/components/example/Slider";
+import { SwitchExample } from "@repo/design/components/example/Switch";
+import { TabsExample } from "@repo/design/components/example/Tabs";
+import { ToggleExample } from "@repo/design/components/example/Toggle";
+import { SheetExample } from "@repo/design/components/example/Sheet";
+import { CommandExample } from "@repo/design/components/example/Command";
+import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
+import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
+import { useKeyboardReaction } from "@repo/design/providers/keyboard";
 
 export default function Native() {
   const { setColorScheme } = useColorScheme();
-  const insets = useSafeAreaInsets();
-
-  const contentInsets = {
-    top: insets.top,
-    bottom: Platform.select({ ios: insets.bottom, android: insets.bottom + 24 }),
-    left: 12,
-    right: 12,
-  };
+  const { scrollRef, scrollHandler } = useKeyboardReaction<Animated.ScrollView>("scrollTo");
 
   return (
-    <ScreenLayout delay={-1} className="flex-col items-center">
+    <ScreenLayout delay={false} className="flex-col items-center">
       <Text role="heading" className="text-2xl text-center font-bold mb-2">
         Native
       </Text>
@@ -37,42 +61,82 @@ export default function Native() {
         variant="default"
         onPress={() => {
           console.log("Pressed!");
-          toast.custom(
-            <Animated.View entering={FadeIn} exiting={FadeOut} className="w-[75%]">
-              <Alert icon={AlertTriangle} variant="destructive">
-                <AlertTitle>Toast!</AlertTitle>
-                <AlertDescription>
-                  Testing the toaster. This is a long description. You can describe your
-                  toast in detail.
-                </AlertDescription>
-              </Alert>
-            </Animated.View>,
+          toast.info(
+            "Testing the toaster. This is a long description. You can describe your toast in detail.",
+            { position: "bottom-center" },
           );
           // alert("Pressed!");
         }}
       >
         <Text>Boop</Text>
       </Button>
-      <View className="mt-10">
-        <Text className="text-center text-muted-foreground pb-2">Theme Switch</Text>
+      <View className="mt-4 items-center">
+        <Text className="text-muted-foreground pb-2">Theme Switch</Text>
         <Select
           onValueChange={(option) =>
             setColorScheme(option?.value as "system" | "light" | "dark")
           }
         >
-          <SelectTrigger className="w-[250px]">
+          <SelectTrigger className="w-52">
             <SelectValue
               className="text-foreground text-sm native:text-lg"
               placeholder="Select a theme"
             />
           </SelectTrigger>
-          <SelectContent insets={contentInsets} className="w-[250px]">
+          <SelectContent>
             <SelectItem label="System" value="system" />
             <SelectItem label="Light" value="light" />
             <SelectItem label="Dark" value="dark" />
           </SelectContent>
         </Select>
       </View>
+      <Animated.ScrollView
+        contentContainerClassName="gap-5"
+        className="my-3 w-full"
+        onScroll={scrollHandler}
+        ref={scrollRef}
+      >
+        <HStack space="sm" className="items-baseline">
+          <Typography.H2>@rn-primitives</Typography.H2>
+          <Typography.P className="font-medium">
+            Styled with{" "}
+            <Link
+              className="hover:underline"
+              href="https://www.nativewind.dev/v4/overview"
+            >
+              NativeWind
+            </Link>
+          </Typography.P>
+        </HStack>
+        <AccordionExample />
+        <AlertDialogExample />
+        <AspectRatioExample />
+        <AvatarExample />
+        <CalendarExample />
+        <CheckboxExample />
+        <CollapsibleExample />
+        <ContextMenuExample />
+        <DialogExample />
+        <DropdownMenuExample />
+        <HoverCardExample />
+        <MenubarExample />
+        <NavigationMenuExample />
+        <PopoverExample />
+        <Progress value={50} />
+        <RadioGroupExample />
+        <SelectExample />
+        <Separator />
+        <SliderExample />
+        <SwitchExample />
+        <TableExample />
+        <TabsExample />
+        <BreadcrumbExample />
+        <ToggleExample />
+        <SheetExample />
+        <ToggleGroupExample />
+        <TooltipExample />
+        <CommandExample />
+      </Animated.ScrollView>
     </ScreenLayout>
   );
 }

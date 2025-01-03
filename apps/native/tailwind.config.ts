@@ -1,18 +1,12 @@
 import type { Config } from "tailwindcss";
-
 import sharedConfig from "@repo/tailwind-config";
 
-const config: Pick<
-    Config,
-    "corePlugin" | "content" | "presets" | "plugins" | "darkMode"
-> = {
+const config: Pick<Config, "content" | "darkMode"> = {
     content: [
         "./app/**/*.tsx",
-        "../../packages/ui/**/*.tsx",
-        "!../../packages/ui/**/node_modules/**",
+        "../../packages/design-system/**/*.tsx",
+        "!../../packages/design-system/**/node_modules/**",
     ],
-    presets: [require("nativewind/preset")],
-    corePlugin: { backgroundOpacity: true },
     darkMode: "class",
     ...sharedConfig,
 };

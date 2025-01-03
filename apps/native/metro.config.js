@@ -3,11 +3,12 @@
 /**
  * @type {import('expo/metro-config')}
  */
+const { wrapWithReanimatedMetroConfig } = require("react-native-reanimated/metro-config");
 const { getDefaultConfig } = require("@expo/metro-config");
 const { withNativeWind } = require("nativewind/metro");
 const { FileStore } = require("metro-cache");
 
-const path = require("path");
+const path = require("node:path");
 
 // Find the project and workspace directories
 const projectRoot = __dirname;
@@ -32,7 +33,7 @@ config.cacheStores = [
     new FileStore({ root: path.join(__dirname, "node_modules/.cache/metro") }),
 ];
 
-module.exports = withNativeWind(config, {
+module.exports = withNativeWind(wrapWithReanimatedMetroConfig(config), {
     configPath: tailwindConfigPath,
     input: globalCSS,
     projectRoot,

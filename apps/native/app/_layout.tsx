@@ -1,18 +1,11 @@
 import { enableReactNativeComponents } from "@legendapp/state/config/enableReactNativeComponents";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import * as SplashScreen from "expo-splash-screen";
-import { useFonts } from "expo-font";
 import { Slot } from "expo-router";
-import { useEffect } from "react";
-import {
-  Inter_400Regular,
-  Inter_500Medium,
-  Inter_600SemiBold,
-  Inter_700Bold,
-} from "@expo-google-fonts/inter";
+import * as Font from "expo-font";
 
 import "@repo/tailwind-config/global.css";
-import { Providers } from "@repo/ui/providers";
+import { Providers } from "@repo/design/providers";
+import React from "react";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -25,29 +18,49 @@ SplashScreen.preventAutoHideAsync();
 // Enable reactivity for state management
 enableReactNativeComponents();
 
+/** Hide the splash screen when the app is ready to be shown.*/
+function useSplashScreen(loadResources: () => Promise<void>) {
+  const [isSplashScreenShown, setSplashScreenShown] = React.useState(true);
+  React.useEffect(() => {
+    loadResources().then(() => setSplashScreenShown(false));
+  }, []);
+  React.useEffect(() => {
+    let c: ReturnType<typeof setTimeout> | undefined;
+
+    // Wait 1.5ms to get content partially or fully ready before hiding the splash screen.
+    if (!isSplashScreenShown) c = setTimeout(SplashScreen.hide, 150);
+    return () => {
+      if (c) clearTimeout(c);
+    };
+  }, [isSplashScreenShown]);
+
+  return isSplashScreenShown;
+}
+
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    Inter: Inter_400Regular,
-    InterBold: Inter_700Bold,
-    InterMedium: Inter_500Medium,
-    InterSemiBold: Inter_600SemiBold,
-    ...Ionicons.font,
+  const isSplashScreenShown = useSplashScreen(async () => {
+    Font.loadAsync({
+      GeistSans_100Thin: require("@/assets/fonts/GeistSans/Geist-Thin.otf"),
+      GeistSans_300Light: require("@/assets/fonts/GeistSans/Geist-Light.otf"),
+      GeistSans_400Regular: require("@/assets/fonts/GeistSans/Geist-Regular.otf"),
+      GeistSans_500Medium: require("@/assets/fonts/GeistSans/Geist-Medium.otf"),
+      GeistSans_600SemiBold: require("@/assets/fonts/GeistSans/Geist-SemiBold.otf"),
+      GeistSans_700Bold: require("@/assets/fonts/GeistSans/Geist-Bold.otf"),
+      GeistSans_800Black: require("@/assets/fonts/GeistSans/Geist-Black.otf"),
+
+      GeistMono_100Thin: require("@/assets/fonts/GeistMono/Geist-Thin.otf"),
+      GeistMono_200UltraLight: require("@/assets/fonts/GeistMono/Geist-UltraLight.otf"),
+      GeistMono_300Light: require("@/assets/fonts/GeistMono/Geist-Light.otf"),
+      GeistMono_400Regular: require("@/assets/fonts/GeistMono/Geist-Regular.otf"),
+      GeistMono_500Medium: require("@/assets/fonts/GeistMono/Geist-Medium.otf"),
+      GeistMono_600SemiBold: require("@/assets/fonts/GeistMono/Geist-SemiBold.otf"),
+      GeistMono_700Bold: require("@/assets/fonts/GeistMono/Geist-Bold.otf"),
+      GeistMono_800Black: require("@/assets/fonts/GeistMono/Geist-Black.otf"),
+      GeistMono_900UltraBlack: require("@/assets/fonts/GeistMono/Geist-UltraBlack.otf"),
+    });
   });
 
-  useEffect(() => {
-    // Hide the splash screen once all assets have been loaded.
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-    // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-    else if (error) throw error;
-  }, [loaded, error]);
+  if (isSplashScreenShown) return null;
 
-  return (
-    !!loaded && (
-      <Providers>
-        <Slot />
-      </Providers>
-    )
-  );
+  return <Providers children={<Slot />} />;
 }
