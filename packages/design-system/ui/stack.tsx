@@ -1,13 +1,15 @@
+"use client";
+
 import { cva, type VariantProps } from "class-variance-authority";
 import { View } from "react-native";
 import React from "react";
 
-import isWeb from "../hooks/isWeb";
+import isWeb from "../lib/isWeb";
 
 export const hstackVariants = cva(
   `flex-row ${
     isWeb
-      ? "flex relative z-0 box-border border-0 list-none min-w-0 min-h-0 bg-transparent items-stretch m-0 p-0 text-decoration-none"
+      ? "flex relative z-0 box-border border-0 list-none min-w-0 min-h-0 bg-transparent items-baseline m-0 p-0 text-decoration-none"
       : ""
   }`,
   {
@@ -32,7 +34,7 @@ export const hstackVariants = cva(
 export const vstackVariants = cva(
   `flex-col ${
     isWeb
-      ? "flex flex-col relative z-0 box-border border-0 list-none min-w-0 min-h-0 bg-transparent items-stretch m-0 p-0 text-decoration-none"
+      ? "flex flex-col relative z-0 box-border border-0 list-none min-w-0 min-h-0 bg-transparent m-0 p-0 text-decoration-none"
       : ""
   }`,
   {
@@ -61,7 +63,7 @@ const HStack = React.forwardRef<React.ElementRef<typeof View>, HStackProps>(
   ({ className, space, reversed, ...props }, ref) => {
     return (
       <View
-        className={hstackVariants({ space, reversed, class: className })}
+        className={hstackVariants({ space, reversed, className })}
         {...props}
         ref={ref}
       />

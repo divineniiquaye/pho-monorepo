@@ -1,11 +1,16 @@
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import { Check, ChevronDown, ChevronUp } from "lucide-react-native";
-import { StyleSheet, View } from "react-native";
+"use client";
+
+import * as SelectPrimitive from "@rn-primitives/select";
+import { Dimensions, Platform, View } from "react-native";
+import { Pressable } from "react-native";
 import * as React from "react";
 
-import * as SelectPrimitive from "../primitives/select";
-import isWeb from "../hooks/isWeb";
+import { ChevronDown } from "../icons/ChevronDown";
+import { ChevronUp } from "../icons/ChevronUp";
+import { Check } from "../icons/Check";
 import { cn } from "../lib/utils";
+
+const { height: HEIGHT } = Dimensions.get("screen");
 
 type Option = SelectPrimitive.Option;
 
@@ -17,19 +22,22 @@ const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  Omit<React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, "asChild">
+>(({ className, children, "aria-label": label, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex flex-row h-10 native:h-12 items-center text-sm justify-between rounded-md border border-input bg-background px-3 py-2 web:ring-offset-background text-muted-foreground web:focus:outline-none web:focus:ring-2 web:focus:ring-ring web:focus:ring-offset-2 [&>span]:line-clamp-1",
+      "flex flex-row h-10 native:h-12 native:transition-colors native:duration-200 items-center text-sm justify-between rounded-md border border-input bg-background px-3 py-2 web:ring-offset-background text-muted-foreground web:focus:outline-none web:focus:ring-2 native:focus:border-ring web:focus:ring-ring web:focus:ring-offset-2 [&>span]:line-clamp-1",
       props.disabled && "web:cursor-not-allowed opacity-50",
       className,
     )}
+    asChild={true}
     {...props}
   >
-    <>{children}</>
-    <ChevronDown size={16} aria-hidden={true} className="text-foreground opacity-50" />
+    <Pressable role="combobox" aria-label={label ?? "Select"}>
+      {children as any}
+      <ChevronDown size={18} aria-hidden={true} className="text-foreground opacity-60" />
+    </Pressable>
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -41,7 +49,7 @@ const SelectScrollUpButton = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>) => {
-  if (!isWeb) {
+  if (Platform.OS !== "web") {
     return null;
   }
   return (
@@ -64,7 +72,7 @@ const SelectScrollDownButton = ({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>) => {
-  if (!isWeb) {
+  if (Platform.OS !== "web") {
     return null;
   }
   return (
@@ -83,44 +91,59 @@ const SelectScrollDownButton = ({
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & { portalHost?: string }
->(({ className, children, position = "popper", portalHost, ...props }, ref) => {
-  const { open } = SelectPrimitive.useRootContext();
+>(
+  (
+    { className, children, position = "popper", portalHost, sideOffset, ...props },
+    ref,
+  ) => {
+    const { open, triggerPosition, contentLayout } = SelectPrimitive.useRootContext();
+    const flip = React.useMemo(
+      () =>
+        triggerPosition?.pageY
+          ? Math.abs(triggerPosition.pageY - HEIGHT) <= HEIGHT * 0.35
+          : false,
+      [triggerPosition?.pageY],
+    );
 
-  return (
-    <SelectPrimitive.Portal hostName={portalHost}>
-      <SelectPrimitive.Overlay style={!isWeb ? StyleSheet.absoluteFill : undefined}>
-        <Animated.View entering={FadeIn} exiting={FadeOut}>
-          <SelectPrimitive.Content
-            ref={ref}
+    return (
+      <SelectPrimitive.Portal>
+        <SelectPrimitive.Content
+          ref={ref}
+          style={{ minWidth: triggerPosition?.width }}
+          className={cn(
+            "relative z-50 max-h-96 min-w-[8rem] rounded-md border border-border bg-popover shadow-md shadow-foreground/10 py-2 px-1 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+            position === "popper" &&
+              "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+            open
+              ? "mt-1 web:zoom-in-95 web:animate-in web:fade-in-0"
+              : "web:zoom-out-95 web:animate-out web:fade-out-0",
+            className,
+          )}
+          sideOffset={
+            sideOffset ??
+            (flip
+              ? -((contentLayout?.height ?? 0) + (triggerPosition?.height ?? 0) + 8)
+              : 0)
+          }
+          position={position}
+          {...props}
+        >
+          <SelectScrollUpButton />
+          <SelectPrimitive.Viewport
             className={cn(
-              "relative z-50 max-h-96 min-w-[8rem] rounded-md border border-border bg-popover shadow-md shadow-foreground/10 py-2 px-1 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+              "p-1",
               position === "popper" &&
-                "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-              open
-                ? "web:zoom-in-95 web:animate-in web:fade-in-0"
-                : "web:zoom-out-95 web:animate-out web:fade-out-0",
-              className,
+                "web:h-[var(--radix-select-trigger-height)] w-full web:min-w-[var(--radix-select-trigger-width)]",
             )}
-            position={position}
-            {...props}
           >
-            <SelectScrollUpButton />
-            <SelectPrimitive.Viewport
-              className={cn(
-                "p-1",
-                position === "popper" &&
-                  "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
-              )}
-            >
-              {children}
-            </SelectPrimitive.Viewport>
-            <SelectScrollDownButton />
-          </SelectPrimitive.Content>
-        </Animated.View>
-      </SelectPrimitive.Overlay>
-    </SelectPrimitive.Portal>
-  );
-});
+            {children}
+          </SelectPrimitive.Viewport>
+          <SelectScrollDownButton />
+        </SelectPrimitive.Content>
+      </SelectPrimitive.Portal>
+    );
+  },
+);
 SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<
@@ -145,7 +168,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative web:group flex flex-row w-full web:cursor-default web:select-none items-center rounded-sm py-1.5 native:py-2 pl-8 native:pl-10 pr-2 web:hover:bg-accent/50 active:bg-accent web:outline-none web:focus:bg-accent",
+      "relative web:group flex flex-row w-full web:cursor-default web:select-none items-center rounded-sm py-1.5 native:py-2 pl-8 native:pl-10 pr-2 active:bg-accent web:outline-none web:focus:bg-accent",
       props.disabled && "web:pointer-events-none opacity-50",
       className,
     )}
@@ -156,7 +179,7 @@ const SelectItem = React.forwardRef<
         <Check size={16} strokeWidth={3} className="text-popover-foreground" />
       </SelectPrimitive.ItemIndicator>
     </View>
-    <SelectPrimitive.ItemText className="text-sm native:text-lg text-popover-foreground native:text-base web:group-focus:text-accent-foreground" />
+    <SelectPrimitive.ItemText className="text-sm text-popover-foreground native:text-base web:group-focus:text-accent-foreground" />
   </SelectPrimitive.Item>
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;

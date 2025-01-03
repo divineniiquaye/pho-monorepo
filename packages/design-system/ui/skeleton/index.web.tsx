@@ -2,7 +2,7 @@ import { VariantProps } from "class-variance-authority";
 import React from "react";
 
 import { skeletonStyle, skeletonTextStyle } from "./styles";
-import { cn } from "../../lib/utils";
+import { cn } from "@repo/design/lib/utils";
 
 type SkeletonProps = React.ComponentPropsWithoutRef<"div"> &
   VariantProps<typeof skeletonStyle> & {

@@ -4,7 +4,7 @@ import { useTheme } from "@react-navigation/native";
 import { Text, View } from "react-native";
 import * as React from "react";
 
-import { cn } from "../lib/utils";
+import { cn } from "@repo/design/lib/utils";
 
 const alertVariants = cva(
   "relative bg-background w-full rounded-lg border border-border p-4 shadow shadow-foreground/10",
@@ -22,7 +22,7 @@ const alertVariants = cva(
 );
 
 const Alert = React.forwardRef<
-  React.ElementRef<typeof View>,
+  React.ComponentRef<typeof View>,
   React.ComponentPropsWithoutRef<typeof View> &
     VariantProps<typeof alertVariants> & {
       icon: LucideIcon;
@@ -56,7 +56,7 @@ const Alert = React.forwardRef<
 Alert.displayName = "Alert";
 
 const AlertTitle = React.forwardRef<
-  React.ElementRef<typeof Text>,
+  React.ComponentRef<typeof Text>,
   React.ComponentPropsWithoutRef<typeof Text>
 >(({ className, ...props }, ref) => (
   <Text
@@ -71,7 +71,7 @@ const AlertTitle = React.forwardRef<
 AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = React.forwardRef<
-  React.ElementRef<typeof Text>,
+  React.ComponentRef<typeof Text>,
   React.ComponentPropsWithoutRef<typeof Text>
 >(({ className, ...props }, ref) => (
   <Text
