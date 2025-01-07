@@ -1,33 +1,35 @@
 import type { ExpoConfig } from "expo/config";
+import { ClientEnv, Env } from "./scripts/env";
 
 const ASSET_URL = "./assets/images";
-const PROFILE = process.env["EAS_BUILD_PROFILE"] ?? "preview";
-const PROJECT_ID = "<PROJECT_ID>";
-const PRODUCT_NAME = "Myapp";
-const BUILD_NUMBER = "10";
 
 const config: ExpoConfig = {
-    name: PRODUCT_NAME,
+    name: Env.NAME,
     description: "Bring the best services to you",
     userInterfaceStyle: "automatic",
     icon: `${ASSET_URL}/icon.png`,
     platforms: ["ios", "android"],
     orientation: "default",
-    scheme: "myapp",
-    version: "1.0.0",
-    slug: "myapp",
+    scheme: Env.SCHEME,
+    version: Env.VERSION,
+    slug: Env.SLUG,
     newArchEnabled: true,
     notification: {
         icon: `${ASSET_URL}/icon.png`,
         iosDisplayInForeground: true,
         androidMode: "default",
-        androidCollapsedTitle: PRODUCT_NAME,
+        androidCollapsedTitle: Env.NAME,
     },
     androidStatusBar: {
         translucent: true,
     },
     runtimeVersion: {
         policy: "nativeVersion",
+    },
+    updates: {
+        url: `https://u.expo.dev/${Env.EAS_PROJECT_ID}`,
+        checkAutomatically: "NEVER",
+        fallbackToCacheTimeout: 0,
     },
     plugins: [
         "expo-font",
@@ -66,8 +68,8 @@ const config: ExpoConfig = {
                       "@sentry/react-native/expo",
                       {
                           url: "https://sentry.io/",
-                          organization: process.env["SENTRY_ORG"] ?? "myapp",
-                          project: process.env["SENTRY_PROJECT"] ?? "react-native",
+                          organization: Env.SENTRY_ORG,
+                          project: Env.SENTRY_PROJECT,
                           note: "Ensure you set the SENTRY_AUTH_TOKEN as an environment variable to authenticate with Sentry. Do not add it to the .env file. Instead, add it as an EAS secret or as an environment variable in your CI/CD pipeline for security.",
                       },
                   ],
@@ -77,12 +79,13 @@ const config: ExpoConfig = {
     ios: {
         supportsTablet: false,
         usesIcloudStorage: false,
-        bundleIdentifier: "app.myapp.com",
+        bundleIdentifier: Env.BUNDLE_ID,
         googleServicesFile: "./certs/GoogleService-Info.plist",
-        buildNumber: BUILD_NUMBER,
+        buildNumber: Env.BUILD_NUMBER,
         bitcode: true,
         entitlements: {
-            "aps-environment": "production" === PROFILE ? "production" : "development",
+            "aps-environment":
+                "production" === Env.APP_ENV ? "production" : "development",
         },
         infoPlist: {
             UIApplicationSceneManifest: {
@@ -95,13 +98,13 @@ const config: ExpoConfig = {
                 "We access system boot time for analytics purposes.",
             NSPrivacyFileTimestampUsageDescription:
                 "We use file timestamps to improve app performance.",
-            NSLocationWhenInUseUsageDescription: `${PRODUCT_NAME} needs access your location`,
+            NSLocationWhenInUseUsageDescription: `${Env.NAME} needs access your location`,
         },
     },
     android: {
-        package: "app.myapp.com",
+        package: Env.BUNDLE_ID,
         googleServicesFile: "./certs/google-services.json",
-        versionCode: Number.parseInt(BUILD_NUMBER),
+        versionCode: Number.parseInt(Env.BUILD_NUMBER),
         adaptiveIcon: {
             foregroundImage: `${ASSET_URL}/adaptive-icon.png`,
             backgroundImage: `${ASSET_URL}/adaptive-icon.png`,
@@ -118,7 +121,7 @@ const config: ExpoConfig = {
             {
                 action: "VIEW",
                 autoVerify: true,
-                data: [{ scheme: "myapp" }],
+                data: [{ scheme: Env.SCHEME }],
                 category: ["BROWSABLE", "DEFAULT"],
             },
         ],
@@ -127,7 +130,8 @@ const config: ExpoConfig = {
         typedRoutes: true,
     },
     extra: {
-        eas: { projectId: PROJECT_ID },
+        ClientEnv,
+        eas: { projectId: Env.EAS_PROJECT_ID },
         updates: {
             assetPatternsToBeBundled: ["./assets/*"],
         },
