@@ -44,7 +44,7 @@ export default function ScreenLayout({
   status,
   wait,
   animated,
-  delay = 300,
+  delay = false,
   ...props
 }: LayoutProps) {
   const DefaultPlaceHolder = React.useCallback(
@@ -90,15 +90,17 @@ export default function ScreenLayout({
           "transition-[color,background-color,border-color,text-decoration-color,fill,stroke,padding-top,padding-bottom] ios:duration-200 android:duration-500",
           className,
         )}
-        entering={animated?.entering ?? FadeIn.duration(300)}
-        exiting={animated?.exiting ?? FadeOut}
+        entering={animated?.entering}
+        exiting={animated?.exiting}
         ref={transitionRef}
         {...props}
       >
-        {typeof children === "function" ? (
-          children(areInteractionsComplete, Placeholder ?? DefaultPlaceHolder)
-        ) : areInteractionsComplete ? (
-          children
+        {areInteractionsComplete ? (
+          typeof children === "function" ? (
+            children(areInteractionsComplete, Placeholder ?? DefaultPlaceHolder)
+          ) : (
+            children
+          )
         ) : !!Placeholder ? (
           <Placeholder />
         ) : (
