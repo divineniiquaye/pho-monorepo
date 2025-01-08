@@ -9,6 +9,7 @@
     "doctor": "pnpm dlx expo-doctor@latest",
     "android": "expo start --android",
     "ios": "expo start --ios",
+    "generate": "expo prebuild",
     "eject": "expo eject",
     "lint": "eslint .",
     "test": "jest --ci",

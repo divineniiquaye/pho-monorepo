@@ -7,6 +7,7 @@
   packages = [
     pkgs.nodejs_20
     pkgs.jdk21_headless
+    pkgs.corepack
     pkgs.gradle
     pkgs.socat
   ];
@@ -23,9 +24,10 @@
       # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
         install-and-prebuild = ''
-          pnpm add @expo/ngrok@^4.1.0 && pnpm dlx expo install expo-dev-client && pnpm dlx expo prebuild --platform android
+          corepack enable pnpm
+          pnpm run add:mobile @expo/ngrok@^4.1.0 expo-dev-client && pnpm run --filter native generate --platform android
           # Add more memory to the JVM
-          sed -i 's/org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m/org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m/' "android/gradle.properties"
+          sed -i 's/org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m/org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m/' "apps/native/android/gradle.properties"
         '';
       };
       # Runs when a workspace restarted
@@ -34,10 +36,11 @@
           socat -d -d TCP-LISTEN:5554,reuseaddr,fork TCP:$(cat /etc/resolv.conf | tail -n1 | cut -d " " -f 2):5554
         '';
         connect-device = ''
-          adb -s localhost:5554 wait-for-device 
+          adb -s localhost:5554 wait-for-device
         '';
         android = ''
-          pnpm run --filter native android --port 5554 --tunnel
+          # You can change the `dev --android` to `android` to run the app on development build
+          pnpm run --filter native dev --go --port 5554 --tunnel
         '';
       };
     };
