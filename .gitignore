@@ -16,6 +16,7 @@ build
 
 # expo
 .expo
+.expo-shared
 
 # misc
 .DS_Store
