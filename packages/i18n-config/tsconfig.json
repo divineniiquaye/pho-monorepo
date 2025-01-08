@@ -1,0 +1,11 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    "strict": true,
+    "jsxImportSource": "nativewind",
+    "jsx": "preserve",
+  },
+  "include": [
+    "**/*.ts",
+  ]
+}

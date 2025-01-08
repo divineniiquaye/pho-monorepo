@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import Animated from "react-native-reanimated";
 import { Link } from "expo-router";
 
@@ -11,6 +10,7 @@ import { HStack } from "@repo/design/ui/stack";
 import ScreenLayout from "@repo/design/layout";
 import { toast } from "@repo/design/ui/sonner";
 import { Text } from "@repo/design/ui/text";
+import i18n from "@/locales";
 import {
   Select,
   SelectContent,
@@ -46,6 +46,7 @@ import { SheetExample } from "@repo/design/components/example/Sheet";
 import { CommandExample } from "@repo/design/components/example/Command";
 import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
 import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
+import { LocaleSwitcher } from "@repo/design/components/example/Locale";
 import { useKeyboardReaction } from "@repo/design/providers/keyboard";
 
 export default function Native() {
@@ -70,17 +71,16 @@ export default function Native() {
       >
         <Text>Boop</Text>
       </Button>
-      <View className="mt-4 items-center">
-        <Text className="text-muted-foreground pb-2">Theme Switch</Text>
+      <HStack className="mt-4 gap-4 items-center">
         <Select
           onValueChange={(option) =>
             setColorScheme(option?.value as "system" | "light" | "dark")
           }
         >
-          <SelectTrigger className="w-52">
+          <SelectTrigger className="w-48">
             <SelectValue
               className="text-foreground text-sm native:text-lg"
-              placeholder="Select a theme"
+              placeholder={i18n.t("Select a theme")}
             />
           </SelectTrigger>
           <SelectContent>
@@ -89,7 +89,8 @@ export default function Native() {
             <SelectItem label="Dark" value="dark" />
           </SelectContent>
         </Select>
-      </View>
+        <LocaleSwitcher />
+      </HStack>
       <Animated.ScrollView
         contentContainerClassName="gap-5"
         className="my-3 w-full"

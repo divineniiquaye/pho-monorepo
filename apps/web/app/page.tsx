@@ -8,6 +8,7 @@ import { Progress } from "@repo/design/ui/progress";
 import { Button } from "@repo/design/ui/button";
 import { toast } from "@repo/design/ui/sonner";
 import { Text } from "@repo/design/ui/text";
+import i18n from "@/locales";
 import {
   Select,
   SelectContent,
@@ -40,6 +41,7 @@ import { SwitchExample } from "@repo/design/components/example/Switch";
 import { TabsExample } from "@repo/design/components/example/Tabs";
 import { ToggleExample } from "@repo/design/components/example/Toggle";
 import { SheetExample } from "@repo/design/components/example/Sheet";
+import { LocaleSwitcher } from "@repo/design/components/example/Locale";
 import { CommandExample } from "@repo/design/components/example/Command";
 import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
 import { SidebarDialogExample } from "@repo/design/components/example/SidebarDialog";
@@ -64,18 +66,16 @@ export default function Web() {
       >
         <Text className="">Boop</Text>
       </Button>
-      <div className="mt-10 space-y-2">
-        <Text className="text-center text-muted-foreground pb-2">Theme Switch</Text>
+      <HStack className="mt-4 gap-4 !items-center">
         <Select
-          className="z-10"
           onValueChange={(option) =>
             setColorScheme(option?.value as "system" | "light" | "dark")
           }
         >
-          <SelectTrigger>
+          <SelectTrigger className="w-44">
             <SelectValue
               className="text-foreground text-sm native:text-lg"
-              placeholder="Select a theme"
+              placeholder={i18n.t("Select a theme")}
             />
           </SelectTrigger>
           <SelectContent>
@@ -84,7 +84,8 @@ export default function Web() {
             <SelectItem label="Dark" value="dark" />
           </SelectContent>
         </Select>
-      </div>
+        <LocaleSwitcher />
+      </HStack>
       <VStack space="md" className="my-3">
         <HStack space="sm">
           <Typography.H1>@rn-primitives</Typography.H1>

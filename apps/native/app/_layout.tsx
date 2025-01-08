@@ -1,11 +1,16 @@
+import "@repo/tailwind-config/global.css";
+
 import { enableReactNativeComponents } from "@legendapp/state/config/enableReactNativeComponents";
 import * as SplashScreen from "expo-splash-screen";
 import { Slot } from "expo-router";
 import * as Font from "expo-font";
-
-import "@repo/tailwind-config/global.css";
-import { Providers } from "@repo/design/providers";
 import React from "react";
+
+import { Providers } from "@repo/design/providers";
+import { useI18nLocale } from "@/locales";
+
+import * as en from "@/locales/en.json";
+import * as fr from "@/locales/fr.json";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -38,6 +43,11 @@ function useSplashScreen(loadResources: () => Promise<void>) {
 }
 
 export default function RootLayout() {
+  const forceUpdate = useI18nLocale({
+    en: { translation: en },
+    fr: { translation: fr },
+  });
+
   const isSplashScreenShown = useSplashScreen(async () => {
     Font.loadAsync({
       GeistSans_100Thin: require("@/assets/fonts/GeistSans/Geist-Thin.otf"),
@@ -62,5 +72,5 @@ export default function RootLayout() {
 
   if (isSplashScreenShown) return null;
 
-  return <Providers children={<Slot />} />;
+  return <Providers key={forceUpdate} children={<Slot />} />;
 }

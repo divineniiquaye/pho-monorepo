@@ -7,8 +7,9 @@ import { ViewTransitions } from "next-view-transitions";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Metadata } from "next";
+import React from "react";
 
-import { Providers } from "@repo/design/providers";
+import { I18nProvider } from "@/locales/locale";
 import { cn } from "@repo/design/lib/utils";
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function RootLayout({
       >
         <head />
         <body className="transition-colors">
-          <Providers>{children}</Providers>
+          <I18nProvider children={children} />
         </body>
       </html>
     </ViewTransitions>

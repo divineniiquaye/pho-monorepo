@@ -20,6 +20,7 @@
   "dependencies": {
     "@radix-ui/react-slot": "1.1.1",
     "@react-navigation/native": "7.0.14",
+    "@repo/i18n-config": "workspace:*",
     "@rn-primitives/accordion": "1.1.0",
     "@rn-primitives/alert-dialog": "1.1.0",
     "@rn-primitives/aspect-ratio": "1.1.0",
@@ -79,7 +80,7 @@
     "@repo/typescript-config": "workspace:*",
     "@types/lodash": "4.17.13",
     "@types/numeral": "2.0.5",
-    "@types/react": "18.3.17",
+    "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "typescript": "5.7.2"
   }
