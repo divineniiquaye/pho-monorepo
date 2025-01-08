@@ -26,7 +26,7 @@ export const Env = createEnv({
      * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
      */
     runtimeEnv: {
-        NEXT_URL: process.env.VERCEL_URL,
+        NEXT_URL: process.env.NEXT_URL || process.env.NEXT_PUBLIC_SITE_URL,
         PORT: process.env.PORT,
     },
     skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,

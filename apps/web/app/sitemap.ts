@@ -1,3 +1,4 @@
+import { Env } from "@/env";
 import type { MetadataRoute } from "next";
 import fs from "node:fs";
 
@@ -7,8 +8,8 @@ const pages = appFolders
     .filter((folder) => !folder.name.startsWith("_"))
     .filter((folder) => !folder.name.startsWith("("))
     .map((folder) => folder.name);
-const protocol = process.env.NEXT_PUBLIC_SITE_URL?.startsWith("https") ? "https" : "http";
-const url = new URL(`${protocol}://${process.env.NEXT_PUBLIC_SITE_URL}`);
+const protocol = Env.NEXT_URL?.startsWith("https") ? "https" : "http";
+const url = new URL(`${protocol}://${Env.NEXT_URL}`);
 
 const sitemap = async (): Promise<MetadataRoute.Sitemap> => [
     {
