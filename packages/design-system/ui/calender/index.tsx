@@ -319,7 +319,7 @@ function Calendar(props: CalendarProps) {
             )}
             accessibilityLabel={`Go to previous month, ${format(subMonths(currentDate, 1), "MMMM yyyy", { locale })}`}
           >
-            <ChevronLeft className="text-primary transition-opacity opacity-60 group-hover:opacity-100 group-active:opacity-100 w-4 h-4" />
+            <ChevronLeft className="text-primary size-6 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
           </Button>
           {renderCaption()}
           <Button
@@ -332,7 +332,7 @@ function Calendar(props: CalendarProps) {
             )}
             accessibilityLabel={`Go to next month, ${format(addMonths(currentDate, 1), "MMMM yyyy", { locale: locale })}`}
           >
-            <ChevronRight className="text-primary transition-opacity opacity-60 group-hover:opacity-100 group-active:opacity-100 w-4 h-4" />
+            <ChevronRight className="text-primary size-6 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
           </Button>
         </View>
       )}
