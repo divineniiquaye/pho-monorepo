@@ -36,7 +36,7 @@ const runCommand = {
 
 program
     .command("init <name>")
-    .description("Initialize a new next-forge project")
+    .description("Initialize a new php-monorepo project")
     .option(
         "--package-manager <manager>",
         "Package manager to use (npm, yarn, bun, pnpm)",
@@ -48,7 +48,7 @@ program
             const projectDir = join(cwd, projectName);
             const { packageManager } = options;
 
-            log(chalk.green("Creating new next-forge project..."));
+            log(chalk.green("Creating new php-monorepo project..."));
             execSync(
                 `${runCommand[packageManager]} create create-turbo@latest ${projectName} -e "${url}"`,
                 execSyncOpts,
