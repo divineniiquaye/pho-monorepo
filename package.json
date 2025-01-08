@@ -14,7 +14,6 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "analyze": "turbo analyze",
     "patch": "pnpm dlx pnpm-patch-i",
     "watchman": "watchman watch-del './' ; watchman watch-project './'",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
