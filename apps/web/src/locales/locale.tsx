@@ -2,7 +2,7 @@
 
 import { Locale, useI18nLocale } from ".";
 import { Providers } from "@repo/design/providers";
-import { PropsWithChildren } from "react";
+import { Fragment, PropsWithChildren } from "react";
 
 import * as en from "@/locales/en.json";
 import * as fr from "@/locales/fr.json";
@@ -16,5 +16,9 @@ export function I18nProvider({ children, lng }: PropsWithChildren<{ lng?: Locale
     lng,
   );
 
-  return <Providers key={forceUpdate}>{children}</Providers>;
+  return (
+    <Providers>
+      <Fragment key={forceUpdate}>{children}</Fragment>
+    </Providers>
+  );
 }

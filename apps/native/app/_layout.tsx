@@ -72,5 +72,11 @@ export default function RootLayout() {
 
   if (isSplashScreenShown) return null;
 
-  return <Providers key={forceUpdate} children={<Slot />} />;
+  return (
+    <Providers>
+      <React.Fragment key={forceUpdate}>
+        <Slot />
+      </React.Fragment>
+    </Providers>
+  );
 }
