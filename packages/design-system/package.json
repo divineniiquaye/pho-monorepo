@@ -68,7 +68,7 @@
     "react-native": "0.76.5",
     "react-native-gesture-handler": "2.21.2",
     "react-native-reanimated": "3.16.6",
-    "react-native-safe-area-context": "5.0.0",
+    "react-native-safe-area-context": "5.1.0",
     "react-native-svg": "15.10.1",
     "recharts": "2.15.0",
     "sonner": "1.7.1",
@@ -78,10 +78,10 @@
   "devDependencies": {
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/lodash": "4.17.13",
+    "@types/lodash": "4.17.14",
     "@types/numeral": "2.0.5",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
-    "typescript": "5.7.2"
+    "typescript": "5.7.3"
   }
 }

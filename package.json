@@ -7,7 +7,7 @@
   "files": [
     "scripts/init.mjs"
   ],
-  "packageManager": "pnpm@9.15.2",
+  "packageManager": "pnpm@9.15.3",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -17,7 +17,7 @@
     "patch": "pnpm dlx pnpm-patch-i",
     "watchman": "watchman watch-del './' ; watchman watch-project './'",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
-    "deps": "npx npm-check-updates --deep -u && pnpm install",
+    "deps": "pnpm dlx npm-check-updates --deep -u -x '/^(?:@types\/)?react(?:-dom|-test-renderer)?$/' && pnpm install",
     "locale": "pnpm run --filter=@repo/i18n-config locale",
     "add:ui": "pnpm add --filter=@repo/design",
     "add:mobile": "pnpm add --filter=native",
