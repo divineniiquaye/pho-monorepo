@@ -6,7 +6,10 @@
     "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
 
     // Features to add to the dev container. More info: https://containers.dev/features.
-    // "features": {},
+    "features": {
+      "git": "latest",
+      "github-cli": "latest"
+    },
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [8081, 3000],
@@ -23,9 +26,12 @@
           "bradlc.vscode-tailwindcss",
           "christian-kohler.path-intellisense",
           "christian-kohler.npm-intellisense",
+          "eamodio.gitlens",
           "EditorConfig.EditorConfig",
           "esbenp.prettier-vscode",
           "expo.vscode-expo-tools",
+          "github.copilot",
+          "github.vscode-pull-request-github",
           "mikestead.dotenv"
         ]
       }
