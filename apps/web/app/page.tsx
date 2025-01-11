@@ -51,7 +51,7 @@ export default function Web() {
   const { setColorScheme } = useColorScheme();
 
   return (
-    <div className="flex flex-1 mt-10 flex-col text-center items-center">
+    <div className="flex flex-1 mt-10 flex-col text-center items-center mx-2 md:mx-auto">
       <Typography.Lead className="mb-2">Web</Typography.Lead>
       <Button
         testID="button"
@@ -87,7 +87,7 @@ export default function Web() {
         <LocaleSwitcher />
       </HStack>
       <VStack space="md" className="my-3">
-        <HStack space="sm">
+        <HStack space="sm" className="flex-wrap max-sm:justify-center">
           <Typography.H1>@rn-primitives</Typography.H1>
           <Typography.P className="font-medium">
             Styled with{" "}
