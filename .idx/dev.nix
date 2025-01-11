@@ -25,7 +25,7 @@
       onCreate = {
         install-and-prebuild = ''
           corepack enable pnpm
-          pnpm run add:mobile @expo/ngrok@^4.1.0 expo-dev-client && pnpm run --filter native generate --platform android
+          pnpm run --filter native generate --platform android
           # Add more memory to the JVM
           sed -i 's/org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m/org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m/' "apps/native/android/gradle.properties"
         '';
@@ -40,7 +40,7 @@
         '';
         android = ''
           # You can change the `dev --android` to `android` to run the app on development build
-          pnpm run --filter native dev --go --port 5554 --tunnel
+          pnpm run --filter native dev --go --port 5554
         '';
       };
     };
