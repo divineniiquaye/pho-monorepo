@@ -12,9 +12,9 @@ We organize our codebase into modules or packages that encapsulate specific func
 
 We adopt a consistent directory structure that separates components, utilities, services, and assets.
 
--   Most components and features can be shared, and thus the code lives in the `packages/ui` directory, and is then imported into each project.
+-   Most components and features can be shared, and thus the code lives in the eg. `packages/design-system` directory, and is then imported into each project.
 -   Some components will have web- or native- specific features, and those can be denoted by adding `.native` or `.web` to the filename, and react-native will take care of the rest:
-    -   `button.web.tsx` & `button.native.tsx` can be added to the project in the same folder, and imported into a parent component as `import Button from "@repo/ui/button"`. The compiler will correctly import the right component.
+    -   `button.web.tsx` & `button.native.tsx` can be added to the project in the same folder, and imported into a parent component as `import Button from "@repo/design/ui/button"`. The compiler will correctly import the right component.
 
 #### Component Design
 
@@ -24,7 +24,7 @@ We have some helpful folders set up for organizing the shared components in `pac
 
 -   `api/`: For handling API calls, errors, and responses from the backend.
 -   `tailwind-config/`: The files for shared configuration of our styling systems, notably the `global.css` and the tailwind config are here.
--   `ui/`: For any UI primitives (Buttons, Links, Typography, Animations, Cards, etc), react context components, and shared features for individual screens.
+-   `design-system/`: For any UI primitives (Buttons, Links, Typography, Animations, Cards, etc), react context components, and shared features for individual screens.
 
 ## Best Practices
 
