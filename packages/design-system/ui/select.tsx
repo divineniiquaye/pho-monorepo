@@ -9,6 +9,7 @@ import { ChevronDown } from "../icons/ChevronDown";
 import { ChevronUp } from "../icons/ChevronUp";
 import { Check } from "../icons/Check";
 import { cn } from "../lib/utils";
+import isWeb from "../lib/isWeb";
 
 const { height: HEIGHT } = Dimensions.get("screen");
 
@@ -23,23 +24,31 @@ const SelectValue = SelectPrimitive.Value;
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   Omit<React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, "asChild">
->(({ className, children, "aria-label": label, ...props }, ref) => (
-  <SelectPrimitive.Trigger
-    ref={ref}
-    className={cn(
-      "flex flex-row h-10 native:h-12 native:transition-colors native:duration-200 items-center text-sm justify-between rounded-md border border-input bg-background px-3 py-2 web:ring-offset-background text-muted-foreground web:focus:outline-none web:focus:ring-2 native:focus:border-ring web:focus:ring-ring web:focus:ring-offset-2 [&>span]:line-clamp-1",
-      props.disabled && "web:cursor-not-allowed opacity-50",
-      className,
-    )}
-    asChild={true}
-    {...props}
-  >
-    <Pressable role="combobox" aria-label={label ?? "Select"}>
-      {children as any}
-      <ChevronDown size={18} aria-hidden={true} className="text-foreground opacity-60" />
-    </Pressable>
-  </SelectPrimitive.Trigger>
-));
+>(({ className, children, "aria-label": label, ...props }, ref) => {
+  const Component = isWeb ? "button" : Pressable;
+
+  return (
+    <SelectPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        "flex flex-row h-10 native:h-12 native:transition-colors native:duration-200 items-center text-sm justify-between rounded-md border border-input bg-background px-3 py-2 web:ring-offset-background text-muted-foreground web:focus:outline-none web:focus:ring-2 native:focus:border-ring web:focus:ring-ring web:focus:ring-offset-2 [&>span]:line-clamp-1",
+        props.disabled && "web:cursor-not-allowed opacity-50",
+        className,
+      )}
+      asChild={true}
+      {...props}
+    >
+      <Component role="combobox" aria-label={label ?? "Select"}>
+        {children as any}
+        <ChevronDown
+          size={18}
+          aria-hidden={true}
+          className="text-foreground opacity-60"
+        />
+      </Component>
+    </SelectPrimitive.Trigger>
+  );
+});
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 /**
