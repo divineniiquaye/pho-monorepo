@@ -17,6 +17,6 @@
     "@repo/typescript-config": "workspace:*",
     "@types/react": "18.3.18",
     "chokidar": "4.0.3",
-    "glob": "11.0.0"
+    "glob": "11.0.1"
   }
 }
