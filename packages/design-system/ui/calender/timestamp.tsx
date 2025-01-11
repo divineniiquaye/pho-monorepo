@@ -129,7 +129,7 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
             onChangeText={(v) => handleTimeChange(v, "H")}
             placeholderClassName="text-muted-foreground"
             className={cn(
-              "flex-1 text-2xl android:text-xl web:text-lg text-center android:bottom-0 p-0 outline-none ios:pb-1.5",
+              "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground android:bottom-0 p-0 outline-none ios:pb-1.5",
               isTimeValid ? "text-foreground" : "text-destructive",
             )}
             onFocus={() => onLayout(layout.current)}
@@ -150,7 +150,7 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
               onKeyPress={(e) => handleBackspace("M", e)}
               placeholderClassName="text-muted-foreground"
               className={cn(
-                "flex-1 text-2xl android:text-xl web:text-lg text-center items-center justify-center outline-none ios:pb-1.5",
+                "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground items-center justify-center outline-none ios:pb-1.5",
                 isTimeValid ? "text-foreground" : "text-destructive",
               )}
               onFocus={() => onLayout(layout.current)}
@@ -172,7 +172,7 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
               onKeyPress={(e) => handleBackspace("S", e)}
               placeholderClassName="text-muted-foreground"
               className={cn(
-                "flex-1 text-2xl android:text-xl web:text-lg text-center items-center justify-center outline-none ios:pb-1.5",
+                "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground items-center justify-center outline-none ios:pb-1.5",
                 isTimeValid ? "text-foreground" : "text-destructive",
               )}
               onFocus={() => onLayout(layout.current)}
