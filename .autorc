@@ -1,0 +1,8 @@
+{
+    "prereleaseBranches": ["next", "beta"],
+    "plugins": ["npm", "released"],
+    "owner": "divineniiquaye",
+    "repo": "pho-monorepo",
+    "name": "Divine Niiquaye Ibok",
+    "email": "divineibok@gmail.com"
+}

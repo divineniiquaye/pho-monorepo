@@ -1,8 +1,8 @@
 {
-  "name": "phox",
-  "version": "0.1.0",
+  "name": "pho-monorepo",
+  "version": "0.1.5",
   "bin": {
-    "phox": "scripts/init.mjs"
+    "pho-monorepo": "scripts/init.mjs"
   },
   "files": [
     "scripts/init.mjs"

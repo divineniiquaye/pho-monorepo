@@ -70,10 +70,10 @@ program
             }
 
             log(chalk.green("Deleting internal content..."));
-            for (const dir of ["docs", "landing", "scripts"]) {
+            for (const dir of ["scripts"]) {
                 rmSync(dir, { recursive: true, force: true });
             }
-            for (const file of ["CHANGELOG.md", "LICENSE"]) {
+            for (const file of [".autorc", ".github/workflows/release.yml", "LICENSE"]) {
                 if (existsSync(file)) {
                     unlinkSync(file);
                 }
