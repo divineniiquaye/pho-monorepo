@@ -6,7 +6,7 @@
 
 
 ```sh
-npx phoxe@latest init [my-app]
+npx pho-monorepo@latest init [my-app]
 ```
 
 
@@ -120,7 +120,6 @@ My main goals driving this template are:
 
 ## RoadMap
 
-- [ ] Add Better ENV Support
 - [ ] Add Input OTP UI Component
 - [ ] Add Drawer UI Component
 - [ ] Add Form UI Component
