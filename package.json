@@ -1,6 +1,6 @@
 {
   "name": "pho-monorepo",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "bin": {
     "pho-monorepo": "scripts/init.mjs"
   },
@@ -17,7 +17,7 @@
     "patch": "pnpm dlx pnpm-patch-i",
     "watchman": "watchman watch-del './' ; watchman watch-project './'",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
-    "deps": "pnpm dlx npm-check-updates --deep -u -x '/^(?:@types\/)?react(?:-dom|-test-renderer)?$/' && pnpm install",
+    "deps": "pnpm dlx npm-check-updates --deep -u -x '/^(?:@types/)?react(?:-dom|-test-renderer)?$/' && pnpm install",
     "locale": "pnpm run --filter=@repo/i18n-config locale",
     "add:ui": "pnpm add --filter=@repo/design",
     "add:mobile": "pnpm add --filter=native",
