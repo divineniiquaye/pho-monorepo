@@ -51,7 +51,7 @@ jobs:
 
             - name: 🔎 Static Code Analysis
               id: static-code-analysis
-              run: pnpm lint .
+              run: pnpm lint
 
     test:
         name: Unit Tests
