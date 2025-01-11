@@ -81,7 +81,8 @@ jobs:
             - name: 🏗 Setup monorepo
               uses: ./.github/actions/setup-monorepo
 
-            # If you want to to deploy a different website, you cam change the `settings.rootDirectory` config in `./vercel/project.json`
+            # If you want to to deploy a different website,
+            # you can change the `settings.rootDirectory` config in `./vercel/project.json`
             - name: 🛠️ Pull Vercel Config
               run: |
                   environment=$([[ "${{ github.ref }}" == 'refs/heads/main' ]] && echo "production" || echo "preview")
