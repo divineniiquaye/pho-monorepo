@@ -1,3 +1,15 @@
+# v0.1.10 (Thu Jan 16 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix: broken installation due to a missing string quote ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.9 (Thu Jan 16 2025)
 
 #### ⚠️ Pushed to `main`
