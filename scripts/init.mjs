@@ -42,6 +42,7 @@ const runCommand = {
 program
     .command("init <name>")
     .description("Initialize a new php-monorepo project")
+    .option("--skip-install", "Skip installing dependencies", false)
     .option(
         "-p, --package-manager <manager>",
         "Package manager to use (npm, yarn, bun, pnpm)",
@@ -51,11 +52,11 @@ program
         try {
             const cwd = process.cwd();
             const projectDir = join(cwd, projectName);
-            const { packageManager } = options;
+            const { packageManager, skipInstall } = options;
 
             log(chalk.green("Creating new php-monorepo project..."));
             execSync(
-                `${runCommand[packageManager]} create create-turbo@latest ${projectName} -e "${url} -m ${packageManager}`,
+                `${runCommand[packageManager]} create create-turbo@latest ${projectName} -e "${url} -m ${packageManager} --skip-install`,
                 execSyncOpts,
             );
             process.chdir(projectDir);
@@ -90,8 +91,10 @@ program
                 rmSync("pnpm-workspace.yaml", { force: true });
             }
 
-            log(chalk.green("Installing dependencies..."));
-            execSync(`${packageManager} install`, execSyncOpts);
+            if (!skipInstall) {
+                log(chalk.green("Installing dependencies..."));
+                execSync(`${packageManager} install`, execSyncOpts);
+            }
 
             log(chalk.green("Re-initializing git repository after install..."));
             execSync("git add .", execSyncOpts);
