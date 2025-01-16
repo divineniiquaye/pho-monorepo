@@ -1,4 +1,4 @@
-import { Pressable, View } from "react-native";
+import { Pressable, TextInput, View } from "react-native";
 import * as React from "react";
 
 import { SlottableWithNestedChildren } from "@repo/design/lib/as-child";
@@ -10,7 +10,6 @@ import { Dialog, DialogContent, DialogTitle } from "../dialog";
 import { Text, TextClassContext } from "../text";
 import { commandScore } from "./command-score";
 import { Separator } from "../separator";
-import { Input } from "../input";
 
 type State = {
   search: string;
@@ -236,8 +235,8 @@ const CommandDialog = ({
 );
 
 const CommandInput = React.forwardRef<
-  React.ElementRef<typeof Input>,
-  Omit<React.ComponentPropsWithoutRef<typeof Input>, "value" | "onChange"> & {
+  React.ElementRef<typeof TextInput>,
+  Omit<React.ComponentPropsWithoutRef<typeof TextInput>, "value" | "onChange"> & {
     /**
      * Optional controlled state for the value of the search input.
      */
@@ -253,9 +252,9 @@ const CommandInput = React.forwardRef<
 
   return (
     <View className="flex flex-row items-center border-b border-b-border px-3">
-      <Search className="mr-2 h-4 w-4 text-foreground opacity-50" />
+      <Search className="mr-2 size-4 text-foreground opacity-50" />
       <View className="flex-1 h-full">
-        <Input
+        <TextInput
           ref={ref}
           role="combobox"
           autoComplete="off"
@@ -266,12 +265,11 @@ const CommandInput = React.forwardRef<
           aria-labelledby={context.labelId}
           value={isControlled ? props.value : state.search}
           onChangeText={(text) => {
-            console.log("___text", text);
             if (!isControlled) context.setState("search", text);
             onValueChange?.(text);
           }}
           className={cn(
-            "web:flex mb-1 w-full border-0 rounded-md bg-transparent py-3 text-sm outline-none",
+            "web:flex mb-1 w-full border-0 outline-none rounded-md bg-transparent py-3 text-base leading-[1.25] text-foreground placeholder:text-muted-foreground placeholder:opacity-50",
             className,
           )}
           {...props}
