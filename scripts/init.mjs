@@ -23,8 +23,13 @@ const cleanFileName = (file) => file.replace(/([()[\]{}^$*+?.|\\])/g, "\\$1");
 
 const execSyncOpts = { stdio: "ignore" };
 
-const internalContentDirs = ["docs", "landing"];
-const internalContentFiles = ["CHANGELOG.md", "LICENSE"];
+const internalContentDirs = ["scripts"];
+const internalContentFiles = [
+    ".github/workflows/release.yml",
+    "CHANGELOG.md",
+    "LICENSE",
+    ".autorc",
+];
 const allInternalContent = [...internalContentDirs, ...internalContentFiles];
 
 const runCommand = {
@@ -70,10 +75,10 @@ program
             }
 
             log(chalk.green("Deleting internal content..."));
-            for (const dir of ["scripts"]) {
+            for (const dir of internalContentDirs) {
                 rmSync(dir, { recursive: true, force: true });
             }
-            for (const file of [".autorc", ".github/workflows/release.yml", "LICENSE"]) {
+            for (const file of internalContentFiles) {
                 if (existsSync(file)) {
                     unlinkSync(file);
                 }
