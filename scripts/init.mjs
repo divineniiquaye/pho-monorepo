@@ -43,7 +43,7 @@ program
     .command("init <name>")
     .description("Initialize a new php-monorepo project")
     .option(
-        "--package-manager <manager>",
+        "-p, --package-manager <manager>",
         "Package manager to use (npm, yarn, bun, pnpm)",
         "pnpm",
     )
@@ -55,7 +55,7 @@ program
 
             log(chalk.green("Creating new php-monorepo project..."));
             execSync(
-                `${runCommand[packageManager]} create create-turbo@latest ${projectName} -e "${url}"`,
+                `${runCommand[packageManager]} create create-turbo@latest ${projectName} -e "${url} -m ${packageManager}`,
                 execSyncOpts,
             );
             process.chdir(projectDir);
@@ -94,9 +94,8 @@ program
             execSync(`${packageManager} install`, execSyncOpts);
 
             log(chalk.green("Re-initializing git repository after install..."));
-            execSync("git init", execSyncOpts);
             execSync("git add .", execSyncOpts);
-            execSync('git commit -m "✨ Initial commit"', execSyncOpts);
+            execSync('git commit --amend -m "✨ Initial commit"', execSyncOpts);
 
             log(chalk.green("Done!"));
         } catch (error) {
