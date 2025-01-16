@@ -61,6 +61,8 @@ const nextConfig = {
         "react-native",
         "react-native-web",
         "expo",
+        "expo-constants",
+        "expo-modules-core",
         "nativewind",
         "react-native-css-interop",
         "react-native-reanimated",

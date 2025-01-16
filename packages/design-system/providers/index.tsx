@@ -4,10 +4,15 @@ import { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-rean
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useWindowDimensions } from "react-native";
 import { PortalHost } from "@rn-primitives/portal";
+import Constants from "expo-constants";
 import { vars } from "nativewind";
 
+const KeyboardProvider =
+  Constants.executionEnvironment !== "storeClient"
+    ? require("react-native-keyboard-controller").KeyboardProvider
+    : React.Fragment;
+
 import { useColorScheme } from "../hooks/useColorScheme";
-import { KeyboardProvider } from "./keyboard";
 import { ThemeProvider } from "./theme";
 import SonnerProvider from "./sonner";
 import isWeb from "../lib/isWeb";

@@ -4,7 +4,6 @@ import * as DialogPrimitive from "@rn-primitives/dialog";
 import * as React from "react";
 import { Platform, StyleSheet, View } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import { useKeyboardReaction } from "../providers/keyboard";
 import { X } from "../icons/X";
 import { cn } from "../lib/utils";
 
@@ -40,7 +39,6 @@ const DialogOverlayNative = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, children, ...props }, ref) => {
-  const { animatedStyle } = useKeyboardReaction();
   return (
     <DialogPrimitive.Overlay
       style={StyleSheet.absoluteFill}
@@ -48,7 +46,7 @@ const DialogOverlayNative = React.forwardRef<
       {...props}
       ref={ref}
     >
-      <Animated.View style={animatedStyle} entering={FadeIn} exiting={FadeOut}>
+      <Animated.View entering={FadeIn} exiting={FadeOut}>
         {children as any}
       </Animated.View>
     </DialogPrimitive.Overlay>

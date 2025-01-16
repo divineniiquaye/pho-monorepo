@@ -27,7 +27,7 @@ export function SheetExample() {
           <Text>Open Sheet</Text>
         </Button>
       </SheetTrigger>
-      <SheetContent side="bottom">
+      <SheetContent>
         <SheetHeader>
           <SheetTitle>Edit profile</SheetTitle>
           <SheetDescription>
@@ -39,13 +39,21 @@ export function SheetExample() {
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
-            <Input id="name" value="Pedro Duarte" containerClassName="web:col-span-3" />
+            <Input
+              id="name"
+              value="Pedro Duarte"
+              containerClassName="web:col-span-3 native:flex-1"
+            />
           </View>
           <View className="grid grid-cols-4 native:flex-row items-center gap-4">
             <Label htmlFor="username" className="text-right">
               Username
             </Label>
-            <Input id="username" value="@peduarte" containerClassName="web:col-span-3" />
+            <Input
+              id="username"
+              value="@peduarte"
+              containerClassName="web:col-span-3 native:flex-1"
+            />
           </View>
 
           <Button
@@ -56,7 +64,7 @@ export function SheetExample() {
           </Button>
 
           {showAdditionalInfo && (
-            <View className="border rounded-lg p-4 mt-2">
+            <View className="border border-foreground rounded-lg p-4 mt-2">
               <View className="grid grid-cols-4 native:flex-row items-center gap-4">
                 <Label htmlFor="bio" className="text-right">
                   Bio
@@ -64,7 +72,7 @@ export function SheetExample() {
                 <Input
                   id="bio"
                   placeholder="Tell us about yourself"
-                  containerClassName="web:col-span-3"
+                  containerClassName="web:col-span-3 native:flex-1"
                 />
               </View>
               <View className="grid grid-cols-4 native:flex-row items-center gap-4 mt-4">
@@ -74,7 +82,7 @@ export function SheetExample() {
                 <Input
                   id="website"
                   placeholder="https://your-website.com"
-                  containerClassName="web:col-span-3"
+                  containerClassName="web:col-span-3 native:flex-1"
                 />
               </View>
             </View>

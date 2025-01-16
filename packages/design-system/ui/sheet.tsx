@@ -18,7 +18,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { X } from "../icons/X";
 
-import { useKeyboardReaction } from "../providers/keyboard";
 import isWeb from "../lib/isWeb";
 import { cn } from "../lib/utils";
 
@@ -57,48 +56,43 @@ const SheetOverlayNative = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay> & {
     side: "right" | "left" | "top" | "bottom" | null;
   }
->(({ className, children, side = "left", ...props }, ref) => {
-  const { animatedStyle } = useKeyboardReaction();
-
-  return (
-    <Animated.View style={StyleSheet.absoluteFill} entering={FadeIn} exiting={FadeOut}>
-      <SheetPrimitive.Overlay
-        style={StyleSheet.absoluteFill}
-        className={cn(
-          "flex bg-black/80",
-          { "items-end": "right" === side, "justify-end": "bottom" === side },
-          className,
-        )}
-        {...props}
-        ref={ref}
+>(({ className, children, side = "left", ...props }, ref) => (
+  <Animated.View style={StyleSheet.absoluteFill} entering={FadeIn} exiting={FadeOut}>
+    <SheetPrimitive.Overlay
+      style={StyleSheet.absoluteFill}
+      className={cn(
+        "flex bg-black/80",
+        { "items-end": "right" === side, "justify-end": "bottom" === side },
+        className,
+      )}
+      {...props}
+      ref={ref}
+    >
+      <Animated.View
+        entering={
+          "right" === side
+            ? SlideInRight
+            : "left" === side
+              ? SlideInLeft
+              : "top" === side
+                ? SlideInUp
+                : SlideInDown
+        }
+        exiting={
+          "right" === side
+            ? SlideOutRight
+            : "left" === side
+              ? SlideOutLeft
+              : "top" === side
+                ? SlideOutUp
+                : SlideOutDown
+        }
       >
-        <Animated.View
-          style={animatedStyle}
-          entering={
-            "right" === side
-              ? SlideInRight
-              : "left" === side
-                ? SlideInLeft
-                : "top" === side
-                  ? SlideInUp
-                  : SlideInDown
-          }
-          exiting={
-            "right" === side
-              ? SlideOutRight
-              : "left" === side
-                ? SlideOutLeft
-                : "top" === side
-                  ? SlideOutUp
-                  : SlideOutDown
-          }
-        >
-          {children as any}
-        </Animated.View>
-      </SheetPrimitive.Overlay>
-    </Animated.View>
-  );
-});
+        {children as any}
+      </Animated.View>
+    </SheetPrimitive.Overlay>
+  </Animated.View>
+));
 SheetOverlayNative.displayName = "SheetOverlayNative";
 
 const SheetOverlay = Platform.select({
@@ -127,11 +121,15 @@ const sheetVariants = cva(
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+    VariantProps<typeof sheetVariants> {
+  handleKeyboard?: boolean;
+}
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
-  SheetContentProps & { portalHost?: string }
+  SheetContentProps & {
+    portalHost?: string;
+  }
 >(
   (
     {

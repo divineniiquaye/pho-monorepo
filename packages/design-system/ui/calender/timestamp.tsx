@@ -15,7 +15,6 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 
-import { useInputLayout } from "@repo/design/providers/keyboard";
 import { cn } from "@repo/design/lib/utils";
 import { Text } from "../text";
 
@@ -26,8 +25,6 @@ interface TimePickerProps {
 }
 
 export function TimePicker({ mode, onChange, className }: TimePickerProps) {
-  const { onLayout, clearFocused } = useInputLayout();
-  const layout = React.useRef({ y: 0, height: 0 });
   const hRef = React.useRef<TextInput>(null);
   const mRef = React.useRef<TextInput>(null);
   const sRef = React.useRef<TextInput>(null);
@@ -116,11 +113,6 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
       <Animated.View
         className="flex-1 gap-4 flex-row items-center justify-center border border-input rounded-lg native:h-12 web:py-1"
         style={animatedStyle}
-        onLayout={(event) =>
-          event?.target?.measureInWindow(
-            (_, y, __, height) => (layout.current = { y, height }),
-          )
-        }
       >
         {mode.startsWith("H") && (
           <TextInput
@@ -132,8 +124,6 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
               "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground android:bottom-0 p-0 outline-none ios:pb-1.5",
               isTimeValid ? "text-foreground" : "text-destructive",
             )}
-            onFocus={() => onLayout(layout.current)}
-            onBlur={clearFocused}
             keyboardType="numeric"
             placeholder="00"
             maxLength={2}
@@ -153,8 +143,6 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
                 "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground items-center justify-center outline-none ios:pb-1.5",
                 isTimeValid ? "text-foreground" : "text-destructive",
               )}
-              onFocus={() => onLayout(layout.current)}
-              onBlur={clearFocused}
               keyboardType="numeric"
               placeholder="00"
               maxLength={2}
@@ -175,8 +163,6 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
                 "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground items-center justify-center outline-none ios:pb-1.5",
                 isTimeValid ? "text-foreground" : "text-destructive",
               )}
-              onFocus={() => onLayout(layout.current)}
-              onBlur={clearFocused}
               keyboardType="numeric"
               placeholder="00"
               maxLength={2}

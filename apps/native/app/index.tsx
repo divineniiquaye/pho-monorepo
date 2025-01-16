@@ -1,4 +1,3 @@
-import Animated from "react-native-reanimated";
 import { Link } from "expo-router";
 
 import { useColorScheme } from "@repo/design/hooks/useColorScheme";
@@ -47,11 +46,10 @@ import { CommandExample } from "@repo/design/components/example/Command";
 import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
 import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
 import { LocaleSwitcher } from "@repo/design/components/example/Locale";
-import { useKeyboardReaction } from "@repo/design/providers/keyboard";
+import { ScrollView } from "react-native";
 
 export default function Native() {
   const { setColorScheme } = useColorScheme();
-  const { scrollRef, scrollHandler } = useKeyboardReaction<Animated.ScrollView>("scrollTo");
 
   return (
     <ScreenLayout delay={false} className="flex-col items-center">
@@ -91,12 +89,7 @@ export default function Native() {
         </Select>
         <LocaleSwitcher />
       </HStack>
-      <Animated.ScrollView
-        contentContainerClassName="gap-5"
-        className="my-3 w-full"
-        onScroll={scrollHandler}
-        ref={scrollRef}
-      >
+      <ScrollView contentContainerClassName="gap-5" className="my-3 w-full">
         <HStack space="sm" className="items-baseline">
           <Typography.H2>@rn-primitives</Typography.H2>
           <Typography.P className="font-medium">
@@ -137,7 +130,7 @@ export default function Native() {
         <ToggleGroupExample />
         <TooltipExample />
         <CommandExample />
-      </Animated.ScrollView>
+      </ScrollView>
     </ScreenLayout>
   );
 }
