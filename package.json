@@ -1,13 +1,13 @@
 {
   "name": "pho-monorepo",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "bin": {
     "pho-monorepo": "scripts/init.mjs"
   },
   "files": [
     "scripts/init.mjs"
   ],
-  "packageManager": "pnpm@9.15.3",
+  "packageManager": "pnpm@9.15.4",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
