@@ -56,7 +56,7 @@ program
 
             log(chalk.green("Creating new php-monorepo project..."));
             execSync(
-                `${runCommand[packageManager]} create create-turbo@latest ${projectName} -e "${url} -m ${packageManager} --skip-install`,
+                `${runCommand[packageManager]} create create-turbo@latest ${projectName} -e "${url}" -m ${packageManager} --skip-install`,
                 execSyncOpts,
             );
             process.chdir(projectDir);
