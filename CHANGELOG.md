@@ -1,3 +1,17 @@
+# v0.1.9 (Thu Jan 16 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat: added option to skip dependencies installation ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: broken installation due to a missing option ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: updated internal files to be removed ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.8 (Thu Jan 16 2025)
 
 #### ⚠️ Pushed to `main`
