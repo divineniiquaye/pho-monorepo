@@ -42,7 +42,7 @@ const Input = React.memo(
         <Pressable
           onPress={() => inputRef.current?.focus()}
           className={cn(
-            "flex-row items-center justify-between gap-2 border-input bg-background px-3 py-2 transition-colors duration-300",
+            "flex-row items-center justify-between gap-2 h-[2.6rem] native:h-[2.9rem] web:py-1.5 border-input px-3 bg-background transition-colors duration-300",
             variant === "underline" ? "border-b-[1.4px]" : "border-[1.4px] rounded-md",
             props.editable === false && "opacity-50 cursor-not-allowed",
             isFocused && "border-ring outline-none",
@@ -53,7 +53,7 @@ const Input = React.memo(
           <TextInput
             ref={inputRef}
             className={cn(
-              "web:w-full native:flex-1 h-[26px] web:h-5 border-none outline-none text-base web:text-sm leading-[1.25] text-foreground placeholder:text-muted-foreground file:bg-transparent file:font-medium",
+              "web:w-full native:flex-1 border-none outline-none text-base web:text-sm leading-[1.25] text-foreground placeholder:text-muted-foreground file:bg-transparent file:font-medium",
               className,
             )}
             placeholderClassName={cn("text-muted-foreground", placeholderClassName)}
