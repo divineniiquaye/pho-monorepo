@@ -183,7 +183,7 @@ program
             log(chalk.blue("Cleaning up..."));
             rmSync(tempDir, { recursive: true, force: true });
 
-            log(chalk.green(`Successfully updated project from ${from} to ${to}!`));
+            log(chalk.green("Successfully updated project!"));
             log(chalk.yellow("Note: Please review and test the changes carefully."));
         } catch (error) {
             log(chalk.red("Failed to update project:", error.message));
