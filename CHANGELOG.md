@@ -1,3 +1,19 @@
+# v0.1.11 (Fri Jan 17 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix(design-system): improved input component UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): updated ios & android commands to build ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: improved how packages are installed using pnpm ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added input OTP component ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: log error in updating project via cli ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.10 (Thu Jan 16 2025)
 
 #### ⚠️ Pushed to `main`
