@@ -25,6 +25,7 @@ import {
   DialogExample,
   DropdownMenuExample,
   HoverCardExample,
+  InputOTPExample,
   PopoverExample,
   SelectExample,
   TableExample,
@@ -114,6 +115,7 @@ export default function Web() {
         <RadioGroupExample />
         <SelectExample />
         <Separator />
+        <InputOTPExample />
         <SliderExample />
         <SwitchExample />
         <TableExample />

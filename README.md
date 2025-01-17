@@ -120,7 +120,6 @@ My main goals driving this template are:
 
 ## RoadMap
 
-- [ ] Add Input OTP UI Component
 - [ ] Add Drawer UI Component
 - [ ] Add Form UI Component
 - [ ] Add Pagination UI Component

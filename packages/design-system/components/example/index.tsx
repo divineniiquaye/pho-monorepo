@@ -89,6 +89,12 @@ import {
   Users,
 } from "@repo/design/icons";
 import { DateRange } from "@repo/design/ui/calender/types";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@repo/design/ui/input-otp";
 
 export function AccordionExample() {
   return (
@@ -330,6 +336,24 @@ export function HoverCardExample() {
         </View>
       </HoverCardContent>
     </HoverCard>
+  );
+}
+
+export function InputOTPExample() {
+  return (
+    <InputOTP maxLength={6} containerClassName="flex-row justify-center">
+      <InputOTPGroup>
+        <InputOTPSlot index={0} />
+        <InputOTPSlot index={1} />
+        <InputOTPSlot index={2} />
+      </InputOTPGroup>
+      <InputOTPSeparator />
+      <InputOTPGroup>
+        <InputOTPSlot index={3} />
+        <InputOTPSlot index={4} />
+        <InputOTPSlot index={5} />
+      </InputOTPGroup>
+    </InputOTP>
   );
 }
 

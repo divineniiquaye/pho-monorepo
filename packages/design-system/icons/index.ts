@@ -31,6 +31,7 @@ export { Code } from './Code';
 export { Copy } from './Copy';
 export { CreditCard } from './CreditCard';
 export { Database } from './Database';
+export { Dot } from './Dot';
 export { Ear } from './Ear';
 export { Eye } from './Eye';
 export { EyeOffIcon } from './EyeOffIcon';
