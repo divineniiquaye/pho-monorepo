@@ -5,14 +5,11 @@
     "clean": "rm -rf dist node_modules"
   },
   "peerDependencies": {
-    "react": "18.3.1",
-    "react-native": "0.76.5",
-    "react-native-web": "0.19.13"
+    "react": "^18.2.0",
+    "react-native": "^0.76.5",
+    "react-native-web": "^0.19.13"
   },
   "peerDependenciesMeta": {
-    "react-native": {
-      "optional": true
-    },
     "react-native-web": {
       "optional": true
     }
@@ -63,13 +60,13 @@
     "lucide-react-native": "0.471.0",
     "next-themes": "0.4.4",
     "numeral": "2.0.6",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-hook-form": "7.54.2",
-    "react-native": "0.76.6",
+    "react-native": "catalog:",
     "react-native-gesture-handler": "2.22.0",
     "react-native-reanimated": "3.16.6",
-    "react-native-safe-area-context": "5.1.0",
+    "react-native-safe-area-context": "catalog:",
     "react-native-svg": "15.11.1",
     "recharts": "2.15.0",
     "sonner": "1.7.2",
@@ -81,8 +78,8 @@
     "@repo/typescript-config": "workspace:*",
     "@types/lodash": "4.17.14",
     "@types/numeral": "2.0.5",
-    "@types/react": "18.3.18",
-    "@types/react-dom": "18.3.5",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "typescript": "5.7.3"
   }
 }
