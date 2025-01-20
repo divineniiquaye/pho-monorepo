@@ -3,26 +3,30 @@ import * as React from "react";
 import {
   View,
   TextInput,
-  Animated,
   TextInputProps,
   NativeSyntheticEvent,
   TextInputChangeEventData,
   Platform,
 } from "react-native";
+
 import { Dot } from "@repo/design/icons/Dot";
 import { cn } from "@repo/design/lib/utils";
 import { Text } from "../text";
+
+type InputOTPRef = {
+  focus: () => void;
+  onChange: (value: string) => void;
+};
 
 type OTPContextType = {
   isActive: boolean;
   char: string | null;
   placeholderChar: string | null;
-  hasFakeCaret: boolean;
 }[];
 
 const OTPContext = React.createContext<OTPContextType | undefined>(undefined);
 
-function useOTPContext(index: number) {
+export function useOTPContext(index: number) {
   const context = React.useContext(OTPContext);
   if (!context) {
     throw new Error("OTP components must be used within an InputOTP provider");
@@ -34,19 +38,19 @@ type OTPInputProps = Omit<
   TextInputProps,
   "onChange" | "onChangeText" | "maxLength" | "children"
 > & {
-  onChange?: (newValue: string) => unknown;
   className?: string;
   maxLength: number;
   disabled?: boolean;
   textAlign?: "left" | "center" | "right";
-  onComplete?: (...args: any[]) => unknown;
+  onChange?: (newValue: string) => void;
+  onComplete?: (string: string) => void;
   pasteTransformer?: (pasted: string) => string;
   containerClassName?: string;
   children?: React.ReactNode;
   pattern?: string | RegExp;
 };
 
-const InputOTP = React.forwardRef<TextInput, OTPInputProps>(
+const InputOTP = React.forwardRef<InputOTPRef, OTPInputProps>(
   (
     {
       className,
@@ -67,11 +71,14 @@ const InputOTP = React.forwardRef<TextInput, OTPInputProps>(
     ref,
   ) => {
     const [code, setCode] = React.useState(props?.defaultValue ?? "");
+    const [isFocused, setIsFocused] = React.useState<boolean>(false);
     const value = uncheckedValue ?? code;
 
     const inputRef = React.useRef<TextInput>(null);
-    React.useImperativeHandle(ref, () => inputRef.current!);
-    const [isFocused, setIsFocused] = React.useState<boolean | 1>(false);
+    React.useImperativeHandle(ref, () => ({
+      focus: onFocus,
+      onChange: onChange,
+    }));
 
     const regexp = React.useMemo(
       () =>
@@ -79,19 +86,23 @@ const InputOTP = React.forwardRef<TextInput, OTPInputProps>(
       [pattern],
     );
 
+    const onFocus = React.useCallback(() => {
+      inputRef.current?.focus();
+      setIsFocused(true);
+    }, []);
+
     const onChange = React.useCallback(
       (newValue: string) => {
+        if (props.editable === false || !!disabled) return;
         uncheckedOnChange?.(newValue);
         setCode(newValue);
       },
-      [uncheckedOnChange],
+      [uncheckedOnChange, disabled, props?.editable],
     );
 
     const handleChange = React.useCallback(
       (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-        if (props.editable === false) return;
-        const newValue = e.nativeEvent.text.slice(0, maxLength);
-
+        const newValue = e.nativeEvent.text;
         if (!!newValue && regexp && !regexp.test(newValue)) {
           e.preventDefault();
           return;
@@ -103,7 +114,7 @@ const InputOTP = React.forwardRef<TextInput, OTPInputProps>(
           inputRef.current?.blur();
         }
       },
-      [maxLength, onChange, regexp],
+      [maxLength, onChange, onComplete, regexp],
     );
 
     React.useEffect(() => {
@@ -125,20 +136,14 @@ const InputOTP = React.forwardRef<TextInput, OTPInputProps>(
 
     const contextValue = React.useMemo(
       () =>
-        Array.from({ length: maxLength }, (_, i) => {
-          const char = value[i] ?? null;
-          const isActive =
+        Array.from({ length: maxLength }, (_, i) => ({
+          char: !!props?.secureTextEntry ? "*" : (value[i] ?? null),
+          placeholderChar: value[0] !== undefined ? null : (placeholder?.[i] ?? null),
+          isActive:
+            Boolean(isFocused) &&
             (i === value.length ||
-              (value.length === maxLength && i === value.length - 1)) &&
-            Boolean(isFocused);
-
-          return {
-            isActive,
-            hasFakeCaret: isActive && char === null,
-            char: !!props?.secureTextEntry ? "*" : char,
-            placeholderChar: value[0] !== undefined ? null : (placeholder?.[i] ?? null),
-          };
-        }),
+              (value.length === maxLength && i === value.length - 1)),
+        })),
       [value, isFocused, maxLength, props?.secureTextEntry],
     );
 
@@ -146,10 +151,7 @@ const InputOTP = React.forwardRef<TextInput, OTPInputProps>(
       <OTPContext.Provider value={contextValue}>
         <View
           className={cn("flex items-center gap-2", containerClassName)}
-          onTouchEnd={(e) => {
-            inputRef.current?.focus();
-            setIsFocused(true);
-          }}
+          onTouchEnd={onFocus}
         >
           <TextInput
             ref={inputRef}
@@ -189,29 +191,33 @@ const InputOTPGroup = React.forwardRef<View, React.ComponentPropsWithoutRef<type
 );
 InputOTPGroup.displayName = "InputOTPGroup";
 
-interface InputOTPSlotProps extends React.ComponentPropsWithoutRef<typeof View> {
+interface InputOTPSlotProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof View>, "children"> {
   index: number;
+  children?:
+    | React.ReactNode
+    | ((index: number, char: string | null, isActive: boolean) => React.ReactNode);
 }
 
 const InputOTPSlot = React.forwardRef<View, InputOTPSlotProps>(
-  ({ index, className, ...props }, ref) => {
-    const { char, hasFakeCaret, isActive } = useOTPContext(index);
+  ({ index, className, children, ...props }, ref) => {
+    const { char, isActive } = useOTPContext(index);
 
-    return (
+    return typeof children === "function" ? (
+      children(index, char, isActive)
+    ) : (
       <View
         ref={ref}
         className={cn(
-          "relative flex h-12 w-10 items-center justify-center border-y border-x border-input rounded-md transition-all",
-          isActive && "z-10 border-2 border-ring",
+          "relative flex h-12 w-10 items-center justify-center border-y border-x border-input rounded-md",
+          isActive && "border-2 border-ring",
           className,
         )}
         {...props}
       >
-        <Text className="text-base">{char}</Text>
-        {hasFakeCaret && (
-          <View className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <Animated.View className="h-[18px] w-px animate-caret-blink bg-foreground duration-1000" />
-          </View>
+        <Text className="text-base font-medium">{char}</Text>
+        {isActive && (
+          <View className="absolute w-0.5 h-6 opacity-80 bg-foreground animate-caret-blink" />
         )}
       </View>
     );

@@ -89,6 +89,7 @@ My main goals driving this template are:
 - Dropdown-menu
 - Hover-card
 - Input
+- Input-OTP
 - Label
 - Menubar
 - Navigation-menu
