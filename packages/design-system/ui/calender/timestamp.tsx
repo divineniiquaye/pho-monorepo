@@ -4,6 +4,8 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Pressable,
+  GestureResponderEvent,
   NativeSyntheticEvent,
   TextInputKeyPressEventData,
 } from "react-native";
@@ -24,82 +26,20 @@ interface TimePickerProps {
   className?: string;
 }
 
-export function TimePicker({ mode, onChange, className }: TimePickerProps) {
-  const hRef = React.useRef<TextInput>(null);
-  const mRef = React.useRef<TextInput>(null);
-  const sRef = React.useRef<TextInput>(null);
+const TimeComponent = ({
+  value,
+  type,
+  active,
+  invalid,
+  onPress,
+}: {
+  value: string;
+  type: "H" | "M" | "S";
+  active: boolean;
+  invalid: boolean;
+  onPress: (type: "H" | "M" | "S", e: GestureResponderEvent) => void;
+}) => {
   const shakeAnimation = useSharedValue(0);
-
-  const [isTimeValid, setIsTimeValid] = React.useState(true);
-  const [time, setTime] = React.useState({
-    hours: "",
-    minutes: "",
-    seconds: "",
-    isPM: false,
-  });
-
-  const handleBackspace = React.useCallback(
-    (
-      type: "H" | "M" | "S",
-      nativeEvent: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    ) => {
-      if (nativeEvent.nativeEvent.key === "Backspace") {
-        if (type === "M" && time.minutes === "") {
-          hRef.current?.focus();
-        } else if (type === "S" && time.seconds === "") {
-          mRef.current?.focus();
-        }
-      }
-    },
-    [time.minutes, time.seconds],
-  );
-
-  const handleTimeChange = (text: string, type: "H" | "M" | "S") => {
-    const isValid = !text || parseInt(text) <= (type === "H" ? 12 : 59);
-    setIsTimeValid(isValid);
-
-    if ("H" === type) {
-      setTime((prev) => ({ ...prev, hours: text }));
-      if (isValid && text.length === 2) {
-        onChange(parseInt(text) + (time.isPM ? 12 : 0), "H");
-
-        if (mRef.current) mRef.current.focus();
-        else sRef.current?.focus();
-      }
-    } else if ("M" === type) {
-      setTime((prev) => ({ ...prev, minutes: text }));
-      if (isValid && text.length === 2) {
-        onChange(parseInt(text), type);
-
-        if (sRef.current) sRef.current.focus();
-        else mRef.current?.blur();
-      }
-    } else if ("S" === type) {
-      setTime((prev) => ({ ...prev, seconds: text }));
-
-      if (isValid && text.length === 2) {
-        onChange(parseInt(text), "S");
-        sRef.current?.blur();
-      }
-    }
-
-    if (!isValid) {
-      shakeAnimation.value = withSequence(
-        withTiming(10, { duration: 100 }),
-        withTiming(-10, { duration: 100 }),
-        withTiming(10, { duration: 100 }),
-        withTiming(0, { duration: 100 }),
-      );
-    }
-  };
-
-  const handlePeriodToggle = (isPM: boolean) => {
-    if (time.hours.length === 2) {
-      onChange(parseInt(time.hours) + (isPM ? 12 : 0), "H");
-    }
-
-    setTime((prev) => ({ ...prev, isPM }));
-  };
 
   const animatedStyle = useAnimatedStyle(
     () => ({
@@ -108,69 +48,176 @@ export function TimePicker({ mode, onChange, className }: TimePickerProps) {
     [],
   );
 
+  React.useEffect(() => {
+    if (active && invalid) {
+      shakeAnimation.value = withSequence(
+        withTiming(10, { duration: 100 }),
+        withTiming(-10, { duration: 100 }),
+        withTiming(10, { duration: 100 }),
+        withTiming(0, { duration: 100 }),
+      );
+    }
+  }, [active, invalid]);
+
+  return (
+    <Pressable onPress={(e) => onPress("H", e)} className="flex-1 web:py-1">
+      <Animated.Text
+        style={animatedStyle}
+        className={cn(
+          "text-2xl web:text-lg text-center",
+          value.length === 0
+            ? "text-muted-foreground"
+            : active && invalid
+              ? "text-destructive"
+              : "text-foreground",
+        )}
+      >
+        {value || "00"}
+      </Animated.Text>
+      {active && (
+        <View
+          className={cn(
+            "pointer-events-none absolute inset-0 flex items-center justify-center",
+            value.length === 1 && "left-[15%]",
+            value.length === 2 && "left-[45%]",
+          )}
+        >
+          <Animated.View
+            className={cn(
+              "h-[18px] w-[1.5px] animate-caret-blink bg-foreground duration-1000",
+              active && invalid && "bg-destructive",
+            )}
+          />
+        </View>
+      )}
+    </Pressable>
+  );
+};
+
+export function TimePicker({ mode, onChange, className }: TimePickerProps) {
+  const inputRef = React.useRef<TextInput>(null);
+
+  const [isTimeValid, setIsTimeValid] = React.useState(true);
+  const [time, setTime] = React.useState({
+    hours: "",
+    minutes: "",
+    seconds: "",
+    isPM: false,
+  });
+  const [activeInput, setActiveInput] = React.useState<"H" | "M" | "S" | null>(null);
+
+  const handleBackspace = React.useCallback(
+    (
+      nativeEvent: NativeSyntheticEvent<TextInputKeyPressEventData>,
+      type: "H" | "M" | "S" | null,
+    ) => {
+      if (!type) return;
+      if (nativeEvent.nativeEvent.key === "Backspace") {
+        if (type === "M" && time.minutes === "") {
+          setActiveInput("H");
+        } else if (type === "S" && time.seconds === "") {
+          setActiveInput("M");
+        }
+      }
+    },
+    [time.minutes, time.seconds],
+  );
+
+  const handleTimeChange = (text: string) => {
+    if (!activeInput) return;
+
+    const isValid = !text || parseInt(text) <= (activeInput === "H" ? 12 : 59);
+    setIsTimeValid(isValid);
+
+    if (activeInput === "H") {
+      setTime((prev) => ({ ...prev, hours: text }));
+      if (isValid && text.length === 2) {
+        onChange(parseInt(text) + (time.isPM ? 12 : 0), "H");
+        if (mode.includes("M")) setActiveInput("M");
+        else inputRef.current?.blur();
+      }
+    } else if (activeInput === "M") {
+      setTime((prev) => ({ ...prev, minutes: text }));
+      if (isValid && text.length === 2) {
+        onChange(parseInt(text), "M");
+        if (mode.includes("S")) setActiveInput("S");
+        else inputRef.current?.blur();
+      }
+    } else if (activeInput === "S") {
+      setTime((prev) => ({ ...prev, seconds: text }));
+      if (isValid && text.length === 2) {
+        onChange(parseInt(text), "S");
+        inputRef.current?.blur();
+      }
+    }
+  };
+
+  const handlePeriodToggle = (isPM: boolean) => {
+    if (time.hours.length === 2) {
+      onChange(parseInt(time.hours) + (isPM ? 12 : 0), "H");
+    }
+    setTime((prev) => ({ ...prev, isPM }));
+  };
+
+  const handlePress = (type: "H" | "M" | "S") => {
+    inputRef.current?.focus();
+    setActiveInput(type);
+  };
+
   return (
     <View className={cn("flex-row items-center gap-4 mt-3", className)}>
-      <Animated.View
-        className="flex-1 gap-4 flex-row items-center justify-center border border-input rounded-lg native:h-12 web:py-1"
-        style={animatedStyle}
-      >
+      <View className="flex-1 gap-4 flex-row items-center justify-center border border-input rounded-lg native:h-12 relative">
         {mode.startsWith("H") && (
-          <TextInput
+          <TimeComponent
+            type="H"
             value={time.hours}
-            returnKeyType="done"
-            onChangeText={(v) => handleTimeChange(v, "H")}
-            placeholderClassName="text-muted-foreground"
-            className={cn(
-              "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground android:bottom-0 p-0 outline-none ios:pb-1.5",
-              isTimeValid ? "text-foreground" : "text-destructive",
-            )}
-            keyboardType="numeric"
-            placeholder="00"
-            maxLength={2}
-            ref={hRef}
+            onPress={() => handlePress("H")}
+            active={activeInput === "H"}
+            invalid={!isTimeValid}
           />
         )}
         {mode.includes("M") && (
           <>
-            {"M" !== mode && <Text className="android:bottom-px">:</Text>}
-            <TextInput
+            {"M" !== mode && <Text className="font-medium text-base">:</Text>}
+            <TimeComponent
+              type="M"
               value={time.minutes}
-              returnKeyType="done"
-              onChangeText={(v) => handleTimeChange(v, "M")}
-              onKeyPress={(e) => handleBackspace("M", e)}
-              placeholderClassName="text-muted-foreground"
-              className={cn(
-                "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground items-center justify-center outline-none ios:pb-1.5",
-                isTimeValid ? "text-foreground" : "text-destructive",
-              )}
-              keyboardType="numeric"
-              placeholder="00"
-              maxLength={2}
-              ref={mRef}
+              onPress={() => handlePress("M")}
+              active={activeInput === "M"}
+              invalid={!isTimeValid}
             />
           </>
         )}
         {mode.includes("S") && (
           <>
-            {"S" !== mode && <Text className="android:bottom-px">:</Text>}
-            <TextInput
+            {"S" !== mode && <Text className="font-medium text-base">:</Text>}
+            <TimeComponent
+              type="S"
               value={time.seconds}
-              returnKeyType="done"
-              onChangeText={(v) => handleTimeChange(v, "S")}
-              onKeyPress={(e) => handleBackspace("S", e)}
-              placeholderClassName="text-muted-foreground"
-              className={cn(
-                "flex-1 text-2xl android:text-xl web:text-lg text-center placeholder:text-muted-foreground items-center justify-center outline-none ios:pb-1.5",
-                isTimeValid ? "text-foreground" : "text-destructive",
-              )}
-              keyboardType="numeric"
-              placeholder="00"
-              maxLength={2}
-              ref={sRef}
+              onPress={() => handlePress("S")}
+              active={activeInput === "S"}
+              invalid={!isTimeValid}
             />
           </>
         )}
-      </Animated.View>
+
+        <TextInput
+          ref={inputRef}
+          value={
+            activeInput === "H"
+              ? time.hours
+              : activeInput === "M"
+                ? time.minutes
+                : time.seconds
+          }
+          onKeyPress={(e) => handleBackspace(e, activeInput)}
+          onBlur={() => setActiveInput(null)}
+          onChangeText={handleTimeChange}
+          className="absolute opacity-0"
+          keyboardType="numeric"
+          maxLength={2}
+        />
+      </View>
 
       <View className="flex-row bg-muted p-1 rounded-lg">
         <TouchableOpacity
