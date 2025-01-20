@@ -5,13 +5,15 @@ packages:
 # This packages are considered crucial and updating may break the app
 # NOTE: Only update any of these packages if you are sure that the update is safe
 catalog:
-    "@legendapp/state": beta
+    "@legendapp/state": 3.0.0-beta.23
     "@types/react": 18.3.18
     "@types/react-dom": 18.3.5
     "@types/react-test-renderer": 18.3.1
     "react-test-renderer": 18.3.1
     "react": 18.3.1
     "react-dom": 18.3.1
-    "react-native": 0.76.3
-    "react-native-screens": 4.4.0
-    "react-native-safe-area-context": 4.14.0
+    "react-native": 0.76.6
+    "react-native-gesture-handler": 2.22.0
+    "react-native-reanimated": 3.16.7
+    "react-native-safe-area-context": 5.1.0
+    "react-native-screens": 4.5.0
