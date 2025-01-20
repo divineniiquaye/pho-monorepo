@@ -1,138 +1,33 @@
-diff --git a/path-support.js b/path-support.js
-index 7d9388ad12567ba99d1c02650cb25c16a052d3de..2e5a25207073bb099532a376a581f2e53591031c 100644
---- a/path-support.js
-+++ b/path-support.js
-@@ -8,9 +8,9 @@
-  * @flow strict
-  */
- 
--'use strict';
-+// 'use strict';
- 
--import type {PackagerAsset} from './registry.js';
-+// import type {PackagerAsset} from './registry.js';
- 
- const androidScaleSuffix = {
-   '0.75': 'ldpi',
-@@ -27,7 +27,7 @@ const ANDROID_BASE_DENSITY = 160;
-  * FIXME: using number to represent discrete scale numbers is fragile in essence because of
-  * floating point numbers imprecision.
-  */
--function getAndroidAssetSuffix(scale: number): string {
-+function getAndroidAssetSuffix(scale) {
-   if (scale.toString() in androidScaleSuffix) {
-     // $FlowFixMe[invalid-computed-prop]
-     return androidScaleSuffix[scale.toString()];
-@@ -35,9 +35,9 @@ function getAndroidAssetSuffix(scale: number): string {
-   // NOTE: Android Gradle Plugin does not fully support the nnndpi format.
-   // See https://issuetracker.google.com/issues/72884435
-   if (Number.isFinite(scale) && scale > 0) {
--    return Math.round(scale * ANDROID_BASE_DENSITY) + 'dpi';
-+    return `${Math.round(scale * ANDROID_BASE_DENSITY)}dpi`;
-   }
--  throw new Error('no such scale ' + scale.toString());
-+  throw new Error(`no such scale ${scale.toString()}`);
- }
- 
- // See https://developer.android.com/guide/topics/resources/drawable-resource.html
-@@ -53,35 +53,30 @@ const drawableFileTypes = new Set([
- ]);
- 
- function getAndroidResourceFolderName(
--  asset: PackagerAsset,
--  scale: number,
--): string | $TEMPORARY$string<'raw'> {
-+  asset,
-+  scale,
-+) {
-   if (!drawableFileTypes.has(asset.type)) {
-     return 'raw';
-   }
-   const suffix = getAndroidAssetSuffix(scale);
-   if (!suffix) {
-     throw new Error(
--      "Don't know which android drawable suffix to use for scale: " +
--        scale +
--        '\nAsset: ' +
--        JSON.stringify(asset, null, '\t') +
--        '\nPossible scales are:' +
--        JSON.stringify(androidScaleSuffix, null, '\t'),
-+      `Don't know which android drawable suffix to use for scale: ${scale}\nAsset: ${JSON.stringify(asset, null, '\t')}\nPossible scales are:${JSON.stringify(androidScaleSuffix, null, '\t')}`,
-     );
-   }
--  return 'drawable-' + suffix;
-+  return `drawable-${suffix}`;
- }
- 
--function getAndroidResourceIdentifier(asset: PackagerAsset): string {
--  return (getBasePath(asset) + '/' + asset.name)
-+function getAndroidResourceIdentifier(asset) {
-+  return (`${getBasePath(asset)}/${asset.name}`)
-     .toLowerCase()
-     .replace(/\//g, '_') // Encode folder structure in file name
-     .replace(/([^a-z0-9_])/g, '') // Remove illegal chars
-     .replace(/^assets_/, ''); // Remove "assets_" prefix
- }
- 
--function getBasePath(asset: PackagerAsset): string {
-+function getBasePath(asset) {
-   const basePath = asset.httpServerLocation;
-   return basePath.startsWith('/') ? basePath.slice(1) : basePath;
- }
 diff --git a/registry.js b/registry.js
-index 64b2735d3bb5284bd2450bf0d06115c3de5dcf80..30566f9f3e0a81d083a27780a72c26a57fe2a7fa 100644
+index 64b2735d3bb5284bd2450bf0d06115c3de5dcf80..14d17d1b9f7761cadb29d9d59c4868f13e13cd0f 100644
 --- a/registry.js
 +++ b/registry.js
-@@ -8,33 +8,34 @@
-  * @format
-  */
+@@ -10,6 +10,7 @@
  
--'use strict';
-+// 'use strict';
+ 'use strict';
  
--export type AssetDestPathResolver = 'android' | 'generic';
-+// export type AssetDestPathResolver = 'android' | 'generic';
++/*::
+ export type AssetDestPathResolver = 'android' | 'generic';
  
--export type PackagerAsset = {
--  +__packager_asset: boolean,
--  +fileSystemLocation: string,
--  +httpServerLocation: string,
--  +width: ?number,
--  +height: ?number,
--  +scales: Array<number>,
--  +hash: string,
--  +name: string,
--  +type: string,
--  +resolver?: AssetDestPathResolver,
--  ...
--};
-+// export type PackagerAsset = {
-+//   +__packager_asset: boolean,
-+//   +fileSystemLocation: string,
-+//   +httpServerLocation: string,
-+//   +width: ?number,
-+//   +height: ?number,
-+//   +scales: Array<number>,
-+//   +hash: string,
-+//   +name: string,
-+//   +type: string,
-+//   +resolver?: AssetDestPathResolver,
-+//   ...
-+// };
+ export type PackagerAsset = {
+@@ -25,16 +26,17 @@ export type PackagerAsset = {
+   +resolver?: AssetDestPathResolver,
+   ...
+ };
++*/
  
 -const assets: Array<PackagerAsset> = [];
-+// const assets: Array<PackagerAsset> = [];
-+const assets = [];
++const assets /*: Array<PackagerAsset> */ = [];
  
 -function registerAsset(asset: PackagerAsset): number {
-+function registerAsset(asset) {
++function registerAsset(asset /*: PackagerAsset */) /*: number */ {
    // `push` returns new array length, so the first asset will
    // get id 1 (not 0) to make the value truthy
    return assets.push(asset);
  }
  
 -function getAssetByID(assetId: number): PackagerAsset {
-+function getAssetByID(assetId) {
++function getAssetByID(assetId /*: number */) /*: PackagerAsset */ {
    return assets[assetId - 1];
  }
  
