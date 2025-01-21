@@ -28,6 +28,7 @@ import {
   HoverCardExample,
   InputOTPExample,
   PopoverExample,
+  ResizableExample,
   SelectExample,
   TableExample,
   TooltipExample,
@@ -111,6 +112,7 @@ export default function Native() {
         <CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
+        <ResizableExample />
         <DialogExample />
         <DropdownMenuExample />
         <HoverCardExample />

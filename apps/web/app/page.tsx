@@ -27,6 +27,7 @@ import {
   HoverCardExample,
   InputOTPExample,
   PopoverExample,
+  ResizableExample,
   SelectExample,
   TableExample,
   TooltipExample,
@@ -105,6 +106,7 @@ export default function Web() {
         <CheckboxExample />
         <CollapsibleExample />
         <ContextMenuExample />
+        <ResizableExample />
         <DialogExample />
         <DropdownMenuExample />
         <HoverCardExample />

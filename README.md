@@ -96,6 +96,7 @@ My main goals driving this template are:
 - Popover
 - Progress
 - Radio-group
+- Resizable
 - Select
 - Separator
 - Sheet
@@ -126,7 +127,6 @@ My main goals driving this template are:
 - [ ] Add Pagination UI Component
 - [ ] Add Toast UI Component
 - [ ] Add Carousel UI Component
-- [ ] Add Resizable UI Component
 - [ ] Add Tests Mocks for every UI component
 - [ ] Add Storybook for every UI component
 - [ ] Add a Landing Page

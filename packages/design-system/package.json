@@ -68,6 +68,7 @@
     "react-native-reanimated": "catalog:",
     "react-native-safe-area-context": "catalog:",
     "react-native-svg": "15.11.1",
+    "react-resizable-panels": "2.1.7",
     "recharts": "2.15.0",
     "sonner": "1.7.2",
     "sonner-native": "0.16.2",

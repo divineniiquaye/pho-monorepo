@@ -38,6 +38,8 @@ export { EyeOffIcon } from './EyeOffIcon';
 export { Fan } from './Fan';
 export { GalleryHorizontal } from './GalleryHorizontal';
 export { Github } from './Github';
+export { GripHorizontal } from './GripHorizontal';
+export { GripVertical } from './GripVertical';
 export { Info } from './Info';
 export { Italic } from './Italic';
 export { Lamp } from './Lamp';

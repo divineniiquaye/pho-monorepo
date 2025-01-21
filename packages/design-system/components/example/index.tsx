@@ -95,6 +95,11 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@repo/design/ui/input-otp";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@repo/design/ui/resizable";
 
 export function AccordionExample() {
   return (
@@ -378,6 +383,33 @@ export function PopoverExample() {
         </View>
       </PopoverContent>
     </Popover>
+  );
+}
+
+export function ResizableExample() {
+  return (
+    <ResizablePanelGroup
+      direction="vertical"
+      className="min-h-[300px] max-w-md rounded-lg border border-border md:min-w-[450px] self-center"
+    >
+      <ResizablePanel defaultSize={25}>
+        <View className="flex h-full items-center justify-center p-3 web:p-6">
+          <Text className="font-semibold">Header</Text>
+        </View>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel defaultSize={50}>
+        <View className="flex h-full items-center justify-center p-6">
+          <Text className="font-semibold">Content</Text>
+        </View>
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel defaultSize={25}>
+        <View className="flex h-full items-center justify-center p-3 wen:p-6">
+          <Text className="font-semibold">Footer</Text>
+        </View>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 }
 
