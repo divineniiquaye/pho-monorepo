@@ -1,3 +1,22 @@
+# v0.1.12 (Tue Jan 21 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(design-system): added pagination UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): added form UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added resizable UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): fix loss of precision error in input OTP ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): improved calender's timestamp UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: updated react native registry assets patch to match 0.77 ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): improved how plugins meant for dev builds are added ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: resolve dependencies causing build issues ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.11 (Fri Jan 17 2025)
 
 #### ⚠️ Pushed to `main`
