@@ -44,6 +44,7 @@ import { SwitchExample } from "@repo/design/components/example/Switch";
 import { TabsExample } from "@repo/design/components/example/Tabs";
 import { ToggleExample } from "@repo/design/components/example/Toggle";
 import { SheetExample } from "@repo/design/components/example/Sheet";
+import { FormExample } from "@repo/design/components/example/Form";
 import { CommandExample } from "@repo/design/components/example/Command";
 import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
 import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
@@ -127,6 +128,7 @@ export default function Native() {
         <SliderExample />
         <SwitchExample />
         <TableExample />
+        <FormExample />
         <TabsExample />
         <BreadcrumbExample />
         <ToggleExample />

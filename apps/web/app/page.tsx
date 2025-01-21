@@ -43,6 +43,7 @@ import { SwitchExample } from "@repo/design/components/example/Switch";
 import { TabsExample } from "@repo/design/components/example/Tabs";
 import { ToggleExample } from "@repo/design/components/example/Toggle";
 import { SheetExample } from "@repo/design/components/example/Sheet";
+import { FormExample } from "@repo/design/components/example/Form";
 import { LocaleSwitcher } from "@repo/design/components/example/Locale";
 import { CommandExample } from "@repo/design/components/example/Command";
 import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
@@ -121,6 +122,7 @@ export default function Web() {
         <SliderExample />
         <SwitchExample />
         <TableExample />
+        <FormExample />
         <TabsExample />
         <BreadcrumbExample />
         <SheetExample />

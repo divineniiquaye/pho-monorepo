@@ -87,6 +87,7 @@ My main goals driving this template are:
 - Context-menu
 - Dialog
 - Dropdown-menu
+- Form
 - Hover-card
 - Input
 - Input-OTP
@@ -123,7 +124,6 @@ My main goals driving this template are:
 ## RoadMap
 
 - [ ] Add Drawer UI Component
-- [ ] Add Form UI Component
 - [ ] Add Pagination UI Component
 - [ ] Add Toast UI Component
 - [ ] Add Carousel UI Component
