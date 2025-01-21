@@ -27,6 +27,7 @@ import {
   DropdownMenuExample,
   HoverCardExample,
   InputOTPExample,
+  PaginationExample,
   PopoverExample,
   ResizableExample,
   SelectExample,
@@ -131,6 +132,7 @@ export default function Native() {
         <FormExample />
         <TabsExample />
         <BreadcrumbExample />
+        <PaginationExample />
         <ToggleExample />
         <SheetExample />
         <ToggleGroupExample />

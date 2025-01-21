@@ -26,6 +26,7 @@ import {
   DropdownMenuExample,
   HoverCardExample,
   InputOTPExample,
+  PaginationExample,
   PopoverExample,
   ResizableExample,
   SelectExample,
@@ -125,6 +126,7 @@ export default function Web() {
         <FormExample />
         <TabsExample />
         <BreadcrumbExample />
+        <PaginationExample />
         <SheetExample />
         <ToggleExample />
         <ToggleGroupExample />

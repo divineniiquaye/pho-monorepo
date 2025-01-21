@@ -100,6 +100,15 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@repo/design/ui/resizable";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@repo/design/ui/pagination";
 
 export function AccordionExample() {
   return (
@@ -359,6 +368,35 @@ export function InputOTPExample() {
         <InputOTPSlot index={5} />
       </InputOTPGroup>
     </InputOTP>
+  );
+}
+
+export function PaginationExample() {
+  return (
+    <Pagination className="items-center">
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious onPress={() => console.log("#")} />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink onPress={() => console.log("#")}>1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink onPress={() => console.log("#")} isActive>
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink onPress={() => console.log("#")}>3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext onPress={() => console.log("#")} />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 }
 

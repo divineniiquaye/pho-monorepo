@@ -94,6 +94,7 @@ My main goals driving this template are:
 - Label
 - Menubar
 - Navigation-menu
+- Pagination
 - Popover
 - Progress
 - Radio-group
@@ -124,7 +125,6 @@ My main goals driving this template are:
 ## RoadMap
 
 - [ ] Add Drawer UI Component
-- [ ] Add Pagination UI Component
 - [ ] Add Toast UI Component
 - [ ] Add Carousel UI Component
 - [ ] Add Tests Mocks for every UI component
