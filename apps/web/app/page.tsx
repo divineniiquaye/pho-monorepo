@@ -50,6 +50,7 @@ import { CommandExample } from "@repo/design/components/example/Command";
 import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
 import { SidebarDialogExample } from "@repo/design/components/example/SidebarDialog";
 import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
+import { DrawerExample } from "@repo/design/components/example/Drawer";
 
 export default function Web() {
   const { setColorScheme } = useColorScheme();
@@ -102,6 +103,7 @@ export default function Web() {
         </HStack>
         <AccordionExample />
         <AlertDialogExample />
+        <DrawerExample />
         <AspectRatioExample />
         <AvatarExample />
         <CalendarExample />

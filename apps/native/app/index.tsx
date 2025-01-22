@@ -46,6 +46,7 @@ import { TabsExample } from "@repo/design/components/example/Tabs";
 import { ToggleExample } from "@repo/design/components/example/Toggle";
 import { SheetExample } from "@repo/design/components/example/Sheet";
 import { FormExample } from "@repo/design/components/example/Form";
+import { DrawerExample } from "@repo/design/components/example/Drawer";
 import { CommandExample } from "@repo/design/components/example/Command";
 import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
 import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
@@ -108,6 +109,7 @@ export default function Native() {
         </HStack>
         <AccordionExample />
         <AlertDialogExample />
+        <DrawerExample />
         <AspectRatioExample />
         <AvatarExample />
         <CalendarExample />

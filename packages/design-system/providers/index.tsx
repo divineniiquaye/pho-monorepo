@@ -2,6 +2,7 @@
 
 import { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useWindowDimensions } from "react-native";
 import { PortalHost } from "@rn-primitives/portal";
 import Constants from "expo-constants";
@@ -49,9 +50,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
         style={[{ flex: 1 }, vars({ "---width": width, "---height": height })]}
       >
         <KeyboardProvider>
-          {children}
-          <PortalHost />
-          <SonnerProvider theme={colorScheme} />
+          <BottomSheetModalProvider>
+            {children}
+            <PortalHost />
+            <SonnerProvider theme={colorScheme} />
+          </BottomSheetModalProvider>
         </KeyboardProvider>
       </GestureHandlerRootView>
     </ThemeProvider>
