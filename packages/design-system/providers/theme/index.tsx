@@ -1,10 +1,15 @@
 import { ThemeProvider as NativeThemeProvider } from "@react-navigation/native";
 import { Appearance, Platform } from "react-native";
+import { WebView } from "@expo/dom-webview";
+import { cssInterop } from "nativewind";
 import { useEffect } from "react";
 
 import { setAndroidNavigationBar } from "@repo/design/lib/android-navigation-bar";
 import { useColorScheme } from "@repo/design/hooks/useColorScheme";
 import { NavigationTheme } from "@repo/design/lib/constants";
+
+// NativeWind doesn't support webview yet
+cssInterop(WebView, { className: "containerStyle" });
 
 export function ThemeProvider({
   children,

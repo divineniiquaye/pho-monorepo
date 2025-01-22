@@ -37,7 +37,7 @@ export function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme={theme}
       disableTransitionOnChange
       enableColorScheme
       enableSystem
