@@ -15,6 +15,7 @@ const Input = React.memo(
       containerClassName?: string;
       left?: React.ComponentType;
       right?: React.ComponentType;
+      as?: typeof TextInput;
     }
   >(
     (
@@ -26,12 +27,14 @@ const Input = React.memo(
         placeholderClassName,
         containerClassName,
         secureTextEntry,
+        as: As,
         onFocus,
         onBlur,
         ...props
       },
       ref,
     ) => {
+      const Component = As ?? TextInput;
       const [secureEntry, setSecureEntry] = React.useState(!!secureTextEntry);
       const [isFocused, setIsFocused] = React.useState(false);
 
@@ -50,7 +53,7 @@ const Input = React.memo(
           )}
         >
           {LeftComponent && <LeftComponent />}
-          <TextInput
+          <Component
             ref={inputRef}
             className={cn(
               "web:w-full native:flex-1 border-none outline-none text-base web:text-sm leading-[1.25] text-foreground placeholder:text-muted-foreground file:bg-transparent file:font-medium",
