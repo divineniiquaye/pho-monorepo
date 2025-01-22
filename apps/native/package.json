@@ -13,8 +13,7 @@
     "eject": "expo eject",
     "lint": "eslint .",
     "test": "jest --ci",
-    "clean": "rm -rf .expo .turbo dist node_modules",
-    "eas-build-pre-install": "npm install --global pnpm@9.x"
+    "clean": "rm -rf .expo .turbo dist node_modules"
   },
   "expo": {
     "install": {
