@@ -78,9 +78,9 @@ My main goals driving this template are:
 - Badge
 - Breadcrumb
 - Button
-- Calender
+- Calender (Alternative [Flash-Calender](https://github.com/MarceloPrado/flash-calendar) by @MarceloPrado)
 - Card
-- Chart (Web only, use `use dom` for native support)
+- Chart (Web only, use `use dom` or `victory` chart for native support)
 - Checkbox
 - Collapsible
 - Command
@@ -90,7 +90,7 @@ My main goals driving this template are:
 - Form
 - Hover-card
 - Input
-- Input-OTP
+- Input-OTP (Alternative [input-otp-input](https://github.com/yjose/input-otp-native) by @yjose)
 - Label
 - Menubar
 - Navigation-menu
