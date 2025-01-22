@@ -2,9 +2,11 @@
 
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
-import { Pressable } from "react-native";
+import { Pressable as RNPressable } from "react-native";
+import { Pressable } from "@rn-primitives/slot";
 import { TextClassContext } from "./text";
 import { cn } from "../lib/utils";
+import isWeb from "../lib/isWeb";
 
 const buttonVariants = cva(
   "group flex items-center justify-center rounded-md web:ring-offset-background web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2",
@@ -16,7 +18,8 @@ const buttonVariants = cva(
         outline:
           "border border-input bg-background web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent active:text-accent-foreground",
         secondary: "bg-secondary web:hover:opacity-80 active:opacity-80",
-        ghost: "web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent active:text-accent-foreground",
+        ghost:
+          "web:hover:bg-accent web:hover:text-accent-foreground active:bg-accent active:text-accent-foreground",
         link: "web:underline-offset-4 web:hover:underline web:focus:underline",
       },
       size: {
@@ -59,14 +62,16 @@ const buttonTextVariants = cva(
   },
 );
 
-type ButtonProps = React.ComponentPropsWithoutRef<typeof Pressable> &
+type ButtonProps = React.ComponentPropsWithoutRef<typeof RNPressable> &
   VariantProps<typeof buttonVariants> & {
     /** Web only */
     type?: "submit" | "reset" | "button";
+    asChild?: boolean;
   };
 
-const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+const Button = React.forwardRef<React.ElementRef<typeof RNPressable>, ButtonProps>(
+  ({ className, variant, size, asChild, ...props }, ref) => {
+    const Component = asChild && isWeb ? Pressable : RNPressable;
     return (
       <TextClassContext.Provider
         value={cn(
@@ -74,7 +79,7 @@ const Button = React.forwardRef<React.ElementRef<typeof Pressable>, ButtonProps>
           buttonTextVariants({ variant, size }),
         )}
       >
-        <Pressable
+        <Component
           className={cn(
             props.disabled && "opacity-50 web:pointer-events-none",
             buttonVariants({ variant, size, className }),
