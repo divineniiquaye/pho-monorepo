@@ -86,6 +86,7 @@ My main goals driving this template are:
 - Command
 - Context-menu
 - Dialog
+- Drawer
 - Dropdown-menu
 - Form
 - Hover-card
@@ -125,7 +126,6 @@ My main goals driving this template are:
 
 ## RoadMap
 
-- [ ] Add Drawer UI Component
 - [ ] Add Toast UI Component
 - [ ] Add Carousel UI Component
 - [ ] Add Tests Mocks for every UI component
