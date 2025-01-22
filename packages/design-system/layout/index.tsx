@@ -12,7 +12,7 @@ import Animated, {
 import { useAfterInteractions } from "../hooks/useAfterInteraction";
 import { cn } from "../lib/utils";
 
-type LayoutProps = Omit<
+export type LayoutProps = Omit<
   React.ComponentPropsWithoutRef<typeof Animated.View>,
   "children"
 > & {
@@ -36,7 +36,7 @@ type LayoutProps = Omit<
   };
 };
 
-export default function ScreenLayout({
+export function ScreenLayout({
   androidNavigationBarColor,
   placeholder: Placeholder,
   children,
@@ -68,7 +68,7 @@ export default function ScreenLayout({
       new Promise((resolve) => {
         const interaction = () => {
           if ("android" === Platform.OS && androidNavigationBarColor) {
-            NavigationBar.setBackgroundColorAsync(androidNavigationBarColor);
+            NavigationBar.setBackgroundColorAsync(androidNavigationBarColor as string);
           }
 
           resolve(wait ?? true); // Wait for the next interaction
