@@ -7,11 +7,11 @@ import { PanelLeft } from "lucide-react-native";
 
 import { useIsMobile } from "../hooks/useMobile";
 import { cn } from "../lib/utils";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Separator } from "../ui/separator";
-import { Sheet, SheetContent } from "../ui/sheet";
-import { Skeleton } from "../ui/skeleton";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Separator } from "./separator";
+import { Sheet, SheetContent } from "./sheet";
+import { Skeleton } from "./skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
