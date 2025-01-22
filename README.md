@@ -99,6 +99,7 @@ My main goals driving this template are:
 - Progress
 - Radio-group
 - Resizable
+- Scroll-Area (Web only, use ScrollView for native support)
 - Select
 - Separator
 - Sheet
