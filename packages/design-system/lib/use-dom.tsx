@@ -19,9 +19,6 @@ export function useDom<P extends object>(
   return React.memo(function DynamicComponent(props: P) {
     const [Component, setComponent] = React.useState<React.ComponentType<P> | null>(null);
 
-    const renderCount = ++React.useRef(0).current;
-    console.log(renderCount);
-
     React.useEffect(() => {
       let mounted = true;
 
