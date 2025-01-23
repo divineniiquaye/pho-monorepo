@@ -119,6 +119,9 @@ jobs:
         steps:
             - name: 🏗 Setup repository
               uses: actions/checkout@v4
+              with:
+                  persist-credentials: false
+                  fetch-depth: 0
 
             - name: 🏗 Setup monorepo
               uses: ./.github/actions/setup-monorepo
@@ -127,17 +130,16 @@ jobs:
 
             - name: 🔎 Checking Expo Build Ready
               id: expo
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                   ENV_FILE="./apps/native/scripts/env.js"
                   CURRENT_BUILD=$(grep "BUILD_NUMBER" "$ENV_FILE" | grep -o '"[0-9]*"' | tr -d '"')
-                  PREV_BUILD=$(gh variable get BUILD_NUMBER)
+                  PREV_BUILD=${{ vars.NATIVE_BUILD_NUMBER }}
 
-                  if [[ $CURRENT_BUILD -gt $PREV_BUILD || ${{ github.event.inputs.build }} ]]; then
+                  if [[ $CURRENT_BUILD -gt $PREV_BUILD || -n "${{ github.event.inputs.build }}" ]]; then
                     EAS_BUILD="build"
                   else
                     EAS_BUILD="update"
+                    CURRENT_BUILD=$((CURRENT_BUILD + 1))
                   fi
 
                   {
@@ -147,15 +149,19 @@ jobs:
 
             - name: 🛠️ Build on EAS
               env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+                  # This can be removed and declared in your ENV_FILE directly
+                  EAS_PROJECT_ID: ${{ vars.EAS_PROJECT_ID }}
+                  EXPO_ACCOUNT_OWNER: ${{ vars.EXPO_ACCOUNT_OWNER }}
               run: |
                   AUTO_SUBMIT=${{ github.event.inputs.submit == 'false' && '' || '--auto-submit' }}
+                  if [[ ${{ steps.expo.outputs.EAS_BUILD }} == 'update' ]]; then pnpm run --filter=native prebuild --force; fi
                   pnpm run --filter=native build ${{ github.event.inputs.profile || (github.ref_name == 'main' && 'production' || 'staging') }} \
                     --platform ${{ steps.expo.outputs.EAS_BUILD == 'update' && 'android' || (github.event.inputs.platform || 'all') }} \
                     --non-interactive \
                     --no-wait \
                     $AUTO_SUBMIT
-                  gh variable set BUILD_NUMBER --body ${{ steps.expo.outputs.CURRENT_BUILD }}
+                  gh variable set NATIVE_BUILD_NUMBER --body ${{ steps.expo.outputs.CURRENT_BUILD }}
 
             - name: 🚀 OTA Update
               uses: expo/expo-github-action/preview@v8
@@ -163,6 +169,15 @@ jobs:
               with:
                   command: eas update --auto --json --non-interactive --platform ios --branch=${{ github.ref_name == 'main' && 'main' || 'staging' }}
                   comment: false
+
+            - name: Android Build Cleanup
+              uses: actions-js/push@v1.5
+              if: ${{ needs.check.outputs.EAS_BUILD == 'update' }}
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  message: "Bump build number to: ${{ needs.check.outputs.CURRENT_BUILD }} [skip ci]"
+                  branch: ${{ github.ref_name }}
+
 
             # TODO
             # - name: 💬 Comment in Slack

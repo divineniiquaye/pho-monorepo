@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "expo start",
     "build": "node ./scripts/build.js",
+    "prebuild": "node ./scripts/pre-build.js",
     "doctor": "pnpm dlx expo-doctor@latest",
     "android": "expo run:android",
     "ios": "expo run:ios",

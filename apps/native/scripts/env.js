@@ -33,8 +33,8 @@ require("dotenv").config({
  */
 const BUNDLE_ID = "app.myapp.com"; // android/ios bundle id
 const NAME = "Myapp"; // app name
-const EXPO_ACCOUNT_OWNER = "myapp_owner"; // expo account owner
-const EAS_PROJECT_ID = "<PROJECT_ID>"; // eas project id
+const EXPO_ACCOUNT_OWNER = process.env.EXPO_ACCOUNT_OWNER ?? "myapp_owner";
+const EAS_PROJECT_ID = process.env.EAS_PROJECT_ID ?? "<PROJECT_ID>";
 const SCHEME = "myapp"; // app scheme
 const BUILD_NUMBER = "1"; // build number
 const VERSION = "0.1.0"; // app version
