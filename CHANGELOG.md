@@ -1,3 +1,31 @@
+# v0.1.13 (Thu Jan 23 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(native): added expo-updates dependency ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(native): updated EAS build profiles ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(web,native): broken nativewind link in home screens ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): update eas.json to use local appVersionSource ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): added missing cross-env dev dependency ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): remove debug logs from use-dom lib ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): improved GitHub CI for EAS build ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(web): added abit more `mx` spacing o mobile ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(native): removed `eas-build-pre-install` scripts command ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): changed screen layout from a default export ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added drawer UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added `as` prop to input component ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): import issue sidebar UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added `asChild` prop to UI button for web ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added `use dom` directive support ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added scroll area UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.12 (Tue Jan 21 2025)
 
 #### ⚠️ Pushed to `main`
