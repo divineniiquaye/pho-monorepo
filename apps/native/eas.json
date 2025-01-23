@@ -3,29 +3,23 @@
     "appVersionSource": "local"
   },
   "build": {
-    "development-simulator": {
-      "developmentClient": true,
-      "channel": "development-simulator",
-      "distribution": "internal",
+    "production": {
+      "channel": "production",
+      "distribution": "store",
       "ios": {
-        "simulator": true
+        "image": "latest"
       },
       "android": {
-        "buildType": "apk"
+        "buildType": "app-bundle",
+        "image": "latest"
       },
       "env": {
-        "SENTRY_AUTH_TOKEN": "secret"
+        "EXPO_NO_DOTENV": "1",
+        "APP_ENV": "production",
+        "FLIPPER_DISABLE": "1"
       }
     },
-    "development": {
-      "developmentClient": true,
-      "channel": "development",
-      "distribution": "internal",
-      "env": {
-        "SENTRY_AUTH_TOKEN": "secret"
-      }
-    },
-    "preview": {
+    "staging": {
       "channel": "staging",
       "distribution": "store",
       "ios": {
@@ -35,11 +29,14 @@
         "image": "latest"
       },
       "env": {
-        "SENTRY_AUTH_TOKEN": "secret"
+        "APP_ENV": "development",
+        "EXPO_NO_DOTENV": "1",
+        "FLIPPER_DISABLE": "1"
       }
     },
-    "production": {
-      "channel": "production",
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
       "ios": {
         "image": "latest"
       },
@@ -47,11 +44,34 @@
         "image": "latest"
       },
       "env": {
-        "SENTRY_AUTH_TOKEN": "secret"
+        "APP_ENV": "development",
+        "EXPO_NO_DOTENV": "1"
+      }
+    },
+    "simulator": {
+      "ios": {
+        "simulator": true,
+        "image": "latest"
+      },
+      "android": {
+        "image": "latest"
+      },
+      "env": {
+        "APP_ENV": "development",
+        "EXPO_NO_DOTENV": "1"
       }
     }
   },
   "submit": {
-    "production": {}
+    "staging": {
+      "android": {
+        "track": "internal"
+      }
+    },
+    "production": {
+      "android": {
+        "track": "internal"
+      }
+    }
   }
 }
