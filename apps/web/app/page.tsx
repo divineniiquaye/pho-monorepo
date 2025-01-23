@@ -56,7 +56,7 @@ export default function Web() {
   const { setColorScheme } = useColorScheme();
 
   return (
-    <div className="flex flex-1 mt-10 flex-col text-center items-center mx-2 md:mx-auto">
+    <div className="flex flex-1 mt-10 flex-col text-center items-center mx-4 md:mx-auto">
       <Typography.Lead className="mb-2">Web</Typography.Lead>
       <Button
         testID="button"
