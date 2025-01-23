@@ -101,7 +101,7 @@ export default function Native() {
             Styled with{" "}
             <Link
               className="hover:underline"
-              href="https://www.nativewind.dev/v4/overview"
+              href="https://nativewind.dev"
             >
               NativeWind
             </Link>

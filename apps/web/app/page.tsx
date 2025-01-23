@@ -56,7 +56,7 @@ export default function Web() {
   const { setColorScheme } = useColorScheme();
 
   return (
-    <div className="flex flex-1 mt-10 flex-col text-center items-center mx-4 md:mx-auto">
+    <div className="flex flex-1 mt-10 flex-col text-center items-center px-4 md:mx-auto">
       <Typography.Lead className="mb-2">Web</Typography.Lead>
       <Button
         testID="button"
@@ -96,7 +96,7 @@ export default function Web() {
           <Typography.H1>@rn-primitives</Typography.H1>
           <Typography.P className="font-medium">
             Styled with{" "}
-            <a className="hover:underline" href="https://www.nativewind.dev/v4/overview">
+            <a className="hover:underline" href="https://nativewind.dev">
               NativeWind
             </a>
           </Typography.P>
