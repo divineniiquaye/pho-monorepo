@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 7.6.2"
+    "appVersionSource": "local"
   },
   "build": {
     "development-simulator": {
