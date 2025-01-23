@@ -1,3 +1,15 @@
+# v0.1.14 (Thu Jan 23 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(native): improved env support & eas build on CI ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.13 (Thu Jan 23 2025)
 
 #### ⚠️ Pushed to `main`
