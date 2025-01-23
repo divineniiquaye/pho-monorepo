@@ -8,7 +8,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const ENV_FILE = path.join(__dirname, "./env.js");
+const ENV_FILE = path.join(__dirname, "../app.config.ts");
 
 // Read the contents of scripts/env.js
 fs.readFile(ENV_FILE, "utf8", (err, data) => {

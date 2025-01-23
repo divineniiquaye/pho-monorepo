@@ -28,7 +28,7 @@ on:
                 required: false
             submit:
                 description: Auto submit to the store? (TestFlight/Internal testing)
-                default: true
+                default: false
                 type: boolean
                 required: true
 
@@ -88,7 +88,6 @@ jobs:
                   environment=$([[ "${{ github.ref }}" == 'refs/heads/main' ]] && echo "production" || echo "preview")
                   pnpm dlx vercel pull --yes --environment=$environment --token=${{ secrets.VERCEL_TOKEN }}
 
-
             - name: 🚀 Deploy to Vercel
               run: |
                   pnpm dlx vercel build --token=${{ secrets.VERCEL_TOKEN }}
@@ -131,7 +130,7 @@ jobs:
             - name: 🔎 Checking Expo Build Ready
               id: expo
               run: |
-                  ENV_FILE="./apps/native/scripts/env.js"
+                  ENV_FILE="./apps/native/app.config.ts"
                   CURRENT_BUILD=$(grep "BUILD_NUMBER" "$ENV_FILE" | grep -o '"[0-9]*"' | tr -d '"')
                   PREV_BUILD=${{ vars.NATIVE_BUILD_NUMBER }}
 
@@ -154,7 +153,7 @@ jobs:
                   EAS_PROJECT_ID: ${{ vars.EAS_PROJECT_ID }}
                   EXPO_ACCOUNT_OWNER: ${{ vars.EXPO_ACCOUNT_OWNER }}
               run: |
-                  AUTO_SUBMIT=${{ github.event.inputs.submit == 'false' && '' || '--auto-submit' }}
+                  AUTO_SUBMIT=${{ github.event.inputs.submit == 'true' && '--auto-submit' || '' }}
                   if [[ ${{ steps.expo.outputs.EAS_BUILD }} == 'update' ]]; then pnpm run --filter=native prebuild --force; fi
                   pnpm run --filter=native build ${{ github.event.inputs.profile || (github.ref_name == 'main' && 'production' || 'staging') }} \
                     --platform ${{ steps.expo.outputs.EAS_BUILD == 'update' && 'android' || (github.event.inputs.platform || 'all') }} \
@@ -172,12 +171,11 @@ jobs:
 
             - name: Android Build Cleanup
               uses: actions-js/push@v1.5
-              if: ${{ needs.check.outputs.EAS_BUILD == 'update' }}
+              if: ${{ steps.expo.outputs.EAS_BUILD == 'update' }}
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                  message: "Bump build number to: ${{ needs.check.outputs.CURRENT_BUILD }} [skip ci]"
+                  message: "Bump build number to: ${{ steps.expo.outputs.CURRENT_BUILD }} [skip ci]"
                   branch: ${{ github.ref_name }}
-
 
             # TODO
             # - name: 💬 Comment in Slack
