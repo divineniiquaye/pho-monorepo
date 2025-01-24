@@ -46,7 +46,6 @@
     "@rn-primitives/switch": "1.1.0",
     "@rn-primitives/table": "1.1.0",
     "@rn-primitives/tabs": "1.1.0",
-    "@rn-primitives/toast": "1.1.0",
     "@rn-primitives/toggle": "1.1.0",
     "@rn-primitives/toggle-group": "1.1.0",
     "@rn-primitives/toolbar": "1.1.0",
@@ -77,7 +76,7 @@
     "sonner": "1.7.2",
     "sonner-native": "0.16.2",
     "tailwind-merge": "2.6.0",
-    "vaul": "^1.1.2"
+    "vaul": "1.1.2"
   },
   "devDependencies": {
     "@repo/tailwind-config": "workspace:*",
