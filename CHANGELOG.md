@@ -1,3 +1,16 @@
+# v0.1.15 (Fri Jan 24 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(design-system): added date picker to example form UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): removed unused toast dependency ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.14 (Thu Jan 23 2025)
 
 #### ⚠️ Pushed to `main`
