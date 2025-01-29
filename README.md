@@ -80,6 +80,7 @@ My main goals driving this template are:
 - Button
 - Calender (Alternative [Flash-Calender](https://github.com/MarceloPrado/flash-calendar) by [@MarceloPrado](https://github.com/MarceloPrado) or [Calendar-kit](https://github.com/f0wu5u/calendar-kit) by [@f0wu5u](https://github.com/f0wu5u))
 - Card
+- Carousel (Web only, use `use dom` for native support)
 - Chart (Web only, use `use dom` or `victory` chart for native support)
 - Checkbox
 - Collapsible
@@ -127,7 +128,6 @@ My main goals driving this template are:
 ## RoadMap
 
 - [ ] Add Toast UI Component
-- [ ] Add Carousel UI Component
 - [ ] Add Tests Mocks for every UI component
 - [ ] Add Storybook for every UI component
 - [ ] Add a Landing Page

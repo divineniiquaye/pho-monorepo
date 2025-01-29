@@ -10,6 +10,8 @@ export { AlignJustify } from './AlignJustify';
 export { AlignLeft } from './AlignLeft';
 export { AlignRight } from './AlignRight';
 export { ArrowDown } from './ArrowDown';
+export { ArrowLeft } from './ArrowLeft';
+export { ArrowRight } from './ArrowRight';
 export { ArrowUp } from './ArrowUp';
 export { Baby } from './Baby';
 export { BadgeAlert } from './BadgeAlert';
