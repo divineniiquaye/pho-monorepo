@@ -91,7 +91,7 @@ My main goals driving this template are:
 - Form
 - Hover-card
 - Input
-- Input-OTP (Alternative [input-otp-input](https://github.com/yjose/input-otp-native) by @yjose)
+- Input-OTP (Alternative [input-otp-input](https://github.com/yjose/input-otp-native) by [@yjose](https://github.com/yjose))
 - Label
 - Menubar
 - Navigation-menu
