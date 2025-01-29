@@ -1,3 +1,19 @@
+# v0.1.16 (Wed Jan 29 2025)
+
+#### ⚠️ Pushed to `main`
+
+- chore: bump deps ⚡️ ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added carousel UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): minor UI issues in example components ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): improved calender's UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.15 (Fri Jan 24 2025)
 
 #### ⚠️ Pushed to `main`
