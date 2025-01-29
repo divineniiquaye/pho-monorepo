@@ -35,7 +35,7 @@ export function DrawerExample() {
           <DrawerDescription>Set your daily activity goal.</DrawerDescription>
         </DrawerHeader>
         <DOMComponent onClick={onClick} goal={goal} />
-        <DrawerFooter className="mt-2 mb-safe-offset-2 gap-2">
+        <DrawerFooter className="mt-2 mb-safe gap-2">
           <Button>
             <Text>Submit</Text>
           </Button>

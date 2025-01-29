@@ -101,7 +101,7 @@ export function FormExample() {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="max-w-[320px] p-0" align="start">
                   <Calendar
                     mode="single"
                     selected={field.value}
