@@ -209,11 +209,11 @@ export function CalendarExample() {
       captionLayout="dropdown"
       timestamp="H:M:S"
       // hideWeekdays
-      showOutsideDays={false}
+      // showOutsideDays={false}
       // classNames={{
       //   chevronRight: "invisible"
       // }}
-      // expandable
+      expandable
       // showWeekNumber
 
       className="web:max-w-[350px] web:self-center"

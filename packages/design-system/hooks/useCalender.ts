@@ -253,7 +253,7 @@ export function useCalendar(
         const days = eachDayOfInterval({
             start: startOfWeek(new Date(), { weekStartsOn }),
             end: endOfWeek(new Date()),
-        }).map((day) => format(day, "EEE", { locale }));
+        }).map((day) => format(day, "eeeeee", { locale }));
         if (showWeekNumber) days.unshift("Wk");
         return days;
     }, [locale, showWeekNumber, weekStartsOn]);

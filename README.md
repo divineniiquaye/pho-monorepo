@@ -78,7 +78,7 @@ My main goals driving this template are:
 - Badge
 - Breadcrumb
 - Button
-- Calender (Alternative [Flash-Calender](https://github.com/MarceloPrado/flash-calendar) by @MarceloPrado)
+- Calender (Alternative [Flash-Calender](https://github.com/MarceloPrado/flash-calendar) by [@MarceloPrado](https://github.com/MarceloPrado) or [Calendar-kit](https://github.com/f0wu5u/calendar-kit) by [@f0wu5u](https://github.com/f0wu5u))
 - Card
 - Chart (Web only, use `use dom` or `victory` chart for native support)
 - Checkbox

@@ -1,4 +1,4 @@
-import { GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { GestureResponderEvent, StyleProp, ViewStyle } from "react-native";
 import { Locale } from "date-fns";
 
 /**
@@ -185,6 +185,7 @@ export type ClassNames = {
     timestamp?: string;
     dayText?: string;
     day?: string;
+    today?: string;
     year?: string;
     range?: string;
     selected?: string;
@@ -301,6 +302,8 @@ export type PropsBase = {
     /**
      * Show the the Calender first week but it is horizontally scrollable,
      * and can be dragged down to open full calendar.
+     *
+     * NOTE: This prop is currently only supported on web.
      */
     expandable?: boolean;
 

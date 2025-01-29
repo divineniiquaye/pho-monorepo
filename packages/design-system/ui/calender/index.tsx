@@ -16,6 +16,8 @@ import {
 import { ChevronRight } from "@repo/design/icons/ChevronRight";
 import { ChevronLeft } from "@repo/design/icons/ChevronLeft";
 import { useCalendar } from "@repo/design/hooks/useCalender";
+import { Maximize2 } from "@repo/design/icons/Maximize2";
+import { Minimize2 } from "@repo/design/icons/Minimize2";
 import { cn } from "@repo/design/lib/utils";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../table";
@@ -132,11 +134,11 @@ function Calendar(props: CalendarProps) {
             isDisabled
               ? "text-muted-foreground opacity-50 hover:bg-transparent"
               : isSelected
-                ? "bg-primary rounded-md"
+                ? cn("bg-primary rounded-md", classNames?.selected)
                 : isInRange
-                  ? "bg-accent text-accent-foreground"
+                  ? cn("bg-accent text-accent-foreground", classNames?.range)
                   : isToday
-                    ? "bg-accent rounded-md"
+                    ? cn("bg-accent rounded-md", classNames?.today)
                     : "hover:bg-accent web:hover:text-accent-foreground hover:rounded-md",
             isInRange &&
               selectedDate[1].getDate() - selectedDate[0].getDate() === 1 &&
@@ -297,7 +299,7 @@ function Calendar(props: CalendarProps) {
   return (
     <View
       className={cn(
-        "flex-1 bg-background border border-border rounded-md p-2.5 web:min-w-[360px]",
+        "bg-background border border-border rounded-md p-2.5 min-w-[320px]",
         className,
       )}
       style={style}
@@ -309,31 +311,53 @@ function Calendar(props: CalendarProps) {
             classNames?.navigation,
           )}
         >
-          <Button
-            variant="outline"
-            onPress={goToPreviousMonth}
-            disabled={disableNavigation}
-            className={cn(
-              "group w-12 h-8 [&_svg]:size-4 [&_svg]:shrink-0",
-              classNames?.chevronLeft,
-            )}
-            accessibilityLabel={`Go to previous month, ${format(subMonths(currentDate, 1), "MMMM yyyy", { locale })}`}
-          >
-            <ChevronLeft className="text-primary size-6 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
-          </Button>
           {renderCaption()}
-          <Button
-            variant="outline"
-            onPress={goToNextMonth}
-            disabled={disableNavigation}
-            className={cn(
-              "group w-12 h-8 [&_svg]:size-4 [&_svg]:shrink-0",
-              classNames?.chevronRight,
+          <View className="flex-row items-center gap-2">
+            <Button
+              size="sm"
+              variant="ghost"
+              onPress={goToPreviousMonth}
+              disabled={disableNavigation}
+              className={cn(
+                "group [&_svg]:size-4 [&_svg]:shrink-0",
+                classNames?.chevronLeft,
+              )}
+              accessibilityLabel={`Go to previous month, ${format(subMonths(currentDate, 1), "MMMM yyyy", { locale })}`}
+            >
+              <ChevronLeft className="text-foreground size-6 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
+            </Button>
+            <Button
+              size="sm"
+              variant="ghost"
+              onPress={goToNextMonth}
+              disabled={disableNavigation}
+              className={cn(
+                "group [&_svg]:size-4 [&_svg]:shrink-0",
+                classNames?.chevronRight,
+              )}
+              accessibilityLabel={`Go to next month, ${format(addMonths(currentDate, 1), "MMMM yyyy", { locale: locale })}`}
+            >
+              <ChevronRight className="text-foreground size-6 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
+            </Button>
+            {expandable && (
+              <Button
+                size="sm"
+                variant="ghost"
+                onPress={() => setExpand(!expand)}
+                disabled={disableNavigation}
+                className={cn(
+                  "group [&_svg]:size-4 [&_svg]:shrink-0",
+                  classNames?.chevronRight,
+                )}
+              >
+                {expand ? (
+                  <Maximize2 className="text-foreground size-5 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
+                ) : (
+                  <Minimize2 className="text-foreground size-5 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
+                )}
+              </Button>
             )}
-            accessibilityLabel={`Go to next month, ${format(addMonths(currentDate, 1), "MMMM yyyy", { locale: locale })}`}
-          >
-            <ChevronRight className="text-primary size-6 web:size-4 web:transition-opacity web:opacity-60 web:group-hover:opacity-100" />
-          </Button>
+          </View>
         </View>
       )}
       <Table>
@@ -347,7 +371,7 @@ function Calendar(props: CalendarProps) {
               )}
             >
               {weekDays.map((day) => (
-                <TableHead key={day} className="text-center p-0 min-h-10 min-w-10">
+                <TableHead key={day} className="text-center p-0 flex-1">
                   <Text key={day} className="text-foreground text-center font-medium">
                     {day}
                   </Text>
@@ -356,28 +380,29 @@ function Calendar(props: CalendarProps) {
             </TableRow>
           </TableHeader>
         )}
-        <TableBody asChild>
+        <TableBody>
           <ScrollView
             horizontal={expand}
             pagingEnabled={expandable}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
+            contentContainerClassName="gap-2 flex-1 web:[&>div]:w-full"
             scrollToOverflowEnabled={true}
-            contentContainerClassName="gap-2"
+            removeClippedSubviews={true}
+            scrollEventThrottle={16}
           >
-            {generateCalenderRows(days).map((row, i) => (
+            {generateCalenderRows(days).map((item, index) => (
               <TableRow
-                key={i}
+                key={index.toString()}
                 className={cn(
                   "w-full border-0 web:hover:bg-muted/30",
-                  expand && "w-[39vh] native:w-[calc(var(---width)-48px)]",
                   "rtl" === dir && "flex-row-reverse",
                   classNames?.row,
                 )}
               >
-                {row.map((item, i) => (
+                {item.map((dayItem, i) => (
                   <TableCell key={i} className="p-0 flex-1">
-                    {renderDay({ item })}
+                    {renderDay({ item: dayItem })}
                   </TableCell>
                 ))}
               </TableRow>
@@ -394,14 +419,6 @@ function Calendar(props: CalendarProps) {
             className={classNames?.timestamp}
           />
         </View>
-      )}
-      {expandable && (
-        <Pressable
-          className="w-full h-3 mt-3 justify-center items-center"
-          onPress={() => setExpand(!expand)}
-        >
-          <View className="w-14 h-1 bg-primary/50 rounded-xl" />
-        </Pressable>
       )}
     </View>
   );
