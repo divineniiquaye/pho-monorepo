@@ -1,0 +1,45 @@
+name: Deploy Site
+
+on:
+    push:
+        branches: [develop, main]
+        paths: ["_site/**"]
+    pull_request:
+        paths: ["_site/**"]
+        types: [opened, reopened, auto_merge_enabled]
+        branches: [develop]
+    workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Vercel
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: actions/checkout@v4
+
+        - uses: pnpm/action-setup@v4
+          with:
+              version: 9.15.4
+
+        - uses: actions/setup-node@v4
+          with:
+              node-version: 22.x
+              cache: pnpm
+
+        - name: 📦 Install dependencies
+          run: pnpm install
+          shell: bash
+
+        - name: 🛠️ Pull Vercel Config
+          run: |
+              environment=$([[ "${{ github.ref }}" == 'refs/heads/main' ]] && echo "production" || echo "preview")
+              pnpm dlx vercel pull _site --yes --environment=$environment \
+                --token=${{ secrets.VERCEL_TOKEN }} \
+                ${{ github.ref_name == 'main' && '--prod' || '' }}
+              rm -rf .vercel && mv _site/.vercel .
+
+        - name: 🚀 Deploy to Vercel
+          run: |
+              pnpm dlx vercel build --token=${{ secrets.VERCEL_TOKEN }}
+              pnpm dlx vercel deploy --prebuilt --archive=tgz --token=${{ secrets.VERCEL_TOKEN }}

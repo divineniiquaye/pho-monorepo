@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Navigation } from "@/components/landing/Navigation";
+import HeroSection from "@/components/landing/HeroSection.astro";
+import { FeatureSection } from "@/components/landing/FeatureSection";
+import Footer from "@/components/landing/Footer.astro";
+---
+
+<Layout title="PHO Monorepo">
+    <Navigation client:load />
+    <HeroSection />
+    <FeatureSection />
+    <Footer />
+</Layout>

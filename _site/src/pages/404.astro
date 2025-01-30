@@ -1,0 +1,23 @@
+---
+import { Navigation } from "@/components/landing/Navigation";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Page Not Found">
+    <Navigation client:load />
+    <section class="min-h-screen bg-background flex items-center justify-center px-4">
+        <div class="max-w-md w-full text-center">
+            <span class="text-[8rem] block font-bold text-dark leading-none mb-4">
+                404
+            </span>
+            <h1 class="text-2xl font-bold mb-4">Page not found</h1>
+            <p class="text-muted-foreground mb-8">
+                The page you are looking for might have been removed, had its
+                name changed, or is temporarily unavailable.
+            </p>
+            <a href="/" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-4 py-2">
+                Back to home
+            </a>
+        </div>
+    </section>
+</Layout>

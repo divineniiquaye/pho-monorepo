@@ -1,0 +1,29 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/styles.css";
+
+import { SITE } from "@/config";
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description = SITE.desc } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <ClientRouter />
+    </head>
+    <body class="min-h-screen bg-background text-foreground">
+        <slot />
+    </body>
+</html>

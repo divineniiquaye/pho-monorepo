@@ -130,7 +130,6 @@ My main goals driving this template are:
 - [ ] Add Toast UI Component
 - [ ] Add Tests Mocks for every UI component
 - [ ] Add Storybook for every UI component
-- [ ] Add a Landing Page
 - [ ] Add Documentation
 - [ ] Add AI Integration
 

@@ -1,0 +1,123 @@
+---
+import { Check } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Icons } from "@/components/Icons";
+---
+
+<section class="pt-20 relative flex items-center w-full flex-col gap-8 max-w-7xl mx-auto">
+    <div
+        class="w-full mx-auto py-12 md:py-20 flex flex-col items-center gap-5 md:gap-7 px-4 md:px-0"
+    >
+        <div
+            class="px-2.5 py-1 inline-flex items-center gap-3 bg-zinc-400/10 rounded-md ring-1 ring-inset ring-zinc-400/20"
+        >
+            <Icons.confetti className="size-4" />
+            <div class="h-4 w-px bg-zinc-600"></div>
+            <p class="text-xs/6 font-medium text-zinc-300">PHO Monorepo just released!</p>
+        </div>
+        <h1
+            class={cn(
+                "inline-flex tracking-tight flex-col gap-1 transition text-center",
+                "font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-none lg:text-[4rem]",
+                "text-zinc-50",
+            )}
+        >
+            <span>
+                PHO{" "}
+                <span class="relative text-brand-400">
+                    <span
+                        class="absolute hidden sm:block z-0 bg-brand-200/10 -left-2 -top-1 -bottom-1 -right-2 md:-left-3 md:-top-0 md:-bottom-0 md:-right-3 -rotate-1"
+                    ></span>
+                    Monorepo <span class="hidden sm:inline-block">⚡</span>
+                </span>{" "}
+            </span>
+            <span>Expo/Next.js apps in minutes</span>
+        </h1>
+
+        <div class="flex flex-col items-center gap-6">
+            <p
+                class="text-muted-dark text-lg/7 md:text-xl/8 text-pretty sm:text-wrap sm:text-center text-center"
+            >
+                The stack for building production{" "}
+                <span class="text-brand-300">ready</span>,{" "}
+                <span class="text-brand-300">modern</span> and{" "}
+                <span class="inline sm:block">
+                    <span class="text-brand-400">end-to-end typesafe</span> Next.js/Expo apps.
+                </span>
+            </p>
+
+            <ul class="grid gap-3 text-muted-dark text-lg/7">
+                <li class="flex items-center gap-2">
+                    <Check className="size-5 text-brand-500" />
+                    <span>Incredible developer experience</span>
+                </li>
+                <li class="flex items-center gap-2">
+                    <Check className="size-5 text-brand-500" />
+                    <span>Automatic type-safety & autocompletion</span>
+                </li>
+                <li class="flex items-center gap-2">
+                    <Check className="size-5 text-brand-500" />
+                    <span>Deploy anywhere: Expo Deploy, Vercel, Cloudflare, etc.</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="relative flex flex-col items-center w-full">
+            <a
+                href="/docs"
+                class="button max-w-sm relative z-10 bg-gradient-to-br shadow-xl mt-4 transition from-brand-300 to-brand-400 hover:scale-[0.98] active:scale-[0.95] h-14 font-semibold text-zinc-800 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-md cursor-pointer hover:bg-brand-200/75 w-full"
+            >
+                Start Building Today &rarr;
+            </a>
+            <div
+                class="w-full grid grid-cols-2 sm:flex sm:flex-wrap justify-center items-center gap-8 px-4 md:px-6"
+            >
+                <a
+                    href="https://nextjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Next.js"
+                    class="flex justify-center items-center opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-opacity sm:border-r sm:border-dark-gray sm:pr-8"
+                >
+                    <Icons.nextjs className="w-24 md:w-32" />
+                </a>
+                <a
+                    href="https://expo.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Expo"
+                    class="flex justify-center items-center opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-opacity sm:border-r sm:border-dark-gray sm:pr-8"
+                >
+                    <Icons.expo className="w-24 h-24 md:w-32" />
+                </a>
+                <a
+                    href="https://reactnative.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="React Native"
+                    class="flex justify-center items-center opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-opacity sm:border-r sm:border-dark-gray sm:pr-8"
+                >
+                    <Icons.react className="size-10 md:size-12" />
+                </a>
+                <a
+                    href="https://www.typescriptlang.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TypeScript"
+                    class="flex justify-center items-center opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-opacity sm:border-r sm:border-dark-gray sm:pr-8"
+                >
+                    <Icons.typescript className="size-10 md:size-12" />
+                </a>
+                <a
+                    href="https://tailwindcss.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Tailwind CSS"
+                    class="flex justify-center items-center opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-opacity col-span-2 sm:col-span-1"
+                >
+                    <Icons.tailwind className="h-6 w-auto md:h-7 my-4 sm:my-0" />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
