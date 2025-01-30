@@ -13,7 +13,7 @@ on:
 jobs:
   deploy:
     name: Deploy to Vercel
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
         - uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
           run: pnpm install
           shell: bash
 
-        - name: 🛠️ Pull Vercel Config
+        - name: 🚀 Deploy to Vercel
           run: |
               environment=$([[ "${{ github.ref }}" == 'refs/heads/main' ]] && echo "production" || echo "preview")
               pnpm dlx vercel pull _site --yes --environment=$environment \
@@ -39,7 +39,5 @@ jobs:
                 ${{ github.ref_name == 'main' && '--prod' || '' }}
               rm -rf .vercel && mv _site/.vercel .
 
-        - name: 🚀 Deploy to Vercel
-          run: |
               pnpm dlx vercel build --token=${{ secrets.VERCEL_TOKEN }}
               pnpm dlx vercel deploy --prebuilt --archive=tgz --token=${{ secrets.VERCEL_TOKEN }}
