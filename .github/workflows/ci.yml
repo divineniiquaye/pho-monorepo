@@ -86,9 +86,7 @@ jobs:
             - name: 🛠️ Pull Vercel Config
               run: |
                   environment=$([[ "${{ github.ref }}" == 'refs/heads/main' ]] && echo "production" || echo "preview")
-                  pnpm dlx vercel pull apps/web --yes --environment=$environment \
-                    --token=${{ secrets.VERCEL_TOKEN }} \
-                    ${{ github.ref_name == 'main' && '--prod' || '' }}
+                  pnpm dlx vercel pull apps/web --yes --environment=$environment --token=${{ secrets.VERCEL_TOKEN }}
                   rm -rf .vercel && mv apps/web/.vercel .
 
             - name: 🚀 Deploy to Vercel
