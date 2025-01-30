@@ -1,3 +1,18 @@
+# v0.1.18 (Thu Jan 30 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(native): added expo-dev-client as dev dependency ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: vercel build issue on GitHub CI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: update GitHub site CI to run on macOS ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(site): replaced bun with pnpm ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.17 (Thu Jan 30 2025)
 
 #### ⚠️ Pushed to `main`
