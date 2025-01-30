@@ -1,3 +1,16 @@
+# v0.1.17 (Thu Jan 30 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat: improved Github Action's workflow ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: added landing page (marketing) ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.16 (Wed Jan 29 2025)
 
 #### ⚠️ Pushed to `main`
