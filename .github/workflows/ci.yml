@@ -86,7 +86,10 @@ jobs:
             - name: 🛠️ Pull Vercel Config
               run: |
                   environment=$([[ "${{ github.ref }}" == 'refs/heads/main' ]] && echo "production" || echo "preview")
-                  pnpm dlx vercel pull --yes --environment=$environment --token=${{ secrets.VERCEL_TOKEN }}
+                  pnpm dlx vercel pull apps/web --yes --environment=$environment \
+                    --token=${{ secrets.VERCEL_TOKEN }} \
+                    ${{ github.ref_name == 'main' && '--prod' || '' }}
+                  rm -rf .vercel && mv apps/web/.vercel .
 
             - name: 🚀 Deploy to Vercel
               run: |
@@ -144,9 +147,12 @@ jobs:
                   {
                     echo "EAS_BUILD=$EAS_BUILD"
                     echo "CURRENT_BUILD=${{ github.event.inputs.build || '$CURRENT_BUILD' }}"
+                    echo "EAS_UPDATE_ENV=${{ github.ref_name == 'main' && 'production' || 'preview' }}"
+                    echo "EAS_UPDATE_BRANCH=${{ github.ref_name == 'main' && 'main' || 'staging' }}"
                   } >> $GITHUB_OUTPUT
 
             - name: 🛠️ Build on EAS
+              continue-on-error: true # Remove this if you want to fail the build if EAS fails
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
                   # This can be removed and declared in your ENV_FILE directly
@@ -162,20 +168,22 @@ jobs:
                     $AUTO_SUBMIT
                   gh variable set NATIVE_BUILD_NUMBER --body ${{ steps.expo.outputs.CURRENT_BUILD }}
 
+            # In order not to push dev env to production, make sure to set envs in your expo account
             - name: 🚀 OTA Update
               uses: expo/expo-github-action/preview@v8
               if: ${{ steps.expo.outputs.EAS_BUILD == 'update' }}
               with:
-                  command: eas update --auto --json --non-interactive --platform ios --branch=${{ github.ref_name == 'main' && 'main' || 'staging' }}
+                  command: eas update --auto --json --non-interactive --platform ios --environment=${{ steps.expo.outputs.EAS_UPDATE_ENV }} --branch=${{ steps.expo.outputs.EAS_UPDATE_BRANCH }}
                   comment: false
 
-            - name: Android Build Cleanup
-              uses: actions-js/push@v1.5
-              if: ${{ steps.expo.outputs.EAS_BUILD == 'update' }}
-              with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  message: "Bump build number to: ${{ steps.expo.outputs.CURRENT_BUILD }} [skip ci]"
-                  branch: ${{ github.ref_name }}
+            # Uncomment this if you want to auto-bump build number
+            # - name: Android Build Cleanup
+            #   uses: actions-js/push@v1.5
+            #   if: ${{ steps.expo.outputs.EAS_BUILD == 'update' }}
+            #   with:
+            #       github_token: ${{ secrets.GITHUB_TOKEN }}
+            #       message: "Bump build number to: ${{ steps.expo.outputs.CURRENT_BUILD }} [skip ci]"
+            #       branch: ${{ github.ref_name }}
 
             # TODO
             # - name: 💬 Comment in Slack
