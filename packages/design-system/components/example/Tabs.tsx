@@ -69,8 +69,12 @@ export function TabsExample() {
             </CardHeader>
             <CardContent className="gap-4 native:gap-2">
               <View className="gap-1">
-                <Label nativeID="current">Current password</Label>
-                <Input placeholder="********" aria-labelledby="current" secureTextEntry />
+                <Input
+                  placeholder="Current password"
+                  aria-labelledby="current"
+                  variant="float"
+                  secureTextEntry
+                />
               </View>
               <View className="gap-1">
                 <Label nativeID="new">New password</Label>
