@@ -1,3 +1,16 @@
+# v0.1.19 (Fri Jan 31 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(design-system): added floating variant to input UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(i18n-config): improved languages scanning ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.18 (Thu Jan 30 2025)
 
 #### ⚠️ Pushed to `main`
