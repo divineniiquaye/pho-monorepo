@@ -1,6 +1,6 @@
 {
   "name": "pho-monorepo",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "bin": {
     "pho-monorepo": "scripts/init.mjs"
   },
@@ -39,8 +39,13 @@
     "node": ">=20"
   },
   "i18n-config": {
-    "paths": ["./apps/web", "./apps/native"],
-    "include": ["./packages/design-system/components"]
+    "paths": [
+      "./apps/web",
+      "./apps/native"
+    ],
+    "include": [
+      "./packages/design-system/components"
+    ]
   },
   "pnpm": {
     "patchedDependencies": {
