@@ -12,7 +12,7 @@ const packageJsonPath = path.join(__dirname, "../../package.json");
 // - t('key')
 // - t("key", {...}) where {...} optional and/or can span multiple lines
 const extractKeys =
-    /i18n\.t\(\s*(?:.*?\?\s*(['"])(.*?)\1\s*:\s*(['"])(.*?)\3|['"](.*?)['"])\s*?(?:\,\s*\{\s*defaultValue:\s*['"](.*)['"]+)?\)?/g;
+    /i18n\.t\(\s*(?:.*?\?\s*(['"])(.*?)\1\s*:\s*(['"])(.*?)\3|['"](.*)['"])\s*?(?:\,\s*\{\s*defaultValue:\s*['"](.*)['"]+)?\)?/g;
 
 /**
  * Loads and parses a JSON file
@@ -35,10 +35,11 @@ function saveJSON(filePath, data) {
 /**
  * Scans files and generates translations
  * @param {string} outputDir - Output directory path
+ * @param {string[]} extra - Extra paths to scan
  * @param {boolean} watchMode - Whether to watch for file changes
  * @returns {Promise<string>} Path to output file
  */
-async function scanAndGenerateTranslations(outputDir, watchMode) {
+async function scanAndGenerateTranslations(outputDir, extra, watchMode) {
     const outputFile = path.join(outputDir, "src/locales/en.json");
     /** @type {Object.<string, string>} */
     let translations = {};
@@ -52,8 +53,7 @@ async function scanAndGenerateTranslations(outputDir, watchMode) {
         let match;
 
         while ((match = extractKeys.exec(content)) !== null) {
-            const keys = [match[5] ?? match[4], match[2]];
-            keys.forEach((key) => {
+            [match[5] ?? match[4], match[2]].forEach((key) => {
                 if (key && !translations[key]) {
                     const value = match[6] ?? key;
                     if (key.includes(".")) {
@@ -97,13 +97,13 @@ async function scanAndGenerateTranslations(outputDir, watchMode) {
         );
     };
 
-    const globPattern = path.join(outputDir, "{app,src}/**/*.{js,ts,tsx}");
-    globSync(globPattern).forEach(matchLocale);
-    await generateTranslations();
+    const globPattern = [path.join(outputDir, "{app,src}/**/*.{js,ts,tsx}"), ...extra];
 
     if (watchMode) {
-        const watcher = async (filePath) => {
-            console.log(`Checking ${path.relative("../../", filePath)} 🔍`);
+        const watcher = async (eventName, filePath) => {
+            if (!["add", "addDir", "unlinkDir"].includes(eventName)) {
+                console.log(`Checking ${path.relative("../../", filePath)} 🔍`);
+            }
 
             translations = {}; // Reset translations
             globSync(globPattern).forEach(matchLocale);
@@ -114,8 +114,7 @@ async function scanAndGenerateTranslations(outputDir, watchMode) {
                 persistent: true,
                 interval: 1000,
             })
-            .on("change", watcher)
-            .on("unlink", watcher);
+            .on("all", watcher);
     }
 
     return outputFile;
@@ -198,8 +197,13 @@ function checkTranslations(outputFile) {
 async function main() {
     const args = process.argv.slice(2);
     const packageJSON = loadJSON(packageJsonPath);
-    const localesDirs = packageJSON["i18n-config"];
     const watchMode = args.includes("--watch");
+
+    const localesDirs = packageJSON?.["i18n-config"]?.["paths"] ?? [];
+    const extraIncludes =
+        packageJSON["i18n-config"]["include"]?.map((p) =>
+            path.join(__dirname, "../../", p, "**/*.{js,ts,tsx}"),
+        ) ?? [];
 
     if (!Array.isArray(localesDirs)) {
         console.error("No i18n-config found in package.json or it is not an array.");
@@ -208,7 +212,11 @@ async function main() {
 
     for (const localesDir of localesDirs) {
         const foundPath = path.join(__dirname, "../../", localesDir);
-        const outputFile = await scanAndGenerateTranslations(foundPath, watchMode);
+        const outputFile = await scanAndGenerateTranslations(
+            foundPath,
+            extraIncludes,
+            watchMode,
+        );
 
         if (args.includes("--check")) {
             const hasErrors = checkTranslations(outputFile, foundPath);

@@ -38,10 +38,10 @@
   "engines": {
     "node": ">=20"
   },
-  "i18n-config": [
-    "./apps/web",
-    "./apps/native"
-  ],
+  "i18n-config": {
+    "paths": ["./apps/web", "./apps/native"],
+    "include": ["./packages/design-system/components"]
+  },
   "pnpm": {
     "patchedDependencies": {
       "@react-native/assets-registry": "patches/@react-native__assets-registry.patch",
