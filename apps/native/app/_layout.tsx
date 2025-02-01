@@ -48,23 +48,21 @@ function useSplashScreen(loadResources: () => Promise<void>) {
 export default function RootLayout() {
   const isSplashScreenShown = useSplashScreen(async () => {
     Font.loadAsync({
-      GeistSans_100Thin: require("@/assets/fonts/GeistSans/Geist-Thin.otf"),
-      GeistSans_300Light: require("@/assets/fonts/GeistSans/Geist-Light.otf"),
-      GeistSans_400Regular: require("@/assets/fonts/GeistSans/Geist-Regular.otf"),
-      GeistSans_500Medium: require("@/assets/fonts/GeistSans/Geist-Medium.otf"),
-      GeistSans_600SemiBold: require("@/assets/fonts/GeistSans/Geist-SemiBold.otf"),
-      GeistSans_700Bold: require("@/assets/fonts/GeistSans/Geist-Bold.otf"),
-      GeistSans_800Black: require("@/assets/fonts/GeistSans/Geist-Black.otf"),
+      GeistSans_100Thin: require("@repo/design/fonts/GeistSans/GeistSans_100Thin.otf"),
+      GeistSans_300Light: require("@repo/design/fonts/GeistSans/GeistSans_300Light.otf"),
+      GeistSans_400Regular: require("@repo/design/fonts/GeistSans/GeistSans_400Regular.otf"),
+      GeistSans_500Medium: require("@repo/design/fonts/GeistSans/GeistSans_500Medium.otf"),
+      GeistSans_600SemiBold: require("@repo/design/fonts/GeistSans/GeistSans_600SemiBold.otf"),
+      GeistSans_700Bold: require("@repo/design/fonts/GeistSans/GeistSans_700Bold.otf"),
+      GeistSans_800Black: require("@repo/design/fonts/GeistSans/GeistSans_800Black.otf"),
 
-      GeistMono_100Thin: require("@/assets/fonts/GeistMono/Geist-Thin.otf"),
-      GeistMono_200UltraLight: require("@/assets/fonts/GeistMono/Geist-UltraLight.otf"),
-      GeistMono_300Light: require("@/assets/fonts/GeistMono/Geist-Light.otf"),
-      GeistMono_400Regular: require("@/assets/fonts/GeistMono/Geist-Regular.otf"),
-      GeistMono_500Medium: require("@/assets/fonts/GeistMono/Geist-Medium.otf"),
-      GeistMono_600SemiBold: require("@/assets/fonts/GeistMono/Geist-SemiBold.otf"),
-      GeistMono_700Bold: require("@/assets/fonts/GeistMono/Geist-Bold.otf"),
-      GeistMono_800Black: require("@/assets/fonts/GeistMono/Geist-Black.otf"),
-      GeistMono_900UltraBlack: require("@/assets/fonts/GeistMono/Geist-UltraBlack.otf"),
+      GeistMono_100Thin: require("@repo/design/fonts/GeistMono/GeistMono_100Thin.otf"),
+      GeistMono_300Light: require("@repo/design/fonts/GeistMono/GeistMono_300Light.otf"),
+      GeistMono_400Regular: require("@repo/design/fonts/GeistMono/GeistMono_400Regular.otf"),
+      GeistMono_500Medium: require("@repo/design/fonts/GeistMono/GeistMono_500Medium.otf"),
+      GeistMono_600SemiBold: require("@repo/design/fonts/GeistMono/GeistMono_600SemiBold.otf"),
+      GeistMono_700Bold: require("@repo/design/fonts/GeistMono/GeistMono_700Bold.otf"),
+      GeistMono_800Black: require("@repo/design/fonts/GeistMono/GeistMono_800Black.otf"),
     });
   });
 
