@@ -10,7 +10,7 @@ import {
 import { Text } from "@repo/design/ui/text";
 import { Button } from "@repo/design/ui/button";
 import { Languages } from "@repo/design/icons/Languages";
-import i18n, { Locale, locales } from "@repo/i18n-config";
+import { i18n, Locale, locales } from "@repo/i18n-config";
 
 export function LocaleSwitcher({ className }: { className?: string }) {
   const [isPending, startTransition] = React.useTransition();

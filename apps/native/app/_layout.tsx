@@ -7,10 +7,7 @@ import * as Font from "expo-font";
 import React from "react";
 
 import { Providers } from "@repo/design/providers";
-import { useI18nLocale } from "@/locales";
-
-import * as en from "@/locales/en.json";
-import * as fr from "@/locales/fr.json";
+import { loadI18nAsync } from "@/locales";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -19,6 +16,12 @@ export {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+// Loading translations should be done as early as possible
+loadI18nAsync({
+  en: { translation: require("@/locales/en.json") },
+  fr: { translation: require("@/locales/fr.json") },
+});
 
 // Enable reactivity for state management
 enableReactNativeComponents();
@@ -43,11 +46,6 @@ function useSplashScreen(loadResources: () => Promise<void>) {
 }
 
 export default function RootLayout() {
-  const forceUpdate = useI18nLocale({
-    en: { translation: en },
-    fr: { translation: fr },
-  });
-
   const isSplashScreenShown = useSplashScreen(async () => {
     Font.loadAsync({
       GeistSans_100Thin: require("@/assets/fonts/GeistSans/Geist-Thin.otf"),
@@ -74,9 +72,7 @@ export default function RootLayout() {
 
   return (
     <Providers>
-      <React.Fragment key={forceUpdate}>
-        <Slot />
-      </React.Fragment>
+      <Slot />
     </Providers>
   );
 }

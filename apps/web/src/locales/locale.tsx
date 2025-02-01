@@ -1,24 +1,15 @@
 "use client";
 
-import { Locale, useI18nLocale } from ".";
 import { Providers } from "@repo/design/providers";
-import { Fragment, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
+import { loadI18nAsync } from ".";
 
-import * as en from "@/locales/en.json";
-import * as fr from "@/locales/fr.json";
+// Loading translations should be done as early as possible
+loadI18nAsync({
+  en: { translation: require("@/locales/en.json") },
+  fr: { translation: require("@/locales/fr.json") },
+});
 
-export function I18nProvider({ children, lng }: PropsWithChildren<{ lng?: Locale }>) {
-  const forceUpdate = useI18nLocale(
-    {
-      en: { translation: en },
-      fr: { translation: fr },
-    },
-    lng,
-  );
-
-  return (
-    <Providers>
-      <Fragment key={forceUpdate}>{children}</Fragment>
-    </Providers>
-  );
+export function I18nProvider({ children }: PropsWithChildren) {
+  return <Providers>{children}</Providers>;
 }

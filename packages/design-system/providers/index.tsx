@@ -13,6 +13,7 @@ const KeyboardProvider =
     ? require("react-native-keyboard-controller").KeyboardProvider
     : React.Fragment;
 
+import { i18n } from "@repo/i18n-config";
 import { useColorScheme } from "../hooks/useColorScheme";
 import { ThemeProvider } from "./theme";
 import SonnerProvider from "./sonner";
@@ -30,6 +31,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   const hasMounted = React.useRef(false);
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [forceUpdate, setLangChange] = React.useState(0);
 
   useIsomorphicLayoutEffect(() => {
     if (hasMounted.current) {
@@ -38,6 +40,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
     setIsLoaded(true);
     hasMounted.current = true;
+    i18n.on("languageChanged", () => setLangChange((v) => v + 1));
   }, []);
 
   if (!isLoaded) {
@@ -51,7 +54,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       >
         <KeyboardProvider>
           <BottomSheetModalProvider>
-            {children}
+            <React.Fragment key={forceUpdate}>{children}</React.Fragment>
             <PortalHost />
             <SonnerProvider theme={colorScheme} />
           </BottomSheetModalProvider>

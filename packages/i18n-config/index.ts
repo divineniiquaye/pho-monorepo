@@ -1,5 +1,4 @@
 import i18n, { Resource } from "i18next";
-import React from "react";
 
 export const locales = [
     { id: "en", name: "English" },
@@ -9,19 +8,7 @@ export const locales = [
 export const AllLocales = locales.map((locale) => locale.id);
 export type Locale = (typeof AllLocales)[number];
 
-export const useI18nLocale = (resources: Resource, lng: Locale = "en"): number => {
-    const [key, forceUpdate] = React.useState(0);
-    React.useEffect(() => {
-        i18n.init({
-            fallbackLng: "en",
-            resources,
-            lng,
-        });
+const loadI18nAsync = async (resources: Resource, lng: Locale = "en") =>
+    i18n.init({ fallbackLng: "en", resources, lng });
 
-        i18n.on("languageChanged", (c) => forceUpdate((v) => v + 1));
-    }, []);
-
-    return key;
-};
-
-export default i18n;
+export { i18n, loadI18nAsync };

@@ -1,4 +1,3 @@
-import i18n from "@repo/i18n-config";
 export * from "@repo/i18n-config";
 
 declare module "i18next" {
@@ -9,5 +8,3 @@ declare module "i18next" {
         };
     }
 }
-
-export default i18n;

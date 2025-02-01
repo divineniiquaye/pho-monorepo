@@ -9,7 +9,7 @@ import { HStack } from "@repo/design/ui/stack";
 import { ScreenLayout } from "@repo/design/layout";
 import { toast } from "@repo/design/ui/sonner";
 import { Text } from "@repo/design/ui/text";
-import i18n from "@/locales";
+import { i18n } from "@/locales";
 import {
   Select,
   SelectContent,
@@ -99,10 +99,7 @@ export default function Native() {
           <Typography.H2>@rn-primitives</Typography.H2>
           <Typography.P className="font-medium">
             Styled with{" "}
-            <Link
-              className="hover:underline"
-              href="https://nativewind.dev"
-            >
+            <Link className="hover:underline" href="https://nativewind.dev">
               NativeWind
             </Link>
           </Typography.P>
