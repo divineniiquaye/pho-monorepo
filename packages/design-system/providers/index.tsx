@@ -3,10 +3,8 @@
 import { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { useWindowDimensions } from "react-native";
 import { PortalHost } from "@rn-primitives/portal";
 import Constants from "expo-constants";
-import { vars } from "nativewind";
 
 const KeyboardProvider =
   Constants.executionEnvironment !== "storeClient"
@@ -27,10 +25,8 @@ configureReanimatedLogger({
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const { colorScheme } = useColorScheme();
-  const { width, height } = useWindowDimensions();
 
   const hasMounted = React.useRef(false);
-  const [isLoaded, setIsLoaded] = React.useState(false);
   const [forceUpdate, setLangChange] = React.useState(0);
 
   useIsomorphicLayoutEffect(() => {
@@ -38,20 +34,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    setIsLoaded(true);
     hasMounted.current = true;
     i18n.on("languageChanged", () => setLangChange((v) => v + 1));
   }, []);
 
-  if (!isLoaded) {
-    return null;
-  }
-
   return (
     <ThemeProvider theme={colorScheme}>
-      <GestureHandlerRootView
-        style={[{ flex: 1 }, vars({ "---width": width, "---height": height })]}
-      >
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
           <BottomSheetModalProvider>
             <React.Fragment key={forceUpdate}>{children}</React.Fragment>
