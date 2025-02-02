@@ -1,3 +1,17 @@
+# v0.1.21 (Sun Feb 02 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(design-system): improved layout styling for mobile ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): improved language initialization ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved page load performance for web ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.20 (Sun Feb 02 2025)
 
 #### ⚠️ Pushed to `main`
