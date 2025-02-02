@@ -82,17 +82,18 @@ export function ScreenLayout({
   );
 
   return (
-    <View className="flex-grow">
+    <View
+      className={cn(
+        "bg-background flex-grow py-safe px-safe-offset-4 ios:landscape:px-safe-offset-1 transition-all android:duration-300",
+        className,
+      )}
+    >
       <StatusBar style="auto" {...status} />
       <Animated.View
-        className={cn(
-          "bg-background flex-1 py-safe px-safe-offset-4 ios:landscape:px-safe-offset-1",
-          "transition-[color,background-color,border-color,text-decoration-color,fill,stroke,padding-top,padding-bottom] ios:duration-200 android:duration-500",
-          className,
-        )}
         entering={animated?.entering}
         exiting={animated?.exiting}
         ref={transitionRef}
+        style={{ flex: 1 }}
         {...props}
       >
         {areInteractionsComplete ? (
