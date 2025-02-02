@@ -1,27 +1,14 @@
-import "@repo/tailwind-config/global.css";
-
 import { enableReactNativeComponents } from "@legendapp/state/config/enableReactNativeComponents";
-import * as SplashScreen from "expo-splash-screen";
-import { Slot } from "expo-router";
+import { Slot, SplashScreen } from "expo-router";
 import * as Font from "expo-font";
 import React from "react";
 
 import { Providers } from "@repo/design/providers";
-import { loadI18nAsync } from "@/locales";
 
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from "expo-router";
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-// Loading translations should be done as early as possible
-loadI18nAsync({
-  en: { translation: require("@/locales/en.json") },
-  fr: { translation: require("@/locales/fr.json") },
-});
 
 // Enable reactivity for state management
 enableReactNativeComponents();

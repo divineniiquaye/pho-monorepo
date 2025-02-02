@@ -2,7 +2,7 @@
   "name": "native",
   "version": "0.1.0",
   "private": true,
-  "main": "expo-router/entry",
+  "main": "index.tsx",
   "scripts": {
     "dev": "expo start",
     "build": "node ./scripts/build.js",
