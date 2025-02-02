@@ -1,3 +1,16 @@
+# v0.1.20 (Sun Feb 02 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(native): moved fonts into design system ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(i18n-config): improved language initialization ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.19 (Fri Jan 31 2025)
 
 #### ⚠️ Pushed to `main`
