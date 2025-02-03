@@ -1,6 +1,5 @@
 "use dom";
 
-import "@repo/tailwind-config/global.css";
 import { Button } from "@repo/design/ui/button";
 import { Minus, Plus } from "lucide-react-native";
 import { Bar, BarChart, ResponsiveContainer } from "recharts";
