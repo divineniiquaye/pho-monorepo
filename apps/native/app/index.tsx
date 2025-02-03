@@ -2,10 +2,10 @@ import { Link } from "expo-router";
 
 import { useColorScheme } from "@repo/design/hooks/useColorScheme";
 import * as Typography from "@repo/design/ui/typography";
+import { HStack, VStack } from "@repo/design/ui/stack";
 import { Separator } from "@repo/design/ui/separator";
 import { Progress } from "@repo/design/ui/progress";
 import { Button } from "@repo/design/ui/button";
-import { HStack } from "@repo/design/ui/stack";
 import { ScreenLayout } from "@repo/design/layout";
 import { toast } from "@repo/design/ui/sonner";
 import { Text } from "@repo/design/ui/text";
@@ -57,44 +57,46 @@ export default function Native() {
   const { setColorScheme } = useColorScheme();
 
   return (
-    <ScreenLayout delay={false} className="flex-col items-center">
-      <Text role="heading" className="text-2xl text-center font-bold mb-2">
-        Native
-      </Text>
-      <Button
-        variant="default"
-        onPress={() => {
-          console.log("Pressed!");
-          toast.info(
-            "Testing the toaster. This is a long description. You can describe your toast in detail.",
-            { position: "bottom-center" },
-          );
-          // alert("Pressed!");
-        }}
-      >
-        <Text>Boop</Text>
-      </Button>
-      <HStack className="mt-4 gap-4 items-center">
-        <Select
-          onValueChange={(option) =>
-            setColorScheme(option?.value as "system" | "light" | "dark")
-          }
+    <ScreenLayout delay={false}>
+      <VStack className="mx-4 items-center">
+        <Text role="heading" className="text-2xl text-center font-bold mb-2">
+          Native
+        </Text>
+        <Button
+          variant="default"
+          onPress={() => {
+            console.log("Pressed!");
+            toast.info(
+              "Testing the toaster. This is a long description. You can describe your toast in detail.",
+              { position: "bottom-center" },
+            );
+            // alert("Pressed!");
+          }}
         >
-          <SelectTrigger className="w-48">
-            <SelectValue
-              className="text-foreground text-sm native:text-lg"
-              placeholder={i18n.t("Select a theme")}
-            />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem label="System" value="system" />
-            <SelectItem label="Light" value="light" />
-            <SelectItem label="Dark" value="dark" />
-          </SelectContent>
-        </Select>
-        <LocaleSwitcher />
-      </HStack>
-      <ScrollView contentContainerClassName="gap-5" className="my-3 w-full">
+          <Text>Boop</Text>
+        </Button>
+        <HStack className="mt-4 gap-4 items-center">
+          <Select
+            onValueChange={(option) =>
+              setColorScheme(option?.value as "system" | "light" | "dark")
+            }
+          >
+            <SelectTrigger className="w-48">
+              <SelectValue
+                className="text-foreground text-sm native:text-lg"
+                placeholder={i18n.t("Select a theme")}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem label="System" value="system" />
+              <SelectItem label="Light" value="light" />
+              <SelectItem label="Dark" value="dark" />
+            </SelectContent>
+          </Select>
+          <LocaleSwitcher />
+        </HStack>
+      </VStack>
+      <ScrollView contentContainerClassName="gap-5" className="my-3">
         <HStack space="sm" className="items-baseline">
           <Typography.H2>@rn-primitives</Typography.H2>
           <Typography.P className="font-medium">
