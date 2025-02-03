@@ -38,7 +38,7 @@ My main goals driving this template are:
 - 🚫 Lint-staged: Run Eslint and TypeScript checks on Git staged files to maintain code quality.
 - 🗂 VSCode recommended extensions, settings, and snippets for an enhanced developer experience.
 - 🛠 [Github Actions](https://github.com/features/actions) workflows for building, releasing, testing, and distributing your app.
-- 🔥 [React Query](https://react-query.tanstack.com/) and [axios](https://github.com/axios/axios) for efficient data fetching and state management.
+- 🔥 [React Query](https://react-query.tanstack.com/) and [axios](https://github.com/axios/axios) for efficient data fetching and state management. **(In progress)**
 - 🧵 Robust form handling with [react-hook-form](https://react-hook-form.com/) and [zod](https://github.com/colinhacks/zod) for validation, plus keyboard handling.
 - 🎯 Localization support with [i18next](https://www.i18next.com/).
 - 🧪 Unit testing setup with [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) **(In progress)**.
@@ -50,7 +50,6 @@ My main goals driving this template are:
 - [Expo Router](https://docs.expo.dev/router/introduction/)
 - [NextJS](https://nextjs.org/)
 - [Nativewind](https://www.nativewind.dev/v4/overview)
-- [Flash list](https://github.com/Shopify/flash-list)
 - [React Query](https://tanstack.com/query/v4)
 - [Axios](https://axios-http.com/docs/intro)
 - [React Hook Form](https://react-hook-form.com/)
@@ -60,7 +59,6 @@ My main goals driving this template are:
 - [React Native Gesture Handler](https://docs.swmansion.com/react-native-gesture-handler/docs/)
 - [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/docs/)
 - [React Native Svg](https://github.com/software-mansion/react-native-svg)
-- [React Error Boundaries](https://github.com/bvaughn/react-error-boundary)
 - [Expo Image](https://docs.expo.dev/versions/unversioned/sdk/image/)
 - [React Native Keyboard Controller](https://github.com/kirillzyusko/react-native-keyboard-controller)
 - [React Native Safe Area Context](https://github.com/th3rdwave/react-native-safe-area-context)
@@ -81,7 +79,7 @@ My main goals driving this template are:
 - Calender (Alternative [Flash-Calender](https://github.com/MarceloPrado/flash-calendar) by [@MarceloPrado](https://github.com/MarceloPrado) or [Calendar-kit](https://github.com/f0wu5u/calendar-kit) by [@f0wu5u](https://github.com/f0wu5u))
 - Card
 - Carousel (Web only, use `use dom` for native support)
-- Chart (Web only, use `use dom` or `victory` chart for native support)
+- Chart (Web only, use `use dom` or [Victory-Native](https://github.com/FormidableLabs/victory-native-xl) chart for native support)
 - Checkbox
 - Collapsible
 - Command
