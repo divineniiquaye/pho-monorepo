@@ -74,9 +74,6 @@ importers:
 
   apps/native:
     dependencies:
-      '@expo-google-fonts/inter':
-        specifier: 0.2.3
-        version: 0.2.3
       '@expo/vector-icons':
         specifier: 14.0.4
         version: 14.0.4
@@ -1427,9 +1424,6 @@ packages:
   '@eslint/plugin-kit@0.2.5':
     resolution: {integrity: sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@expo-google-fonts/inter@0.2.3':
-    resolution: {integrity: sha512-iHK9FI+dnE45X5c2Z5hSFwNH4zUWethizpbv3XUn0FIGw5jwvzriENz0a6wCdkI4/d+1QkurnHo5XHti7TbNJA==}
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
@@ -9249,8 +9243,6 @@ snapshots:
     dependencies:
       '@eslint/core': 0.10.0
       levn: 0.4.1
-
-  '@expo-google-fonts/inter@0.2.3': {}
 
   '@expo/bunyan@4.0.1':
     dependencies:
