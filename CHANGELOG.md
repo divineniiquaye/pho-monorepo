@@ -1,3 +1,21 @@
+# v0.1.23 (Mon Feb 03 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat: discard any changes in CI before creating new release ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore: bump deps ⚡️ ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: added `--no-frozen-lockfile` to pnpm CI install ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): removed double import of css for `use dom` ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(native): improved main screen ui ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: updated pnpm to version 10.2.0 ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: remove deps update CI workflow ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.22 (Mon Feb 03 2025)
 
 #### ⚠️ Pushed to `main`
