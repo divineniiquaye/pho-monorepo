@@ -1,3 +1,19 @@
+# v0.1.22 (Mon Feb 03 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(web): added `EXPO_OS` env to resolve expo libraries ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(web): added support to load fonts ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): removed expo inter font in favor of Geist font ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(i18n-config): updated scanning regex ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.21 (Sun Feb 02 2025)
 
 #### ⚠️ Pushed to `main`
