@@ -12,7 +12,7 @@ const packageJsonPath = path.join(__dirname, "../../package.json");
 // - t('key')
 // - t("key", {...}) where {...} optional and/or can span multiple lines
 const extractKeys =
-    /i18n\.t\(\s*(?:.*?\?\s*(['"])(.*?)\1\s*:\s*(['"])(.*?)\3|['"](.*)['"])\s*?(?:\,\s*\{\s*defaultValue:\s*['"](.*)['"]+)?\)?/g;
+    /i18n\.t\(\s*(?:.*?\?\s*(['"])((?:\\.|(?!\1).)*)\1\s*:\s*(['"])((?:\\.|(?!\3).)*)\3|(['"])((?:\\.|(?!\5).)*)\5)\s*(?:,\s*\{\s*defaultValue:\s*(['"])((?:\\.|(?!\7).)*)\7)?\s*\)?/g;
 
 /**
  * Loads and parses a JSON file
@@ -53,9 +53,9 @@ async function scanAndGenerateTranslations(outputDir, extra, watchMode) {
         let match;
 
         while ((match = extractKeys.exec(content)) !== null) {
-            [match[5] ?? match[4], match[2]].forEach((key) => {
+            [match[6] ?? match[4], match[2]].forEach((key) => {
                 if (key && !translations[key]) {
-                    const value = match[6] ?? key;
+                    const value = match[8] ?? key;
                     if (key.includes(".")) {
                         const parts = key.split(".");
                         let current = translations;
