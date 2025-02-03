@@ -8,6 +8,7 @@ export const Env = createEnv({
             .optional()
             .transform((v) => (v ? `https://${v}` : undefined)),
         PORT: z.coerce.number().default(3000),
+        EXPO_OS: z.enum(["ios", "android", "web"]).default("web"),
     },
 
     /**
@@ -27,6 +28,7 @@ export const Env = createEnv({
      */
     runtimeEnv: {
         NEXT_URL: process.env.NEXT_URL || process.env.NEXT_PUBLIC_SITE_URL,
+        EXPO_OS: process.env.EXPO_OS,
         PORT: process.env.PORT,
     },
     skipValidation: !!process.env.CI || !!process.env.SKIP_ENV_VALIDATION,
