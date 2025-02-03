@@ -33,6 +33,15 @@ function withExpo(nextConfig) {
                 ...(config.resolve?.extensions ?? []),
             ];
 
+            if (!config.module.rules) {
+                config.module.rules = [];
+            }
+
+            config.module.rules.push({
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: "asset/resource",
+            });
+
             if (!config.plugins) {
                 config.plugins = [];
             }
@@ -63,6 +72,7 @@ const nextConfig = {
         "expo",
         "expo-constants",
         "expo-modules-core",
+        "@expo/vector-icons",
         "nativewind",
         "react-native-css-interop",
         "react-native-reanimated",

@@ -37,7 +37,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "14.0.4",
     "@legendapp/state": "catalog:",
     "@react-native-async-storage/async-storage": "2.1.00",
     "@repo/design": "workspace:*",
