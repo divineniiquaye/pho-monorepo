@@ -1,3 +1,17 @@
+# v0.1.24 (Thu Mar 20 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(design-system): improved layout UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added bottom sheet navigator ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added native support for carousel UI ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.23 (Mon Feb 03 2025)
 
 #### ⚠️ Pushed to `main`
