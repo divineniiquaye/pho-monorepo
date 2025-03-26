@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { execSync } from "node:child_process";
+import { execSync, execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { mkdir } from "node:fs/promises";
 import { program } from "commander";
@@ -128,7 +128,7 @@ program
             await mkdir(tempDir);
 
             log(chalk.blue("Cloning pho-monorepo..."));
-            execSync(`git clone ${url} ${tempDir}`, execSyncOpts);
+            execFileSync("git", ["clone", url, tempDir], execSyncOpts);
             process.chdir(tempDir);
 
             log(chalk.blue(`Checking out version ${from}...`));
