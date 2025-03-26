@@ -12,7 +12,7 @@ const packageJsonPath = path.join(__dirname, "../../package.json");
 // - t('key')
 // - t("key", {...}) where {...} optional and/or can span multiple lines
 const extractKeys =
-    /i18n\.t\(\s*(?:.*?\?\s*(['"])((?:\\.|(?!\1).)*)\1\s*:\s*(['"])((?:\\.|(?!\3).)*)\3|(['"])((?:\\.|(?!\5).)*)\5)\s*(?:,\s*\{\s*defaultValue:\s*(['"])((?:\\.|(?!\7).)*)\7)?\s*\)?/g;
+    /i18n\.t\(\s*(?:.*?\s*\?\s*(['"])((?:\\.|(?!\1).)*)\1\s*:\s*(['"])((?:\\.|(?!\3).)*)\3|(['"])((?:\\.|(?!\5).)*)\5)\s*(?:,\s*\{\s*defaultValue:\s*(['"])((?:\\.|(?!\7).)*)\7)?\s*\)?/g;
 
 /**
  * Loads and parses a JSON file
