@@ -8,10 +8,17 @@ import { loadI18nAsync } from "@/locales";
 SplashScreen.preventAutoHideAsync();
 
 // Loading translations should be done as early as possible
-loadI18nAsync({
-  en: { translation: require("@/locales/en.json") },
-  fr: { translation: require("@/locales/fr.json") },
-});
+const locales = require.context("./src/locales", true, /\.json$/);
+loadI18nAsync(
+  Object.assign(
+    {},
+    ...locales
+      .keys()
+      .map((key) => ({
+        [key.replace(/^\.\/|\.json$/g, "")]: { translation: locales(key) },
+      })),
+  ),
+);
 
 // https://docs.expo.dev/router/reference/troubleshooting/#expo_router_app_root-not-defined
 export function App() {
