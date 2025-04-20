@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { PortalHost } from "@rn-primitives/portal";
 import Constants from "expo-constants";
+import React from "react";
 
 const KeyboardProvider =
   Constants.executionEnvironment !== "storeClient"
@@ -15,8 +16,8 @@ import { i18n } from "@repo/i18n-config";
 import { useColorScheme } from "../hooks/useColorScheme";
 import { ThemeProvider } from "./theme";
 import SonnerProvider from "./sonner";
+import QueryProvider from "./query";
 import isWeb from "../lib/isWeb";
-import React from "react";
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.error,
@@ -42,11 +43,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider theme={colorScheme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
-          <BottomSheetModalProvider>
-            <React.Fragment key={forceUpdate}>{children}</React.Fragment>
-            <PortalHost />
-            <SonnerProvider theme={colorScheme} />
-          </BottomSheetModalProvider>
+          <QueryProvider>
+            <BottomSheetModalProvider>
+              <React.Fragment key={forceUpdate}>{children}</React.Fragment>
+              <PortalHost />
+              <SonnerProvider theme={colorScheme} />
+            </BottomSheetModalProvider>
+          </QueryProvider>
         </KeyboardProvider>
       </GestureHandlerRootView>
     </ThemeProvider>
