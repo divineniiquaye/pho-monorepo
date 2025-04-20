@@ -147,20 +147,6 @@ const config: import("expo/config").ExpoConfig = {
                 },
             },
         ],
-        [
-            "expo-build-properties",
-            {
-                android: {
-                    enableProguardInReleaseBuilds: true,
-                    enableShrinkResourcesInReleaseBuilds: true,
-                    disableAutomaticComponentCreation: true,
-                },
-                ios: {
-                    useFrameworks: "static",
-                    RNFirebaseAnalyticsWithoutAdIdSupport: true,
-                },
-            },
-        ],
         ...plugins(buildTime.parse(_buildTimeEnv)),
     ],
     ios: {
