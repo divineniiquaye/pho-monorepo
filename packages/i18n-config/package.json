@@ -2,6 +2,7 @@
   "name": "@repo/i18n-config",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "exports": {
     ".": "./index.ts"
   },
@@ -10,12 +11,11 @@
     "locale": "node ./script.js"
   },
   "dependencies": {
-    "i18next": "24.2.2",
-    "react": "18.3.1"
+    "i18next": "25.0.1"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/react": "18.3.18",
+    "@types/fs-extra": "11.0.4",
     "chokidar": "4.0.3",
     "glob": "11.0.1"
   }

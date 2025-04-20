@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const { glob, globSync } = require("glob");
-const chokidar = require("chokidar");
-const fs = require("fs-extra");
-const path = require("path");
+import { glob, globSync } from "glob";
+import chokidar from "chokidar";
+import path from "node:path";
+import fs from "fs-extra";
 
 // Path to the package.json file
-const packageJsonPath = path.join(__dirname, "../../package.json");
+const packageJsonPath = path.join(import.meta.dirname, "../../package.json");
 
 // Enhanced regex pattern to match:
 // - t('key')
@@ -30,6 +30,36 @@ function loadJSON(filePath) {
  */
 function saveJSON(filePath, data) {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n", "utf-8");
+}
+
+/**
+ * Check & resolve empty translations
+ * @param {Object} translations - Translations to check
+ * @param {string[] | undefined} localeKeys - keys to check against
+ * @returns {Object | string[]} Resolved translations or missing keys
+ */
+function resolveEmptyTranslations(translations, localeKeys) {
+    if (!!localeKeys) {
+        return Object.fromEntries(
+            Object.entries(translations)
+                .filter(([k]) => localeKeys.includes(k))
+                .map(([k, v]) => {
+                    return [
+                        k,
+                        typeof v === "object" && v?.constructor === Object
+                            ? resolveEmptyTranslations(v, Object.keys(v))
+                            : "",
+                    ];
+                }),
+        );
+    }
+
+    return Object.entries(translations).filter(([k, v]) => [
+        k,
+        typeof v === "object" && v?.constructor === Object
+            ? resolveEmptyTranslations(v)
+            : "" === v,
+    ]);
 }
 
 /**
@@ -97,12 +127,14 @@ async function scanAndGenerateTranslations(outputDir, extra, watchMode) {
         );
     };
 
-    const globPattern = [path.join(outputDir, "{app,src}/**/*.{js,ts,tsx}"), ...extra];
-
     if (watchMode) {
+        const globPattern = [
+            path.join(outputDir, "{app,src}/**/*.{js,ts,tsx}"),
+            ...extra,
+        ];
         const watcher = async (eventName, filePath) => {
             if (!["add", "addDir", "unlinkDir"].includes(eventName)) {
-                console.log(`Checking ${path.relative("../../", filePath)} 🔍`);
+                console.count(`\rChecking ${path.relative("../../", filePath)} 🔍`);
             }
 
             translations = {}; // Reset translations
@@ -121,73 +153,65 @@ async function scanAndGenerateTranslations(outputDir, extra, watchMode) {
 }
 
 /**
- * Syncs translations across locale files
- * @param {string} outputFile - Path to output file
- */
-function syncTranslations(outputFile) {
-    const outputDir = path.dirname(outputFile);
-    const keysInEnglish = new Set(Object.keys(loadJSON(outputFile)));
-
-    const localeFiles = fs
-        .readdirSync(outputDir)
-        .filter((file) => file.endsWith(".json") && file !== "en.json");
-
-    localeFiles.forEach((localeFile) => {
-        const localePath = path.join(outputDir, localeFile);
-        const localeTranslations = loadJSON(localePath);
-        /** @type {Object.<string, string>} */
-        const updatedTranslations = {};
-
-        keysInEnglish.forEach((key) => {
-            updatedTranslations[key] = localeTranslations.hasOwnProperty(key)
-                ? localeTranslations[key]
-                : "";
-        });
-
-        saveJSON(localePath, updatedTranslations);
-        console.log(`Synced keys for locale: ${localeFile} 🌟`);
-    });
-}
-
-/**
  * Checks translations for completeness
  * @param {string} outputFile - Path to output file
+ * @param {boolean} dryRun - Whether to run in dry run mode
  * @returns {boolean} Whether there are any errors
  */
-function checkTranslations(outputFile) {
-    const outputDir = dirname(outputFile);
-    const keysInEnglish = new Set(Object.keys(loadJSON(outputFile)));
-    const localeFiles = fs
-        .readdirSync(outputDir)
-        .filter((file) => file.endsWith(".json") && file !== "en.json");
+function checkTranslations(outputFile, dryRun) {
+    const englishTranslations = loadJSON(outputFile);
+    const englishKeys = Object.keys(englishTranslations);
+    const outputDir = path.dirname(outputFile);
+    const hasErrors = {};
 
-    let hasErrors = false;
+    fs.readdirSync(outputDir)
+        .filter((file) => file.endsWith(".json") && file !== "en.json")
+        .forEach((localeFile) => {
+            const localeTranslations = loadJSON(path.join(outputDir, localeFile));
+            const localeKeys = Object.keys(localeTranslations);
 
-    localeFiles.forEach((localeFile) => {
-        const localeTranslations = loadJSON(path.join(outputDir, localeFile));
-        const localeKeys = new Set(Object.keys(localeTranslations));
-
-        // Check for missing translations
-        const missingKeys = [...keysInEnglish].filter((key) => !localeKeys.has(key));
-        const emptyTranslations = [...localeKeys].filter(
-            (key) => localeKeys.has(key) && localeTranslations[key] === "",
-        );
-
-        if (missingKeys.length > 0 || emptyTranslations.length > 0) {
-            hasErrors = true;
-            console.error(`\n🚨 Issues found in ${localeFile}:`);
+            // Check for missing translations
+            const missingKeys = [...englishKeys].filter((k) => !localeKeys.includes(k));
+            const emptyTranslations = resolveEmptyTranslations(localeTranslations);
 
             if (missingKeys.length > 0) {
-                console.error("Missing keys:", missingKeys);
+                const groupedTranslations = {
+                    ...resolveEmptyTranslations(englishTranslations, missingKeys),
+                    ...localeTranslations,
+                };
+                if (!dryRun) {
+                    saveJSON(
+                        path.join(outputDir, localeFile),
+                        Object.keys(groupedTranslations)
+                            .sort(
+                                (a, b) =>
+                                    a.length +
+                                    groupedTranslations[a].length -
+                                    (b.length + groupedTranslations[b].length),
+                            )
+                            .reduce((acc, key) => {
+                                acc[key] = groupedTranslations[key];
+                                return acc;
+                            }, {}),
+                    );
+                }
             }
 
-            if (emptyTranslations.length > 0) {
-                console.error("Empty translations:", emptyTranslations);
+            if (missingKeys.length > 0 || emptyTranslations.length > 0) {
+                hasErrors[localeFile] =
+                    `(${missingKeys.length}) untranslated keys has been resolved and (${emptyTranslations.length}) has empty values`;
             }
-        }
-    });
+        });
 
-    return hasErrors;
+    if (Object.keys(hasErrors).length > 0) {
+        console.error(
+            `\n🚨 Translation Issues found in ${path.relative("../../", outputDir)}`,
+        );
+        console.table(hasErrors);
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -198,11 +222,12 @@ async function main() {
     const args = process.argv.slice(2);
     const packageJSON = loadJSON(packageJsonPath);
     const watchMode = args.includes("--watch");
+    const localeSuccess = {};
 
     const localesDirs = packageJSON?.["i18n-config"]?.["paths"] ?? [];
     const extraIncludes =
         packageJSON["i18n-config"]["include"]?.map((p) =>
-            path.join(__dirname, "../../", p, "**/*.{js,ts,tsx}"),
+            path.join(import.meta.dirname, "../../", p, "**/*.{js,ts,tsx}"),
         ) ?? [];
 
     if (!Array.isArray(localesDirs)) {
@@ -211,26 +236,25 @@ async function main() {
     }
 
     for (const localesDir of localesDirs) {
-        const foundPath = path.join(__dirname, "../../", localesDir);
+        const foundPath = path.join(import.meta.dirname, "../../", localesDir);
         const outputFile = await scanAndGenerateTranslations(
             foundPath,
             extraIncludes,
             watchMode,
         );
 
-        if (args.includes("--check")) {
-            const hasErrors = checkTranslations(outputFile, foundPath);
-            if (!hasErrors) {
-                console.log(`All translations in ${localesDir} are complete! 🚀`);
-            }
-        } else if (args.includes("--resolve")) {
-            syncTranslations(outputFile, foundPath);
-            console.log(`Translation files in ${localesDir} synced successfully. ✅`);
+        if (!checkTranslations(outputFile, args.includes("--dry-run"))) {
+            localeSuccess[localesDir] = "All translations are synced with en 🚀";
         }
     }
 
+    if (Object.keys(localeSuccess).length > 0) {
+        console.log("\n✅ Translations are complete!");
+        console.table(localeSuccess);
+    }
+
     if (watchMode) {
-        console.log("Watching for file changes... 👀");
+        console.log("\nWatching for file changes... 👀");
         process.stdin.resume(); // Keep process alive
     }
 }
