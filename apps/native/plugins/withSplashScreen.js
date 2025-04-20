@@ -69,6 +69,8 @@ const withCustomStylesXml = (config) =>
  * How it works:
  *   1) Replace the default splash screen with a transparent screen
  *   2) Set the splash screen status bar to translucent
+ * 
+ * @deprecated - This plugin is deprecated and will be removed in the next major version.
  */
 module.exports = function withSplashScreen(config) {
     config = withAndroidSplashScreen(config);
