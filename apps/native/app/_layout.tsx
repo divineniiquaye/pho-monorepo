@@ -5,6 +5,9 @@ import React from "react";
 
 import { Providers } from "@repo/design/providers";
 
+// Register bottom sheets
+import "@/sheets";
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
