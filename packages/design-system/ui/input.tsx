@@ -1,122 +1,254 @@
 "use client";
 
+import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import {
+  Animated,
+  Easing,
+  LayoutChangeEvent,
+  Pressable,
+  TextInput as RNTextInput,
+  StyleProp,
+  TextStyle,
+  View,
+} from "react-native";
 
-import { EyeOffIcon } from "../icons/EyeOffIcon";
-import { Eye } from "../icons/Eye";
 import { cn } from "../lib/utils";
 
-const Input = React.memo(
-  React.forwardRef<
-    React.ComponentRef<typeof TextInput>,
-    React.ComponentPropsWithoutRef<typeof TextInput> & {
-      variant?: "default" | "underline" | "float" | "float-underline";
-      containerClassName?: string;
-      left?: React.ComponentType;
-      right?: React.ComponentType;
-      as?: typeof TextInput;
-    }
-  >(
-    (
-      {
-        left: LeftComponent,
-        right: RightComponent,
-        onChangeText,
-        className,
-        variant = "default",
-        placeholderClassName,
-        containerClassName,
-        secureTextEntry,
-        placeholder,
-        as: As,
-        onFocus,
-        onBlur,
-        ...props
+const inputVariant = cva(
+  "flex-row overflow-hidden content-center items-center border-input px-3",
+  {
+    variants: {
+      size: { "2xl": "h-16", xl: "h-14", lg: "h-12", md: "h-11", sm: "h-9" },
+
+      variant: {
+        underlined: "rounded-none border-b",
+        outline: "rounded-md border",
+        rounded: "rounded-full border",
       },
-      ref,
-    ) => {
-      const Component = As ?? TextInput;
-      const [secureEntry, setSecureEntry] = React.useState(!!secureTextEntry);
-      const [isFocused, setIsFocused] = React.useState(false);
-
-      const [currentValue, setValue] = React.useState("");
-      const value = props?.value ?? currentValue ?? props?.defaultValue;
-
-      const inputRef = React.useRef<TextInput>(null);
-      React.useImperativeHandle(ref, () => inputRef.current!);
-      const float = ["float", "float-underline"].includes(variant);
-
-      if (props?.onChange) {
-        console.warn("onChange is not supported on Input. Use onChangeText instead.");
-      }
-
-      return (
-        <Pressable
-          onPress={() => inputRef.current?.focus()}
-          className={cn(
-            "flex-row items-center justify-between gap-2 h-[2.6rem] native:h-[2.9rem] web:py-1.5 border-input px-3 bg-background transition-colors duration-300",
-            ["underline", "float-underline"].includes(variant)
-              ? "border-b-[1.4px]"
-              : "border-[1.4px] rounded-md",
-            props.editable === false && "opacity-50 cursor-not-allowed",
-            isFocused && "border-ring outline-none",
-            containerClassName,
-          )}
-        >
-          {LeftComponent && <LeftComponent />}
-          <Text
-            className={cn(
-              "absolute pl-3 inset-x-0 text-muted-foreground text-base web:text-sm leading-[1.25] transition-all duration-300",
-              !!value && {
-                "web:text-xs native:text-[12.4px] -translate-y-[13px] web:-translate-y-3 native:pt-1":
-                  float,
-                "opacity-0 web:hidden": !float,
-              },
-              placeholderClassName,
-            )}
-          >
-            {placeholder}
-          </Text>
-          <Component
-            ref={inputRef}
-            className={cn(
-              "web:w-full native:flex-1 border-none outline-none text-base web:text-sm leading-[1.25] text-foreground placeholder:text-muted-foreground file:bg-transparent file:font-medium",
-              float && value && "pt-2",
-              className,
-            )}
-            onChangeText={(text) => {
-              if (onChangeText) onChangeText(text);
-              else setValue(text);
-            }}
-            onFocus={(e) => {
-              setIsFocused(true);
-              onFocus?.(e);
-            }}
-            onBlur={(e) => {
-              setIsFocused(false);
-              onBlur?.(e);
-            }}
-            secureTextEntry={secureEntry}
-            {...props}
-          />
-          {RightComponent ? (
-            <RightComponent />
-          ) : secureTextEntry ? (
-            <Pressable onPress={() => setSecureEntry(!secureEntry)}>
-              {secureEntry ? (
-                <EyeOffIcon className="text-foreground size-4 native:size-5" />
-              ) : (
-                <Eye className="text-foreground size-4 native:size-5" />
-              )}
-            </Pressable>
-          ) : null}
-        </Pressable>
-      );
     },
-  ),
+    defaultVariants: { variant: "outline", size: "md" },
+  },
 );
 
+const inputIconVariant = cva("justify-center items-center text-muted-foreground fill-none", {
+  variants: {
+    size: {
+      sm: "h-4 w-4",
+      md: "h-[18px] w-[18px]",
+      lg: "h-5 w-5",
+      xl: "h-6 w-6",
+      "2xl": "h-7 w-7",
+    },
+  },
+});
+
+const inputFieldVariant = cva(
+  "flex-1 text-foreground py-0 placeholder:text-muted-foreground h-full ios:leading-[0px] web:cursor-text",
+  {
+    variants: {
+      variant: {
+        underlined: "web:outline-0 web:outline-none px-0",
+        outline: "web:outline-0 web:outline-none",
+        rounded: "web:outline-0 web:outline-none px-4",
+      },
+
+      size: {
+        sm: "text-sm",
+        md: "text-base",
+        lg: "text-lg",
+        xl: "text-xl",
+        "2xl": "text-xl",
+      },
+    },
+  },
+);
+
+const floatInputVariant = {
+  sm: [12.2, 9],
+  md: [14, 11],
+  lg: [15.8, 12.4],
+  xl: [17.4, 13.4],
+  "2xl": [17.4, 14],
+};
+
+type InputContextType = {
+  isFocused: boolean;
+  setIsFocused: (value: boolean) => void;
+  variant: "underlined" | "outline" | "rounded" | null;
+  size?: "2xl" | "xl" | "lg" | "md" | "sm" | null;
+  editable?: boolean;
+  label: { text?: string; position: Animated.Value };
+};
+
+const InputContext = React.createContext<InputContextType | null>(null);
+
+type InputProps = React.ComponentProps<typeof View> &
+  VariantProps<typeof inputVariant> & {
+    /** If false, text is not editable. The default value is true. */
+    editable?: boolean;
+    label?: string;
+    labelClassName?: string;
+    labelStyle?: StyleProp<TextStyle>;
+  };
+const Input = React.forwardRef<View, InputProps>(
+  (
+    {
+      children,
+      className,
+      label,
+      labelClassName,
+      labelStyle,
+      editable = true,
+      variant = "outline",
+      size = "md",
+      ...props
+    },
+    ref,
+  ) => {
+    const [isFocused, setIsFocused] = React.useState(false);
+    const float = floatInputVariant[size ?? "md"];
+
+    const labelPosition = React.useRef(new Animated.Value(0)).current;
+    const labelAnimatedStyle = {
+      transform: [
+        {
+          translateY: labelPosition.interpolate({
+            inputRange: [0, 1],
+            outputRange: [2 - (float[0] - float[1]), -float[1]],
+          }),
+        },
+      ],
+      fontSize: labelPosition.interpolate({
+        inputRange: [0, 1],
+        outputRange: float,
+      }),
+    };
+
+    return (
+      <InputContext.Provider
+        value={{
+          variant,
+          size,
+          editable,
+          isFocused,
+          setIsFocused,
+          label: { text: label, position: labelPosition },
+        }}
+      >
+        <View
+          ref={ref}
+          className={inputVariant({
+            variant,
+            size,
+            className: cn(
+              !editable && "opacity-50 cursor-not-allowed",
+              isFocused && "border-ring outline-none",
+              className,
+            ),
+          })}
+          {...props}
+        >
+          <Animated.Text
+            className={cn("absolute text-muted-foreground native:pl-3", labelClassName)}
+            style={[labelAnimatedStyle, labelStyle]}
+          >
+            {label}
+          </Animated.Text>
+          {children}
+        </View>
+      </InputContext.Provider>
+    );
+  },
+);
 Input.displayName = "Input";
 
-export { Input };
+type InputFieldProps = Omit<React.ComponentProps<typeof RNTextInput>, "editable"> &
+  VariantProps<typeof inputFieldVariant> & { as?: typeof RNTextInput };
+const InputField = React.forwardRef<RNTextInput, InputFieldProps>(
+  (
+    {
+      as: TextInput = RNTextInput,
+      className,
+      variant,
+      size,
+      onFocus,
+      onBlur,
+      onLayout,
+      ...props
+    },
+    ref,
+  ) => {
+    const value = props?.value || props?.defaultValue ? 1 : 0;
+    const context = React.useContext(InputContext);
+    if (!context) throw new Error("InputField must be used within Input");
+
+    const animateLabel = (toValue: number) => {
+      Animated.timing(context.label.position, {
+        toValue,
+        duration: 150,
+        useNativeDriver: false, // fontSize animation requires this to be false
+        easing: Easing.bezier(0.4, 0, 0.2, 1),
+      }).start();
+    };
+
+    const onLayoutFn = React.useCallback(
+      (e: LayoutChangeEvent) => {
+        if (context?.label?.text && value) animateLabel(1);
+        onLayout?.(e);
+      },
+      [context.label.text],
+    );
+
+    return (
+      <TextInput
+        ref={ref}
+        className={inputFieldVariant({
+          variant: variant ?? context.variant,
+          size: size ?? context.size,
+          className: cn(
+            !context.editable && "web:cursor-not-allowed",
+            context?.label?.text && "pt-2.5",
+            className,
+          ),
+        })}
+        editable={context.editable}
+        onLayout={onLayoutFn}
+        onFocus={(e) => {
+          context.setIsFocused(true);
+          onFocus?.(e);
+
+          if (context?.label?.text) animateLabel(1);
+        }}
+        onBlur={(e) => {
+          context.setIsFocused(false);
+          onBlur?.(e);
+          if (!value && context?.label?.text) animateLabel(0);
+        }}
+        {...props}
+      />
+    );
+  },
+);
+InputField.displayName = "InputField";
+
+type InputIconProps = React.ComponentProps<typeof Pressable> &
+  VariantProps<typeof inputIconVariant>;
+
+const InputIcon = React.forwardRef<React.ComponentRef<typeof Pressable>, InputIconProps>(
+  ({ className, size, ...props }, ref) => {
+    const context = React.useContext(InputContext);
+    if (!context) throw new Error("InputField must be used within Input");
+
+    return (
+      <Pressable
+        ref={ref}
+        className={inputIconVariant({ size: size ?? context.size, className })}
+        {...props}
+      />
+    );
+  },
+);
+InputIcon.displayName = "InputIcon";
+
+export { Input, InputField, InputIcon };

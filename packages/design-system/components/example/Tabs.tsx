@@ -13,7 +13,7 @@ import {
 } from "@repo/design/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/design/ui/tabs";
 import { Button } from "@repo/design/ui/button";
-import { Input } from "@repo/design/ui/input";
+import { Input, InputField } from "@repo/design/ui/input";
 import { Label } from "@repo/design/ui/label";
 import { Text } from "@repo/design/ui/text";
 
@@ -45,11 +45,15 @@ export function TabsExample() {
             <CardContent className="gap-4 native:gap-2">
               <View className="gap-1">
                 <Label nativeID="name">Name</Label>
-                <Input aria-aria-labelledby="name" defaultValue="Pedro Duarte" />
+                <Input>
+                  <InputField aria-aria-labelledby="name" defaultValue="Pedro Duarte" />
+                </Input>
               </View>
               <View className="gap-1">
                 <Label nativeID="username">Username</Label>
-                <Input id="username" defaultValue="@peduarte" />
+                <Input>
+                  <InputField id="username" defaultValue="@peduarte" />
+                </Input>
               </View>
             </CardContent>
             <CardFooter>
@@ -69,16 +73,15 @@ export function TabsExample() {
             </CardHeader>
             <CardContent className="gap-4 native:gap-2">
               <View className="gap-1">
-                <Input
-                  placeholder="Current password"
-                  aria-labelledby="current"
-                  variant="float"
-                  secureTextEntry
-                />
+                <Input label="Current password">
+                  <InputField aria-labelledby="current" secureTextEntry />
+                </Input>
               </View>
               <View className="gap-1">
                 <Label nativeID="new">New password</Label>
-                <Input placeholder="********" aria-labelledby="new" secureTextEntry />
+                <Input>
+                  <InputField placeholder="********" aria-labelledby="new" secureTextEntry />
+                </Input>
               </View>
             </CardContent>
             <CardFooter>

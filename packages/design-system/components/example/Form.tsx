@@ -6,8 +6,8 @@ import { format } from "date-fns/format";
 import { View } from "react-native";
 import { z } from "zod";
 
+import { Input, InputField } from "@repo/design/ui/input";
 import { Button } from "@repo/design/ui/button";
-import { Input } from "@repo/design/ui/input";
 import { Text } from "@repo/design/ui/text";
 import {
   Form,
@@ -24,20 +24,14 @@ import { Calendar } from "@repo/design/ui/calender";
 import { cn } from "@repo/design/lib/utils";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  dob: z.date({
-    required_error: "A date of birth is required.",
-  }),
+  username: z.string().min(2, { message: "Username must be at least 2 characters." }),
+  dob: z.date({ required_error: "A date of birth is required." }),
 });
 
 export function FormExample() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-    },
+    defaultValues: { username: "" },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -57,17 +51,20 @@ export function FormExample() {
             fieldState: { error },
           }) => (
             <FormItem className="gap-2">
-              <FormLabel>Username</FormLabel>
+              <FormLabel htmlFor="username">Username</FormLabel>
               <FormControl>
                 <Input
-                  containerClassName={error && "border-destructive/50"}
-                  onBlur={() => form.clearErrors(name)}
-                  onChangeText={onChange}
-                  placeholder="shadcn"
-                  variant="underline"
+                  className={`border-0 border-b ${error ? "border-destructive/50" : ""}`}
                   editable={!disabled}
-                  value={value}
-                />
+                  size="lg"
+                >
+                  <InputField
+                    onBlur={() => form.clearErrors(name)}
+                    onChangeText={onChange}
+                    placeholder="shadcn"
+                    value={value}
+                  />
+                </Input>
               </FormControl>
               <FormDescription>This is your public display name.</FormDescription>
               <FormMessage />
@@ -91,11 +88,7 @@ export function FormExample() {
                       )}
                     >
                       <Text>
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                         "Pick a date"
-                        )}
+                        {field.value ? format(field.value, "PPP") : "Pick a date"}
                       </Text>
                       <CalendarIcon className="ml-auto size-5 opacity-50 text-foreground" />
                     </Button>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { Button } from "@repo/design/ui/button";
-import { Input } from "@repo/design/ui/input";
+import { Input, InputField } from "@repo/design/ui/input";
 import { Label } from "@repo/design/ui/label";
 import { Text } from "@repo/design/ui/text";
 import {
@@ -39,21 +39,17 @@ export function SheetExample() {
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
-            <Input
-              id="name"
-              value="Pedro Duarte"
-              containerClassName="web:col-span-3 native:flex-1"
-            />
+            <Input className="web:col-span-3 native:flex-1">
+              <InputField id="name" value="Pedro Duarte" />
+            </Input>
           </View>
           <View className="grid grid-cols-4 native:flex-row items-center gap-4">
             <Label htmlFor="username" className="text-right">
               Username
             </Label>
-            <Input
-              id="username"
-              value="@peduarte"
-              containerClassName="web:col-span-3 native:flex-1"
-            />
+            <Input className="web:col-span-3 native:flex-1">
+              <InputField id="username" value="@peduarte" />
+            </Input>
           </View>
 
           <Button
@@ -69,21 +65,17 @@ export function SheetExample() {
                 <Label htmlFor="bio" className="text-right">
                   Bio
                 </Label>
-                <Input
-                  id="bio"
-                  placeholder="Tell us about yourself"
-                  containerClassName="web:col-span-3 native:flex-1"
-                />
+                <Input className="web:col-span-3 native:flex-1">
+                  <InputField id="bio" placeholder="Tell us about yourself" />
+                </Input>
               </View>
               <View className="grid grid-cols-4 native:flex-row items-center gap-4 mt-4">
                 <Label htmlFor="website" className="text-right">
                   Website
                 </Label>
-                <Input
-                  id="website"
-                  placeholder="https://your-website.com"
-                  containerClassName="web:col-span-3 native:flex-1"
-                />
+                <Input className="web:col-span-3 native:flex-1">
+                  <InputField id="website" placeholder="https://your-website.com" />
+                </Input>
               </View>
             </View>
           )}

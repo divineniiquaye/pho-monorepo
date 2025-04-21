@@ -71,7 +71,7 @@ import {
   TableRow,
 } from "@repo/design/ui/table";
 import { Text } from "@repo/design/ui/text";
-import { Input } from "@repo/design/ui/input";
+import { Input, InputField } from "@repo/design/ui/input";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/design/ui/tooltip";
 import * as Typography from "@repo/design/ui/typography";
 import { Calendar } from "@repo/design/ui/calender";
@@ -237,7 +237,9 @@ export function DialogExample() {
           </DialogDescription>
         </DialogHeader>
         <View className="p-2">
-          <Input id="username" value="@peduarte" placeholder="Username" />
+          <Input>
+            <InputField id="username" value="@peduarte" placeholder="Username" />
+          </Input>
         </View>
 
         <DialogFooter>
