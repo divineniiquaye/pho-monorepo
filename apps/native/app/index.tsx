@@ -9,7 +9,6 @@ import { Button } from "@repo/design/ui/button";
 import { ScreenLayout } from "@repo/design/layout";
 import { toast } from "@repo/design/ui/sonner";
 import { Text } from "@repo/design/ui/text";
-import { i18n } from "@/locales";
 import {
   Select,
   SelectContent,
