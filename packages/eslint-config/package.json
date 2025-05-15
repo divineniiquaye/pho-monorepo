@@ -10,8 +10,8 @@
     "./next": "./next.config.mjs"
   },
   "devDependencies": {
-    "eslint": "9.19.0",
-    "eslint-config-next": "15.1.6"
-    "eslint-config-expo": "next",
+    "eslint": "9.26.0",
+    "eslint-config-expo": "9.2.0",
+    "eslint-config-next": "15.3.2"
   }
 }

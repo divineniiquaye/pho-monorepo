@@ -7,7 +7,7 @@
   "files": [
     "scripts/init.mjs"
   ],
-  "packageManager": "pnpm@10.2.0",
+  "packageManager": "pnpm@10.11.0",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
@@ -32,8 +32,8 @@
     "commander": "^13.1.0"
   },
   "devDependencies": {
-    "prettier": "^3.4.2",
-    "turbo": "^2.4.0"
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.3"
   },
   "engines": {
     "node": ">=20"
@@ -50,7 +50,7 @@
   "pnpm": {
     "patchedDependencies": {
       "@react-native/assets-registry": "patches/@react-native__assets-registry.patch",
-      "react-native-web": "patches/react-native-web.patch"
+      "react-native-bottom-sheet-manager": "patches/react-native-bottom-sheet-manager.patch"
     }
   }
 }

@@ -31,7 +31,9 @@ config.resolver.nodeModulesPaths = [
 ];
 // 3. Force Metro to resolve (sub)dependencies only from the `nodeModulesPaths`
 config.resolver.disableHierarchicalLookup = true;
-// 4. This repository is configured Turborepo to use this cache location.
+// 4. Enable package exports for metro
+config.resolver.unstable_enablePackageExports = true;
+// 5. This repository is configured Turborepo to use this cache location.
 config.cacheStores = [
     new FileStore({ root: path.join(__dirname, "node_modules/.cache/metro") }),
 ];

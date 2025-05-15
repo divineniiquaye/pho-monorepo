@@ -1,0 +1,95 @@
+diff --git a/src/BottomSheet.tsx b/src/BottomSheet.tsx
+index 4b67c7e46143ffce5d5cda30de8bea3b55c155b9..a0a3dbb5cb9127e3ae6d83c96741d4e93d321315 100644
+--- a/src/BottomSheet.tsx
++++ b/src/BottomSheet.tsx
+@@ -13,6 +13,7 @@ import {
+ } from 'react-native';
+ import { GestureHandlerRootView } from 'react-native-gesture-handler';
+ import RNBottomSheet, {
++  BottomSheetModal,
+   BottomSheetView,
+   BottomSheetScrollView,
+   BottomSheetFlatList,
+@@ -141,6 +142,11 @@ const BottomSheetComponent = React.forwardRef<
+       valueRef.current = undefined;
+       currentSheetInstanceRef.current = getInstance();
+       PrivateSheetManager.registerInstance(sheetId, currentCtx, getInstance());
++
++      if (!useModal) {
++        // @ts-ignore present exists
++        bottomSheetRef.current?.present?.();
++      }
+     },
+   });
+   const hardwareBackPressSubscription = React.useRef<NativeEventSubscription>();
+@@ -248,44 +254,38 @@ const BottomSheetComponent = React.forwardRef<
+ 
+   React.useImperativeHandle(ref, getInstance, [getInstance]);
+ 
+-  const sheet = (
+-    <RNBottomSheet
++  return !useModal ? (
++    <BottomSheetModal
+       {...other}
+-      ref={bottomSheetRef}
+-      onClose={handleCloseSheet}
++      ref={bottomSheetRef as any}
++      onDismiss={handleCloseSheet}
+       snapPoints={snapPoints}
+     >
+       {children}
+-    </RNBottomSheet>
+-  );
+-
+-  return visible ? (
+-    useModal ? (
+-      <ModalComponent
+-        visible={true}
+-        transparent={true}
+-        animationType="none"
+-        onShow={handleModalShow}
+-        onRequestClose={handleRequestClose}
+-        statusBarTranslucent={true}
+-        supportedOrientations={supportedOrientations}
++    </BottomSheetModal>
++  ) : visible ? (
++    <ModalComponent
++      visible={true}
++      transparent={true}
++      animationType="none"
++      onShow={handleModalShow}
++      onRequestClose={handleRequestClose}
++      statusBarTranslucent={true}
++      supportedOrientations={supportedOrientations}
++    >
++      <GestureHandlerRootView
++        style={[styles.gestureHandlerRootView, gestureHandlerRootViewStyle]}
+       >
+-        <GestureHandlerRootView
+-          style={[styles.gestureHandlerRootView, gestureHandlerRootViewStyle]}
++        <RNBottomSheet
++         {...other}
++         ref={bottomSheetRef}
++         onClose={handleCloseSheet}
++         snapPoints={snapPoints}
+         >
+-          {sheet}
+-        </GestureHandlerRootView>
+-      </ModalComponent>
+-    ) : (
+-      <View
+-        style={[
+-          StyleSheet.absoluteFill,
+-          { zIndex: PrivateSheetManager.getSheetZIndex(sheetId, currentCtx) },
+-        ]}
+-      >
+-        {sheet}
+-      </View>
+-    )
++         {children}
++        </RNBottomSheet>
++      </GestureHandlerRootView>
++    </ModalComponent>
+   ) : null;
+ });
+ 

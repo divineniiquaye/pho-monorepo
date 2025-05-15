@@ -5,23 +5,26 @@
     "clean": "rm -rf dist node_modules"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-native": "^0.76.5",
-    "react-native-web": "^0.19.13"
+    "react": "^19.0.0",
+    "react-native": "^0.79.0",
+    "react-native-web": "^0.20.0"
   },
   "peerDependenciesMeta": {
     "react-native-web": {
       "optional": true
     }
   },
+  "overrides": {
+    "react": "19.0.0"
+  },
   "dependencies": {
-    "@expo/vector-icons": "14.0.4",
-    "@expo/dom-webview": "0.0.2",
-    "@gorhom/bottom-sheet": "5.0.6",
-    "@hookform/resolvers": "3.10.0",
-    "@radix-ui/react-scroll-area": "1.2.2",
-    "@radix-ui/react-slot": "1.1.1",
-    "@react-navigation/native": "7.0.14",
+    "@expo/dom-webview": "0.1.4",
+    "@expo/vector-icons": "14.1.0",
+    "@gorhom/bottom-sheet": "5.1.4",
+    "@hookform/resolvers": "5.0.1",
+    "@radix-ui/react-scroll-area": "1.2.8",
+    "@radix-ui/react-slot": "1.2.2",
+    "@react-navigation/native": "7.1.9",
     "@repo/i18n-config": "workspace:*",
     "@rn-primitives/accordion": "1.1.0",
     "@rn-primitives/alert-dialog": "1.1.0",
@@ -37,7 +40,7 @@
     "@rn-primitives/menubar": "1.1.0",
     "@rn-primitives/navigation-menu": "1.1.0",
     "@rn-primitives/popover": "1.1.0",
-    "@rn-primitives/portal": "1.1.0",
+    "@rn-primitives/portal": "1.2.0",
     "@rn-primitives/progress": "1.1.0",
     "@rn-primitives/radio-group": "1.1.0",
     "@rn-primitives/select": "1.1.0",
@@ -56,38 +59,34 @@
     "clsx": "2.1.1",
     "copy-to-clipboard": "3.3.3",
     "date-fns": "4.1.0",
-    "embla-carousel-react": "8.5.2",
-    "expo-clipboard": "7.0.1",
-    "expo-navigation-bar": "4.0.7",
+    "embla-carousel-react": "8.6.0",
+    "expo-clipboard": "7.1.4",
+    "expo-navigation-bar": "4.2.4",
+    "expo-network": "7.1.5",
     "fuse.js": "7.1.0",
     "input-otp": "1.4.2",
-    "lodash": "4.17.21",
-    "lucide-react-native": "0.474.0",
-    "next-themes": "0.4.4",
-    "numeral": "2.0.6",
+    "lucide-react-native": "0.510.0",
+    "nativewind": "4.1.23",
+    "next-themes": "0.4.6",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-hook-form": "7.54.2",
+    "react-hook-form": "7.56.3",
     "react-native": "catalog:",
     "react-native-gesture-handler": "catalog:",
     "react-native-reanimated": "catalog:",
     "react-native-safe-area-context": "catalog:",
-    "react-native-svg": "15.11.1",
-    "react-resizable-panels": "2.1.7",
-    "recharts": "2.15.1",
-    "sonner": "1.7.4",
-    "sonner-native": "0.16.2",
-    "tailwind-merge": "3.0.1",
+    "react-native-svg": "15.12.0",
+    "react-resizable-panels": "3.0.2",
+    "recharts": "2.15.3",
+    "sonner": "2.0.3",
+    "sonner-native": "0.19.1",
+    "tailwind-merge": "3.3.0",
     "vaul": "1.1.2",
-    "zod": "3.24.1"
+    "zod": "3.24.4"
   },
   "devDependencies": {
-    "@repo/tailwind-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@types/lodash": "4.17.15",
-    "@types/numeral": "2.0.5",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "typescript": "5.7.3"
+    "@tailwindcss/typography": "0.5.16",
+    "tailwindcss-animate": "1.0.7",
+    "tailwindcss": "catalog:"
   }
 }

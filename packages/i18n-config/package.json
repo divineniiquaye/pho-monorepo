@@ -11,12 +11,12 @@
     "locale": "node ./script.js"
   },
   "dependencies": {
-    "i18next": "25.0.1"
+    "i18next": "25.1.2"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/fs-extra": "11.0.4",
+    "fs-extra": "11.3.0",
     "chokidar": "4.0.3",
-    "glob": "11.0.1"
+    "glob": "11.0.2"
   }
 }
