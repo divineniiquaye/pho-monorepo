@@ -54,12 +54,11 @@ function resolveEmptyTranslations(translations, localeKeys) {
         );
     }
 
-    return Object.entries(translations).filter(([k, v]) => [
-        k,
+    return Object.entries(translations).filter(([k, v]) =>
         typeof v === "object" && v?.constructor === Object
             ? resolveEmptyTranslations(v)
             : "" === v,
-    ]);
+    );
 }
 
 /**
