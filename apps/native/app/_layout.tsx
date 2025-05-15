@@ -1,7 +1,17 @@
 import { enableReactNativeComponents } from "@legendapp/state/config/enableReactNativeComponents";
-import { Slot, SplashScreen } from "expo-router";
-import * as Font from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
 import React from "react";
+import {
+  useFonts,
+  NotoSans_100Thin,
+  NotoSans_300Light,
+  NotoSans_400Regular,
+  NotoSans_500Medium,
+  NotoSans_600SemiBold,
+  NotoSans_700Bold,
+  NotoSans_800ExtraBold,
+  NotoSans_900Black,
+} from "@expo-google-fonts/noto-sans";
 
 import { Providers } from "@repo/design/providers";
 
@@ -18,10 +28,21 @@ enableReactNativeComponents();
 
 /** Hide the splash screen when the app is ready to be shown.*/
 function useSplashScreen(loadResources: () => Promise<void>) {
+  const [loaded] = useFonts({
+    NotoSans_100Thin,
+    NotoSans_300Light,
+    NotoSans_400Regular,
+    NotoSans_500Medium,
+    NotoSans_600SemiBold,
+    NotoSans_700Bold,
+    NotoSans_800ExtraBold,
+    NotoSans_900Black,
+  });
+
   const [isSplashScreenShown, setSplashScreenShown] = React.useState(true);
   React.useEffect(() => {
-    loadResources().then(() => setSplashScreenShown(false));
-  }, []);
+    if (loaded) loadResources().then(() => setSplashScreenShown(false));
+  }, [loaded]);
   React.useEffect(() => {
     let c: ReturnType<typeof setTimeout> | undefined;
 
@@ -37,30 +58,14 @@ function useSplashScreen(loadResources: () => Promise<void>) {
 
 export default function RootLayout() {
   const isSplashScreenShown = useSplashScreen(async () => {
-    Font.loadAsync({
-      GeistSans_100Thin: require("@repo/design/fonts/GeistSans/GeistSans_100Thin.otf"),
-      GeistSans_300Light: require("@repo/design/fonts/GeistSans/GeistSans_300Light.otf"),
-      GeistSans_400Regular: require("@repo/design/fonts/GeistSans/GeistSans_400Regular.otf"),
-      GeistSans_500Medium: require("@repo/design/fonts/GeistSans/GeistSans_500Medium.otf"),
-      GeistSans_600SemiBold: require("@repo/design/fonts/GeistSans/GeistSans_600SemiBold.otf"),
-      GeistSans_700Bold: require("@repo/design/fonts/GeistSans/GeistSans_700Bold.otf"),
-      GeistSans_800Black: require("@repo/design/fonts/GeistSans/GeistSans_800Black.otf"),
-
-      GeistMono_100Thin: require("@repo/design/fonts/GeistMono/GeistMono_100Thin.otf"),
-      GeistMono_300Light: require("@repo/design/fonts/GeistMono/GeistMono_300Light.otf"),
-      GeistMono_400Regular: require("@repo/design/fonts/GeistMono/GeistMono_400Regular.otf"),
-      GeistMono_500Medium: require("@repo/design/fonts/GeistMono/GeistMono_500Medium.otf"),
-      GeistMono_600SemiBold: require("@repo/design/fonts/GeistMono/GeistMono_600SemiBold.otf"),
-      GeistMono_700Bold: require("@repo/design/fonts/GeistMono/GeistMono_700Bold.otf"),
-      GeistMono_800Black: require("@repo/design/fonts/GeistMono/GeistMono_800Black.otf"),
-    });
+    // Implement some async logic here
   });
 
   if (isSplashScreenShown) return null;
 
   return (
     <Providers>
-      <Slot />
+      <Stack screenOptions={{ headerShown: false }} />
     </Providers>
   );
 }
