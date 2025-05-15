@@ -1,4 +1,4 @@
-import "@repo/tailwind-config/global.css";
+import "@repo/design/tailwind/global.css";
 
 import { ExpoRoot, SplashScreen } from "expo-router";
 import { registerRootComponent } from "expo";

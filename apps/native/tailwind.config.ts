@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import sharedConfig from "@repo/tailwind-config";
+import sharedConfig from "@repo/design/tailwind/tailwind.config";
 
 const config: Pick<Config, "content" | "darkMode"> = {
     content: [

@@ -1,4 +1,4 @@
-import "@repo/tailwind-config/global.css";
+import "@repo/design/tailwind/global.css";
 
 import "raf/polyfill";
 import "setimmediate";

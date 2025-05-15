@@ -1,6 +1,26 @@
 import { hairlineWidth, platformSelect } from "nativewind/theme";
 import defaultTheme from "tailwindcss/defaultTheme";
 
+/**
+ * This is a custom tailwind config that is used to style your application.
+ * You can customize it to your liking or create a new one.
+ * 
+ * Example usage:
+ * 
+ * ```ts
+ * import type { Config } from "tailwindcss";
+ * import sharedConfig from "@repo/tailwind-config";
+ * 
+ * const config: Pick<Config, "content" | "important" | "darkMode"> = {
+ *  content: ["./**\/*.tsx", "!./node_modules/**"],
+ *  important: "html",
+ *  darkMode: "class",
+ *  ...sharedConfig,
+ * };
+ * 
+ * export default config;
+ * ```
+ */
 const config: Omit<import("tailwindcss").Config, "content"> = {
     plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
     presets: [require("nativewind/preset")],
@@ -62,6 +82,7 @@ const config: Omit<import("tailwindcss").Config, "content"> = {
                     border: "hsl(var(--sidebar-border))",
                     ring: "hsl(var(--sidebar-ring))",
                 },
+                "kp-input": "hsl(var(--kp-input))",
             },
             borderWidth: {
                 hairline: hairlineWidth(),
@@ -69,35 +90,38 @@ const config: Omit<import("tailwindcss").Config, "content"> = {
             fontFamily: {
                 sans: [
                     platformSelect({
-                        web: "var(--font-geist-sans)",
-                        default: "GeistSans_400Regular",
+                        ios: "NotoSans-Regular",
+                        android: "NotoSans_400Regular",
                     }),
                     ...defaultTheme.fontFamily.sans,
                 ],
                 mono: [
                     platformSelect({
-                        web: "var(--font-geist-mono)",
-                        default: "GeistMono_400Regular",
+                        ios: "NotoSans-Regular",
+                        android: "NotoSans_500Medium",
                     }),
                     ...defaultTheme.fontFamily.mono,
                 ],
                 ...platformSelect({
-                    web: {},
-                    default: {
-                        "geist-sans-thin": "GeistSans_100Thin",
-                        "geist-sans-light": "GeistSans_300Light",
-                        "geist-sans-medium": "GeistSans_500Medium",
-                        "geist-sans-semibold": "GeistSans_600SemiBold",
-                        "geist-sans-bold": "GeistSans_700Bold",
-                        "geist-sans-black": "GeistSans_800Black",
-                        "geist-mono-thin": "GeistMono_100Thin",
-                        "geist-mono-ultralight": "GeistMono_200UltraLight",
-                        "geist-mono-light": "GeistMono_300Light",
-                        "geist-mono-medium": "GeistMono_500Medium",
-                        "geist-mono-semibold": "GeistMono_600SemiBold",
-                        "geist-mono-bold": "GeistMono_700Bold",
-                        "geist-mono-black": "GeistMono_800Black",
-                        "geist-mono-ultrablack": "GeistMono_900UltraBlack",
+                    ios: {
+                        "noto-sans-thin": "NotoSans-Thin",
+                        "noto-sans-extra-light": "NotoSans-ExtraLight",
+                        "noto-sans-light": "NotoSans-Light",
+                        "noto-sans-medium": "NotoSans-Medium",
+                        "noto-sans-semibold": "NotoSans-SemiBold",
+                        "noto-sans-bold": "NotoSans-Bold",
+                        "noto-sans-extra-bold": "NotoSans-ExtraBold",
+                        "noto-sans-black": "NotoSans-Black",
+                    },
+                    android: {
+                        "noto-sans-thin": "NotoSans_100Thin",
+                        "noto-sans-extra-light": "NotoSans_200ExtraLight",
+                        "noto-sans-light": "NotoSans_300Light",
+                        "noto-sans-medium": "NotoSans_500Medium",
+                        "noto-sans-semibold": "NotoSans_600SemiBold",
+                        "noto-sans-bold": "NotoSans_700Bold",
+                        "noto-sans-extra-bold": "NotoSans_800ExtraBold",
+                        "noto-sans-black": "NotoSans_900Black",
                     },
                 }),
             },

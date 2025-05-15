@@ -16,7 +16,10 @@ const projectRoot = __dirname;
 const workspaceRoot = path.resolve(projectRoot, "../..");
 
 const config = getDefaultConfig(projectRoot);
-const globalCSS = path.resolve(workspaceRoot, "packages/tailwind-config/global.css");
+const globalCSS = path.resolve(
+    workspaceRoot,
+    "packages/design-system/tailwind/global.css",
+);
 const tailwindConfigPath = path.resolve(projectRoot, "tailwind.config.ts");
 
 // 1. Watch all files within the monorepo
