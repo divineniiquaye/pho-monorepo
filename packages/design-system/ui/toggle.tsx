@@ -49,7 +49,7 @@ const toggleTextVariants = cva("text-sm native:text-base text-foreground font-me
 });
 
 const Toggle = React.forwardRef<
-  React.ElementRef<typeof TogglePrimitive.Root>,
+  React.ComponentRef<typeof TogglePrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root> &
     VariantProps<typeof toggleVariants>
 >(({ className, variant, size, ...props }, ref) => (

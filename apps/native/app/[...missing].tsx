@@ -1,8 +1,6 @@
 import { Link, Stack } from "expo-router";
 
-import { buttonVariants } from "@repo/design/ui/button";
-import { VStack } from "@repo/design/ui/stack";
-import { Text } from "@repo/design/ui/text";
+import { buttonVariants, Text, VStack } from "@repo/design/ui";
 
 export default function NotFound() {
   return (

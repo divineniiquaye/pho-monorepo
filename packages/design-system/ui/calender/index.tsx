@@ -424,4 +424,4 @@ function Calendar(props: CalendarProps) {
   );
 }
 
-export { Calendar, type CalendarProps };
+export { Calendar, type CalendarProps, TimePicker };

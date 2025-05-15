@@ -29,7 +29,7 @@ type Context = {
   inputId: string;
 };
 
-type CommandProps = React.ComponentPropsWithoutRef<typeof View> & {
+type CommandProps = React.ComponentProps<typeof View> & {
   /**
    * Optional default item value when it is initially rendered.
    */
@@ -73,7 +73,7 @@ const CommandProvider: React.FC<
   <CommandContext.Provider value={props}>{children}</CommandContext.Provider>
 );
 
-const Command = React.forwardRef<React.ElementRef<typeof View>, CommandProps>(
+const Command = React.forwardRef<React.ComponentRef<typeof View>, CommandProps>(
   ({ className, ...props }, ref) => {
     const listId = React.useId();
     const labelId = React.useId();
@@ -235,7 +235,7 @@ const CommandDialog = ({
 );
 
 const CommandInput = React.forwardRef<
-  React.ElementRef<typeof TextInput>,
+  React.ComponentRef<typeof TextInput>,
   Omit<React.ComponentPropsWithoutRef<typeof TextInput>, "value" | "onChange"> & {
     /**
      * Optional controlled state for the value of the search input.
@@ -281,8 +281,8 @@ const CommandInput = React.forwardRef<
 CommandInput.displayName = "CommandInput";
 
 const CommandList = React.forwardRef<
-  React.ElementRef<typeof View>,
-  React.ComponentPropsWithoutRef<typeof View> & {
+  React.ComponentRef<typeof View>,
+  React.ComponentProps<typeof View> & {
     asChild?: boolean;
     /**
      * Accessible label for this List of suggestions. Not shown visibly.
@@ -310,8 +310,8 @@ const CommandList = React.forwardRef<
 CommandList.displayName = "CommandList";
 
 const CommandEmpty = React.forwardRef<
-  React.ElementRef<typeof View>,
-  React.ComponentPropsWithoutRef<typeof View>
+  React.ComponentRef<typeof View>,
+  React.ComponentProps<typeof View>
 >(({ children, ...props }, ref) => {
   const { state } = React.useContext(CommandContext);
   return (
@@ -327,8 +327,8 @@ const CommandEmpty = React.forwardRef<
 CommandEmpty.displayName = "CommandEmpty";
 
 const CommandGroup = React.forwardRef<
-  React.ElementRef<typeof View>,
-  React.ComponentPropsWithoutRef<typeof View> & {
+  React.ComponentRef<typeof View>,
+  React.ComponentProps<typeof View> & {
     asChild?: boolean;
     /** Optional heading to render for this group. */
     heading?: React.ReactNode;
@@ -384,7 +384,7 @@ const CommandGroup = React.forwardRef<
 CommandGroup.displayName = "CommandGroup";
 
 const CommandSeparator = React.forwardRef<
-  React.ElementRef<typeof Separator>,
+  React.ComponentRef<typeof Separator>,
   React.ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
   <Separator ref={ref} className={cn("-mx-px", className)} {...props} />
@@ -392,7 +392,7 @@ const CommandSeparator = React.forwardRef<
 CommandSeparator.displayName = "CommandSeparator";
 
 const CommandItem = React.forwardRef<
-  React.ElementRef<typeof Pressable>,
+  React.ComponentRef<typeof Pressable>,
   React.ComponentPropsWithoutRef<typeof Pressable> & {
     /** Event handler for when this item is selected, either via click or keyboard selection. */
     onSelect?: (value: string) => void;

@@ -15,6 +15,7 @@ export function useMediaQuery(query: SubQuery | Query) {
 
 function queryResolver(query: SubQuery | Query, width?: number, height?: number) {
     for (const queryKey in query) {
+        // @ts-ignore
         if (!calculateQuery(queryKey, query[queryKey], height, width)) {
             return false;
         }

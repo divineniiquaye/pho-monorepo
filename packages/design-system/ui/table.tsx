@@ -7,7 +7,7 @@ import { cn } from "../lib/utils";
 import { TextClassContext } from "./text";
 
 const Table = React.forwardRef<
-  React.ElementRef<typeof TablePrimitive.Root>,
+  React.ComponentRef<typeof TablePrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof TablePrimitive.Root>
 >(({ className, ...props }, ref) => (
   <TablePrimitive.Root
@@ -19,7 +19,7 @@ const Table = React.forwardRef<
 Table.displayName = "Table";
 
 const TableHeader = React.forwardRef<
-  React.ElementRef<typeof TablePrimitive.Header>,
+  React.ComponentRef<typeof TablePrimitive.Header>,
   React.ComponentPropsWithoutRef<typeof TablePrimitive.Header>
 >(({ className, ...props }, ref) => (
   <TablePrimitive.Header
@@ -32,7 +32,7 @@ const TableHeader = React.forwardRef<
 TableHeader.displayName = "TableHeader";
 
 const TableBody = React.forwardRef<
-  React.ElementRef<typeof TablePrimitive.Body>,
+  React.ComponentRef<typeof TablePrimitive.Body>,
   React.ComponentPropsWithoutRef<typeof TablePrimitive.Body>
 >(({ className, style, ...props }, ref) => (
   <TablePrimitive.Body
@@ -45,7 +45,7 @@ const TableBody = React.forwardRef<
 TableBody.displayName = "TableBody";
 
 const TableFooter = React.forwardRef<
-  React.ElementRef<typeof TablePrimitive.Footer>,
+  React.ComponentRef<typeof TablePrimitive.Footer>,
   React.ComponentPropsWithoutRef<typeof TablePrimitive.Footer>
 >(({ className, ...props }, ref) => (
   <TablePrimitive.Footer
@@ -57,8 +57,8 @@ const TableFooter = React.forwardRef<
 TableFooter.displayName = "TableFooter";
 
 const TableRow = React.forwardRef<
-  React.ElementRef<typeof TablePrimitive.Row>,
-  React.ComponentPropsWithoutRef<typeof TablePrimitive.Row>
+  React.ComponentRef<typeof TablePrimitive.Row>,
+  React.ComponentProps<typeof TablePrimitive.Row>
 >(({ className, ...props }, ref) => (
   <TablePrimitive.Row
     ref={ref}
@@ -72,7 +72,7 @@ const TableRow = React.forwardRef<
 TableRow.displayName = "TableRow";
 
 const TableHead = React.forwardRef<
-  React.ElementRef<typeof TablePrimitive.Head>,
+  React.ComponentRef<typeof TablePrimitive.Head>,
   React.ComponentPropsWithoutRef<typeof TablePrimitive.Head>
 >(({ className, ...props }, ref) => (
   <TextClassContext.Provider value="text-muted-foreground">
@@ -89,7 +89,7 @@ const TableHead = React.forwardRef<
 TableHead.displayName = "TableHead";
 
 const TableCell = React.forwardRef<
-  React.ElementRef<typeof TablePrimitive.Cell>,
+  React.ComponentRef<typeof TablePrimitive.Cell>,
   React.ComponentPropsWithoutRef<typeof TablePrimitive.Cell>
 >(({ className, ...props }, ref) => (
   <TablePrimitive.Cell
@@ -101,8 +101,8 @@ const TableCell = React.forwardRef<
 TableCell.displayName = "TableCell";
 
 const TableCaption = React.forwardRef<
-  React.ElementRef<typeof View>,
-  React.ComponentPropsWithoutRef<typeof View>
+  React.ComponentRef<typeof View>,
+  React.ComponentProps<typeof View>
 >(({ className, ...props }, ref) => (
   <View
     ref={ref}

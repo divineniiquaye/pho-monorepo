@@ -1,3 +1,4 @@
+import Fuse, { type FuseOptionKey, type IFuseOptions } from "fuse.js";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -49,4 +50,82 @@ export function parseClassPrefix<T extends string | number>(
         return value as T;
     }
     return numericValue as T;
+}
+
+/**
+ * Parses a URL string into a path and query parameters object.
+ * Query parameters are automatically converted to their appropriate types:
+ * - "true"/"false" become boolean values
+ * - numeric strings become numbers
+ * - all other values remain strings
+ *
+ * @example
+ * const [path, query] = parseCustomUrl('/users?id=123&active=true&name=john');
+ * // Returns: ['/users', { id: 123, active: true, name: 'john' }]
+ */
+export function parseCustomUrl(
+    input: string,
+): [string, Record<string, string | number | boolean>] {
+    const [path, queryString] = input.split("?");
+    const query: Record<string, string | number | boolean> = {};
+
+    if (queryString) {
+        const pairs = queryString.split("&");
+        for (const pair of pairs) {
+            const [key, value] = pair.split("=");
+            let parsedValue: string | number | boolean = value;
+
+            if (value === "true") {
+                parsedValue = true;
+            } else if (value === "false") {
+                parsedValue = false;
+            } else if (!isNaN(Number(value))) {
+                parsedValue = Number(value);
+            }
+
+            query[key] = parsedValue;
+        }
+    }
+
+    return [path, query];
+}
+
+/**
+ * Fuzzy search function for filtering data based on a search query.
+ *
+ * @example
+ * ```tsx
+ * const [search, setSearch] = React.useState("");
+ * const data = [{ name: "John Doe", age: 45, "country": "Ghana" }, ...];
+ *
+ * const filteredData = fuzzSearch(search, data, ["name", "country"]);
+ * ```
+ *
+ * For more information, see: https://www.fusejs.io/
+ */
+export function fuzzSearch<T>(
+    filter: string = "",
+    data: T[] = [],
+    options?: IFuseOptions<T> | FuseOptionKey<T>[],
+) {
+    if (!options) return data;
+    let fuse: Fuse<T> | undefined;
+
+    if (!fuse) {
+        fuse = new Fuse<T>(
+            data,
+            Array.isArray(options)
+                ? {
+                      shouldSort: true,
+                      threshold: 0.3,
+                      location: 0,
+                      distance: 100,
+                      minMatchCharLength: 1,
+                      keys: options,
+                  }
+                : options,
+        );
+    }
+
+    return filter ? fuse.search(filter) : data;
 }

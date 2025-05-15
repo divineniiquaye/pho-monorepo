@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "../lib/utils";
 
 const Label = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Text>,
+  React.ComponentRef<typeof LabelPrimitive.Text>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Text> & { onFocus?: () => void }
 >(
   (

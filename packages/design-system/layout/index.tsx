@@ -67,7 +67,7 @@ export function ScreenLayout({
   return (
     <View
       className={cn(
-        "bg-background flex-grow pb-safe pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300",
+        "bg-background flex-grow pb-safe android:pb-safe-offset-2 pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300",
         className,
       )}
     >

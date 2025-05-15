@@ -17,7 +17,7 @@ import {
 
 const Breadcrumb = React.forwardRef<
   ViewRef,
-  React.ComponentPropsWithoutRef<typeof View> & {
+  React.ComponentProps<typeof View> & {
     separator?: React.ReactNode;
   }
 >(({ ...props }, ref) => (
@@ -27,7 +27,7 @@ Breadcrumb.displayName = "Breadcrumb";
 
 const BreadcrumbList = React.forwardRef<
   ViewRef,
-  React.ComponentPropsWithoutRef<typeof View>
+  React.ComponentProps<typeof View>
 >(({ className, ...props }, ref) => (
   <View
     ref={ref}
@@ -43,7 +43,7 @@ BreadcrumbList.displayName = "BreadcrumbList";
 
 const BreadcrumbItem = React.forwardRef<
   ViewRef,
-  React.ComponentPropsWithoutRef<typeof View>
+  React.ComponentProps<typeof View>
 >(({ className, ...props }, ref) => (
   <View
     ref={ref}

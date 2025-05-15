@@ -21,7 +21,7 @@ const Pagination = ({ className, ...props }: React.ComponentProps<typeof View>) 
 Pagination.displayName = "Pagination";
 
 const PaginationContent = React.forwardRef<
-  React.ElementRef<typeof View>,
+  React.ComponentRef<typeof View>,
   React.ComponentProps<typeof View>
 >(({ className, ...props }, ref) => (
   <View
@@ -34,7 +34,7 @@ const PaginationContent = React.forwardRef<
 PaginationContent.displayName = "PaginationContent";
 
 const PaginationItem = React.forwardRef<
-  React.ElementRef<typeof View>,
+  React.ComponentRef<typeof View>,
   React.ComponentProps<typeof View>
 >(({ className, ...props }, ref) => (
   <View ref={ref} role="listitem" className={cn("", className)} {...props} />

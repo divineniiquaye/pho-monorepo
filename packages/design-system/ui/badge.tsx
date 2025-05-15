@@ -37,8 +37,8 @@ const badgeTextVariants = cva("font-semibold", {
 });
 
 const Badge = React.forwardRef<
-  React.ElementRef<typeof View>,
-  React.ComponentPropsWithoutRef<typeof View> &
+  React.ComponentRef<typeof View>,
+  React.ComponentProps<typeof View> &
     VariantProps<typeof badgeTextVariants> & { textClass?: string }
 >(({ className, children, textClass, variant, size, ...props }, ref) => {
   return (

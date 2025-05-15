@@ -1,56 +1,57 @@
+import { ScrollView, View } from "react-native";
 import { Link } from "expo-router";
 
-import { useColorScheme } from "@repo/design/hooks/useColorScheme";
+import { useColorScheme } from "@repo/design/hooks";
 import * as Typography from "@repo/design/ui/typography";
-import { HStack, VStack } from "@repo/design/ui/stack";
-import { Separator } from "@repo/design/ui/separator";
-import { Progress } from "@repo/design/ui/progress";
-import { Button } from "@repo/design/ui/button";
 import { ScreenLayout } from "@repo/design/layout";
-import { toast } from "@repo/design/ui/sonner";
-import { Text } from "@repo/design/ui/text";
 import {
+  Button,
+  HStack,
+  Progress,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@repo/design/ui/select";
-import {
+  Separator,
+  Text,
+  toast,
+  VStack,
+} from "@repo/design/ui";
+import { 
   AccordionExample,
   AlertDialogExample,
   AspectRatioExample,
   AvatarExample,
   CalendarExample,
+  CheckboxExample,
+  CollapsibleExample,
+  ContextMenuExample,
   DialogExample,
+  DrawerExample,
   DropdownMenuExample,
   HoverCardExample,
   InputOTPExample,
-  PaginationExample,
+  LocaleSwitcher,
+  MenubarExample,
+  NavigationMenuExample,
   PopoverExample,
+  RadioGroupExample,
   ResizableExample,
   SelectExample,
+  SheetExample,
+  SliderExample,
+  SwitchExample,
   TableExample,
+  TabsExample,
+  ToggleExample,
+  ToggleGroupExample,
   TooltipExample,
-} from "@repo/design/components/example";
-import { CheckboxExample } from "@repo/design/components/example/Checkbox";
-import { CollapsibleExample } from "@repo/design/components/example/Collapsible";
-import { ContextMenuExample } from "@repo/design/components/example/ContextMenu";
-import { MenubarExample } from "@repo/design/components/example/Menubar";
-import { NavigationMenuExample } from "@repo/design/components/example/NavigationMenu";
-import { RadioGroupExample } from "@repo/design/components/example/RadioGroup";
-import { SliderExample } from "@repo/design/components/example/Slider";
-import { SwitchExample } from "@repo/design/components/example/Switch";
-import { TabsExample } from "@repo/design/components/example/Tabs";
-import { ToggleExample } from "@repo/design/components/example/Toggle";
-import { SheetExample } from "@repo/design/components/example/Sheet";
-import { FormExample } from "@repo/design/components/example/Form";
-import { DrawerExample } from "@repo/design/components/example/Drawer";
-import { CommandExample } from "@repo/design/components/example/Command";
-import { BreadcrumbExample } from "@repo/design/components/example/Breadcrumb";
-import { ToggleGroupExample } from "@repo/design/components/example/ToggleGroup";
-import { LocaleSwitcher } from "@repo/design/components/example/Locale";
-import { ScrollView } from "react-native";
+  BreadcrumbExample,
+  PaginationExample,
+  CommandExample,
+  FormExample,
+ } from "@repo/design/components/example";
 
 export default function Native() {
   const { setColorScheme } = useColorScheme();

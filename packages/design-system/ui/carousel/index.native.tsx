@@ -71,7 +71,7 @@ type CarouselContentProps = Omit<
 /**
  * TODO: Add support for vertical orientation
  */
-const Carousel = forwardRef<React.ElementRef<typeof Animated.View>, CarouselProps>(
+const Carousel = forwardRef<React.ComponentRef<typeof Animated.View>, CarouselProps>(
   (
     {
       children,
@@ -258,7 +258,7 @@ const CarouselItem = forwardRef<
 CarouselItem.displayName = "CarouselItem";
 
 const CarouselPrevious = forwardRef<
-  React.ElementRef<typeof Pressable>,
+  React.ComponentRef<typeof Pressable>,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { activeIndex, scrollTo } = useCarousel();
@@ -292,7 +292,7 @@ const CarouselPrevious = forwardRef<
 CarouselPrevious.displayName = "CarouselPrevious";
 
 const CarouselNext = forwardRef<
-  React.ElementRef<typeof Pressable>,
+  React.ComponentRef<typeof Pressable>,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { activeIndex, totalItems, scrollTo } = useCarousel();
@@ -328,8 +328,8 @@ const CarouselNext = forwardRef<
 CarouselNext.displayName = "CarouselNext";
 
 const CarouselEllipsis = forwardRef<
-  React.ElementRef<typeof View>,
-  React.ComponentPropsWithoutRef<typeof View> & {
+  React.ComponentRef<typeof View>,
+  React.ComponentProps<typeof View> & {
     dotClassName?: string | ((isActive: boolean) => string);
   }
 >(({ className, dotClassName, ...props }, ref) => {

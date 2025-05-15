@@ -9,7 +9,7 @@ const AvatarPrimitiveImage = AvatarPrimitive.Image;
 const AvatarPrimitiveFallback = AvatarPrimitive.Fallback;
 
 const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitiveRoot>,
+  React.ComponentRef<typeof AvatarPrimitiveRoot>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitiveRoot>
 >(({ className, ...props }, ref) => (
   <AvatarPrimitiveRoot
@@ -24,7 +24,7 @@ const Avatar = React.forwardRef<
 Avatar.displayName = AvatarPrimitiveRoot.displayName;
 
 const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitiveImage>,
+  React.ComponentRef<typeof AvatarPrimitiveImage>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitiveImage>
 >(({ className, ...props }, ref) => (
   <AvatarPrimitiveImage
@@ -36,7 +36,7 @@ const AvatarImage = React.forwardRef<
 AvatarImage.displayName = AvatarPrimitiveImage.displayName;
 
 const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitiveFallback>,
+  React.ComponentRef<typeof AvatarPrimitiveFallback>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitiveFallback>
 >(({ className, ...props }, ref) => (
   <AvatarPrimitiveFallback

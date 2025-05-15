@@ -56,10 +56,10 @@ export const vstackVariants = cva(
   },
 );
 
-type HStackProps = React.ComponentPropsWithoutRef<typeof View> &
+type HStackProps = React.ComponentProps<typeof View> &
   VariantProps<typeof hstackVariants>;
 
-const HStack = React.forwardRef<React.ElementRef<typeof View>, HStackProps>(
+const HStack = React.forwardRef<React.ComponentRef<typeof View>, HStackProps>(
   ({ className, space, reversed, ...props }, ref) => {
     return (
       <View
@@ -71,10 +71,10 @@ const HStack = React.forwardRef<React.ElementRef<typeof View>, HStackProps>(
   },
 );
 
-type VStackProps = React.ComponentPropsWithoutRef<typeof View> &
+type VStackProps = React.ComponentProps<typeof View> &
   VariantProps<typeof vstackVariants>;
 
-const VStack = React.forwardRef<React.ElementRef<typeof View>, VStackProps>(
+const VStack = React.forwardRef<React.ComponentRef<typeof View>, VStackProps>(
   ({ className, space, reversed, ...props }, ref) => {
     return (
       <View

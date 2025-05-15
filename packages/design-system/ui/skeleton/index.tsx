@@ -15,7 +15,7 @@ type SkeletonTextProps = React.ComponentProps<typeof View> &
     isLoaded?: boolean;
   };
 
-const Skeleton = forwardRef<React.ElementRef<typeof Animated.View>, SkeletonProps>(
+const Skeleton = forwardRef<React.ComponentRef<typeof Animated.View>, SkeletonProps>(
   ({ className, variant, children, isLoaded = false, speed = 2, ...props }, ref) => {
     const pulseAnim = new Animated.Value(1);
     const customTimingFunction = Easing.bezier(0.4, 0, 0.6, 1);
@@ -60,7 +60,7 @@ const Skeleton = forwardRef<React.ElementRef<typeof Animated.View>, SkeletonProp
   },
 );
 
-const SkeletonText = forwardRef<React.ElementRef<typeof View>, SkeletonTextProps>(
+const SkeletonText = forwardRef<React.ComponentRef<typeof View>, SkeletonTextProps>(
   ({ className, _lines, isLoaded = false, gap = 2, children, ...props }, ref) => {
     if (isLoaded) return children;
     if (_lines) {

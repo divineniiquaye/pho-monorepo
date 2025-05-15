@@ -69,7 +69,7 @@ type ButtonProps = React.ComponentPropsWithoutRef<typeof RNPressable> &
     asChild?: boolean;
   };
 
-const Button = React.forwardRef<React.ElementRef<typeof RNPressable>, ButtonProps>(
+const Button = React.forwardRef<React.ComponentRef<typeof RNPressable>, ButtonProps>(
   ({ className, variant, size, asChild, ...props }, ref) => {
     const Component = asChild && isWeb ? Pressable : RNPressable;
     return (

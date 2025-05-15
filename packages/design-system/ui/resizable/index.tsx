@@ -44,7 +44,7 @@ const usePanelGroupContext = () => {
   return context;
 };
 
-type ResizablePanelGroupProps = React.ComponentPropsWithRef<typeof View> &
+type ResizablePanelGroupProps = React.ComponentProps<typeof View> &
   PanelGroupProps & {
     /** Web only */
     autoSaveId?: string | null;

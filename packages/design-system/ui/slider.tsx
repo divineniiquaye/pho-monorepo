@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as SliderPrimitive from "@rn-primitives/slider";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 import { vars } from "nativewind";
 
 import { cn } from "../lib/utils";
@@ -25,6 +25,7 @@ const SliderThumbWeb = ({ value, max, min, disabled }: SliderThumbProps) => {
   return (
     <SliderPrimitive.Thumb
       style={vars({ "--radix-slider-thumb": `${track}%` })}
+      collapsable={false}
       aria-label="Slider"
       className={cn(
         "absolute h-5 w-5 -translate-y-1.5 -translate-x-1/2 left-[--radix-slider-thumb] rounded-full border-2 border-primary bg-background ring-offset-background web:transition-colors focus-visible:outline-none web:focus-visible:ring-1 web:focus-visible:ring-ring web:focus-visible:ring-offset-1",
@@ -69,7 +70,7 @@ const SliderThumb = Platform.select({
 });
 
 const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
+  React.ComponentRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
 >(({ className, ...props }, ref) => {
   const [width, setWidth] = React.useState(100);

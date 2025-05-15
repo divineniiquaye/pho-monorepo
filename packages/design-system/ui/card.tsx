@@ -6,7 +6,7 @@ import { TextClassContext } from "./text";
 import type { TextRef, ViewRef } from "@rn-primitives/types";
 import { cn } from "../lib/utils";
 
-const Card = React.forwardRef<ViewRef, React.ComponentPropsWithoutRef<typeof View>>(
+const Card = React.forwardRef<ViewRef, React.ComponentProps<typeof View>>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}
@@ -20,7 +20,7 @@ const Card = React.forwardRef<ViewRef, React.ComponentPropsWithoutRef<typeof Vie
 );
 Card.displayName = "Card";
 
-const CardHeader = React.forwardRef<ViewRef, React.ComponentPropsWithoutRef<typeof View>>(
+const CardHeader = React.forwardRef<ViewRef, React.ComponentProps<typeof View>>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}
@@ -57,7 +57,7 @@ CardDescription.displayName = "CardDescription";
 
 const CardContent = React.forwardRef<
   ViewRef,
-  React.ComponentPropsWithoutRef<typeof View>
+  React.ComponentProps<typeof View>
 >(({ className, ...props }, ref) => (
   <TextClassContext.Provider value="text-card-foreground">
     <View ref={ref} className={cn("p-6 pt-0", className)} {...props} />
@@ -65,7 +65,7 @@ const CardContent = React.forwardRef<
 ));
 CardContent.displayName = "CardContent";
 
-const CardFooter = React.forwardRef<ViewRef, React.ComponentPropsWithoutRef<typeof View>>(
+const CardFooter = React.forwardRef<ViewRef, React.ComponentProps<typeof View>>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}

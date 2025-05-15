@@ -14,7 +14,7 @@ import { ChevronDown } from "../icons/ChevronDown";
 import { cn } from "../lib/utils";
 
 const Accordion = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Root>,
+  React.ComponentRef<typeof AccordionPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ children, ...props }, ref) => {
   return (
@@ -29,7 +29,7 @@ const Accordion = React.forwardRef<
 Accordion.displayName = AccordionPrimitive.Root.displayName;
 
 const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, value, ...props }, ref) => {
   return (
@@ -48,7 +48,7 @@ AccordionItem.displayName = AccordionPrimitive.Item.displayName;
 const Trigger = Platform.OS === "web" ? View : Pressable;
 
 const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof Pressable>,
+  React.ComponentRef<typeof Pressable>,
   React.ComponentPropsWithoutRef<typeof Pressable>
 >(({ className, children, ...props }, ref) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();
@@ -81,7 +81,7 @@ const AccordionTrigger = React.forwardRef<
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();

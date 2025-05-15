@@ -23,7 +23,7 @@ const alertVariants = cva(
 
 const Alert = React.forwardRef<
   React.ComponentRef<typeof View>,
-  React.ComponentPropsWithoutRef<typeof View> &
+  React.ComponentProps<typeof View> &
     VariantProps<typeof alertVariants> & {
       icon: LucideIcon;
       iconSize?: number;

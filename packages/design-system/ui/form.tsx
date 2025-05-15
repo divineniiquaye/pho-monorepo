@@ -94,7 +94,7 @@ const FormItem = React.forwardRef<RNView, React.ComponentPropsWithoutRef<typeof 
 FormItem.displayName = "FormItem";
 
 const FormLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Text>,
+  React.ComponentRef<typeof LabelPrimitive.Text>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Text> & { onFocus?: () => void }
 >(({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField();

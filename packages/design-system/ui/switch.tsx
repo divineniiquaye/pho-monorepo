@@ -13,7 +13,7 @@ import { useColorScheme } from "../hooks/useColorScheme";
 import { cn } from "../lib/utils";
 
 const SwitchWeb = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitives.Root>,
+  React.ComponentRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ className, ...props }, ref) => (
   <SwitchPrimitives.Root
@@ -50,7 +50,7 @@ const RGB_COLORS = {
 } as const;
 
 const SwitchNative = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitives.Root>,
+  React.ComponentRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
 >(({ className, ...props }, ref) => {
   const { colorScheme } = useColorScheme();

@@ -180,7 +180,7 @@ const InputOTP = React.forwardRef<InputOTPRef, OTPInputProps>(
 );
 InputOTP.displayName = "InputOTP";
 
-const InputOTPGroup = React.forwardRef<View, React.ComponentPropsWithoutRef<typeof View>>(
+const InputOTPGroup = React.forwardRef<View, React.ComponentProps<typeof View>>(
   ({ className, ...props }, ref) => (
     <View
       ref={ref}
@@ -192,7 +192,7 @@ const InputOTPGroup = React.forwardRef<View, React.ComponentPropsWithoutRef<type
 InputOTPGroup.displayName = "InputOTPGroup";
 
 interface InputOTPSlotProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof View>, "children"> {
+  extends Omit<React.ComponentProps<typeof View>, "children"> {
   index: number;
   children?:
     | React.ReactNode
@@ -227,7 +227,7 @@ InputOTPSlot.displayName = "InputOTPSlot";
 
 const InputOTPSeparator = React.forwardRef<
   View,
-  React.ComponentPropsWithoutRef<typeof View>
+  React.ComponentProps<typeof View>
 >(({ ...props }, ref) => (
   <View ref={ref} role="separator" {...props}>
     <Dot className="text-foreground" />
