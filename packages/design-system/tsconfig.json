@@ -2,10 +2,12 @@
   "extends": "@repo/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "module": "ESNext",
     "paths": {
-      "@repo/*": ["../*"],
-      "@repo/design/*": ["./*"]
+      "@repo/design/*": ["./*"],
+      "@repo/*": ["../*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
