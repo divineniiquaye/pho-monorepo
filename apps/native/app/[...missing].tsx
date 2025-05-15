@@ -8,7 +8,7 @@ export default function NotFound() {
       <Stack.Screen options={{ title: "Oops!" }} />
       <VStack space="md" className="flex-1 items-center justify-center p-5">
         <Text role="heading" className="text-2xl font-bold">
-          This screen doesn't exist.
+          This screen doesn&apos;t exist.
         </Text>
 
         <Link href="/" className={buttonVariants({ variant: "link" })}>

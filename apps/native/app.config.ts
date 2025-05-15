@@ -4,12 +4,13 @@
  * APP_ENV is passed as an inline variable while executing the command, for example: APP_ENV=staging pnpm build:android
  */
 import plugins from "./plugins/onBuild";
+import * as dotenv from "dotenv";
 import path from "node:path";
-import z from "zod";
+import * as z from "zod";
 
 const APP_ENV = process.env["APP_ENV"] ?? "development";
 const envPath = path.resolve(__dirname, `.env.${APP_ENV}`);
-require("dotenv").config({ path: envPath });
+dotenv.config({ path: envPath });
 
 /**
  * 2nd part: Define some static variables for the app

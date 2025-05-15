@@ -8,6 +8,7 @@
 const fs = require("fs");
 const path = require("path");
 
+// eslint-disable-next-line no-undef
 const ENV_FILE = path.join(__dirname, "../app.config.ts");
 
 // Read the contents of scripts/env.js
