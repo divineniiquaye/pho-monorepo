@@ -3,10 +3,13 @@
   "compilerOptions": {
     "strict": true,
     "jsxImportSource": "nativewind",
+    "moduleResolution": "bundler",
     "jsx": "preserve",
     "paths": {
+      "@repo/design/*": ["../../packages/design-system/*"],
+      "@repo/*": ["../../packages/*"],
       "@/assets/*": ["./assets/*"],
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
     }
   },
   "include": [
