@@ -10,6 +10,9 @@
     "test": "jest --ci",
     "clean": "rm -rf .next .turbo dist node_modules"
   },
+  "overrides": {
+    "react": "19.0.0"
+  },
   "dependencies": {
     "@legendapp/state": "3.0.0-beta.30",
     "@repo/design": "workspace:*",
@@ -21,6 +24,7 @@
     "next-view-transitions": "0.3.4",
     "raf": "3.4.1",
     "react": "catalog:",
+    "react-dom": "catalog:",
     "react-mobile-app-button": "1.2.18",
     "react-native-web": "0.20.0"
   },

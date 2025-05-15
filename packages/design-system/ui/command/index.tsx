@@ -471,7 +471,7 @@ function useValue(
   )[],
   aliases: string[] = [],
 ) {
-  const valueRef = React.useRef<string>();
+  const valueRef = React.useRef<string>(null);
   const { context } = React.useContext(CommandContext);
 
   React.useLayoutEffect(() => {
@@ -480,6 +480,7 @@ function useValue(
         React.Children.forEach(deps, (child) => {
           if (typeof child === "string") return resolve(child.trim());
           if (React.isValidElement(child) && child.type === Text) {
+            // @ts-expect-error - We know that child is a valid element
             return resolve(child.props?.children?.trim());
           }
         });

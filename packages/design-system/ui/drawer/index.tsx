@@ -105,7 +105,7 @@ const Drawer: React.FC<DrawerProviderProps> = ({
       }
 
       if (child.type === DrawerContent) {
-        const content = child as React.ReactElement;
+        const content = child as React.ReactElement; // @ts-expect-error - We know that child is a valid element
         return React.Children.map(content.props.children, (contentChild) => {
           if (React.isValidElement(contentChild)) {
             if (contentChild.type === DrawerHeader) {

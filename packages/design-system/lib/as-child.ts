@@ -1,4 +1,4 @@
-import React from "react";
+import React, { JSX } from "react";
 
 export function renderChildren(children: React.ReactElement) {
     const childrenType = children.type as any;
@@ -18,6 +18,7 @@ export function SlottableWithNestedChildren(
         return React.cloneElement(
             renderChildren(children),
             { ref: (children as any).ref },
+            // @ts-expect-error - We know that children is a valid element
             render(children.props.children),
         );
     }
