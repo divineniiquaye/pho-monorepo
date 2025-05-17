@@ -1,3 +1,50 @@
+# v0.1.25 (Sat May 17 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat: updated vscode settings & added code snippets ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore: bump deps ⚡️ ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: added custom scripts for build, dev, test, & ar ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/i18n): updated locales scanning path ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/eslint): updated eslint configs path ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update CONTRIBUTING.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/typescript): updated typescript configs path ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: next js build issues ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: updated GitHub action's pnpm to version 10.11.0 ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: updated eslint config for expo & fix lint errors ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(mobile): ts intelisense for @repo/* in tsconfig ([@divineniiquaye](https://github.com/divineniiquaye))
+- refactor: fixed & improved several components in design-system ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): updated tsconfig & shadcn config ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(mobile): i18n is now a global object ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(i18n-config): not resolving empty translations correctly ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: removed unused babel config ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: removed Geist font & replaced with notosans for mobile ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore: updated deps patches & react 19 ⚡️ ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: moved tailwind-config into design-system ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: removed idx config as now renamed to firebase studio ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): refactored input field UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): removed `pauseWhenPageIsHidden` from sonner ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(eslint-config): updated expo to flat config ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): autoload defined locales ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): added support to auto register modal sheets ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added tanstack query provider ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): deprecated splash screen expo plugin ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(i18n-config): refactor locale scann ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): removed expo build properties config ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(i18n-config): updated scanning regex ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### 🔩 Dependency Updates
+
+- chore(deps): bump next from 15.1.6 to 15.2.3 [#2](https://github.com/divineniiquaye/pho-monorepo/pull/2) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.24 (Thu Mar 20 2025)
 
 #### ⚠️ Pushed to `main`
