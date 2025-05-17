@@ -23,10 +23,11 @@ const cleanFileName = (file) => file.replace(/([()[\]{}^$*+?.|\\])/g, "\\$1");
 
 const execSyncOpts = { stdio: "ignore" };
 
-const internalContentDirs = ["scripts", "_site"];
+const internalContentDirs = ["_site"];
 const internalContentFiles = [
     ".github/workflows/release.yml",
     ".github/workflows/site.yml",
+    "/scripts/init.mjs",
     "CHANGELOG.md",
     "LICENSE",
     ".autorc",

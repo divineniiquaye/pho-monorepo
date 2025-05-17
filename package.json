@@ -9,18 +9,16 @@
   ],
   "packageManager": "pnpm@10.11.0",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "clean": "turbo run clean && rm -rf node_modules",
-    "lint": "turbo run lint",
-    "test": "turbo run test",
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "ar": "node scripts/add-remove.mjs",
+    "test": "node scripts/test.mjs",
     "patch": "pnpm dlx pnpm-patch-i",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean && rm -rf node_modules",
     "watchman": "watchman watch-del './' ; watchman watch-project './'",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
     "deps": "pnpm dlx npm-check-updates --deep -u -x '/^(?:@types/)?react(?:-dom|-test-renderer)?$/' && pnpm install",
-    "add:ui": "pnpm add --filter=@repo/design",
-    "add:mobile": "pnpm add --filter=native",
-    "add:web": "pnpm add --filter=web"
     "locale": "pnpm run --filter=@tooling/i18n locale"
   },
   "nohoist": [
@@ -28,6 +26,7 @@
     "**/expo-router/**"
   ],
   "dependencies": {
+    "@inquirer/select": "^4.2.1",
     "chalk": "^5.4.1",
     "commander": "^13.1.0"
   },
