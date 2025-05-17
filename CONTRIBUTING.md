@@ -23,7 +23,6 @@ We use atomic design principles to build reusable components. This means startin
 We have some helpful folders set up for organizing the shared components in `packages/`
 
 -   `api/`: For handling API calls, errors, and responses from the backend.
--   `tailwind-config/`: The files for shared configuration of our styling systems, notably the `global.css` and the tailwind config are here.
 -   `design-system/`: For any UI primitives (Buttons, Links, Typography, Animations, Cards, etc), react context components, and shared features for individual screens.
 
 ## Best Practices
