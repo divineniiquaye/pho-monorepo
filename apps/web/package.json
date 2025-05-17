@@ -24,7 +24,7 @@
     "raf": "3.4.1",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-mobile-app-button": "1.2.18",
+    "react-mobile-app-button": "1.2.19",
     "react-native-web": "0.20.0"
   },
   "devDependencies": {
