@@ -1,6 +1,7 @@
 packages:
     - "apps/*"
     - "packages/*"
+    - "tooling/*"
 
 # This packages are considered crucial and updating may break the app
 # NOTE: Only update any of these packages if you are sure that the update is safe

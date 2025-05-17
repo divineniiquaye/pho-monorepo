@@ -1,9 +1,9 @@
 {
-  "name": "@repo/typescript-config",
+  "name": "@tooling/typescript",
   "version": "0.0.0",
   "private": true,
-  "publishConfig": {
-    "access": "public"
+  "scripts": {
+    "clean": "rm -rf dist node_modules"
   },
   "devDependencies": {
     "@babel/core": "7.27.1",

@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/react-library.json",
+  "extends": "@tooling/typescript/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react-jsx",
