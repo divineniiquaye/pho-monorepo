@@ -1,5 +1,6 @@
 {
   "editor.formatOnPaste": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
