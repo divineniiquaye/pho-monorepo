@@ -2,7 +2,8 @@
   "name": "@repo/design",
   "version": "0.0.0",
   "scripts": {
-    "clean": "rm -rf dist node_modules"
+    "clean": "rm -rf dist node_modules",
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "react": "^19.0.0",
@@ -64,6 +65,7 @@
     "expo-navigation-bar": "4.2.4",
     "expo-network": "7.1.5",
     "fuse.js": "7.1.0",
+    "i18next": "25.1.2",
     "input-otp": "1.4.2",
     "lucide-react-native": "0.510.0",
     "nativewind": "4.1.23",
@@ -85,8 +87,9 @@
     "zod": "3.24.4"
   },
   "devDependencies": {
-    "@tooling/typescript": "workspace:*",
     "@tailwindcss/typography": "0.5.16",
+    "@tooling/typescript": "workspace:*",
+    "@tooling/eslint": "workspace:*",
     "tailwindcss-animate": "1.0.7",
     "tailwindcss": "catalog:"
   }
