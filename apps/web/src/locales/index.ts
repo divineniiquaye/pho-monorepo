@@ -1,4 +1,4 @@
-export * from "@repo/i18n-config";
+export * from "@repo/design/lib/locale";
 
 declare module "i18next" {
     interface CustomTypeOptions {

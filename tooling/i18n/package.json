@@ -1,5 +1,5 @@
 {
-  "name": "@repo/i18n-config",
+  "name": "@tooling/i18n",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,13 +8,13 @@
   },
   "scripts": {
     "dev": "node ./script.js --watch",
+    "clean": "rm -rf dist node_modules",
     "locale": "node ./script.js"
   },
   "dependencies": {
     "i18next": "25.1.2"
   },
   "devDependencies": {
-    "@tooling/typescript": "workspace:*",
     "fs-extra": "11.3.0",
     "chokidar": "4.0.3",
     "glob": "11.0.2"

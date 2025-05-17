@@ -3,7 +3,7 @@
  * This file is imported by the app entry point and should not be imported directly.
  */
 
-import { loadI18nAsync, i18n as locale } from "@repo/i18n-config";
+import { loadI18nAsync, i18n as locale } from "@repo/design/lib/locale";
 
 declare module "i18next" {
     interface CustomTypeOptions {

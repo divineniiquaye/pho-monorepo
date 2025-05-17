@@ -26,7 +26,6 @@
     "@radix-ui/react-scroll-area": "1.2.8",
     "@radix-ui/react-slot": "1.2.2",
     "@react-navigation/native": "7.1.9",
-    "@repo/i18n-config": "workspace:*",
     "@rn-primitives/accordion": "1.1.0",
     "@rn-primitives/alert-dialog": "1.1.0",
     "@rn-primitives/aspect-ratio": "1.1.0",

@@ -12,7 +12,7 @@ const KeyboardProvider =
     ? require("react-native-keyboard-controller").KeyboardProvider
     : React.Fragment;
 
-import { i18n } from "@repo/i18n-config";
+import { i18n } from "../lib/locale";
 import { useColorScheme } from "../hooks/useColorScheme";
 import { ThemeProvider } from "./theme";
 import SonnerProvider from "./sonner";

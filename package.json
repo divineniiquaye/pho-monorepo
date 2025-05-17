@@ -18,10 +18,10 @@
     "watchman": "watchman watch-del './' ; watchman watch-project './'",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
     "deps": "pnpm dlx npm-check-updates --deep -u -x '/^(?:@types/)?react(?:-dom|-test-renderer)?$/' && pnpm install",
-    "locale": "pnpm run --filter=@repo/i18n-config locale",
     "add:ui": "pnpm add --filter=@repo/design",
     "add:mobile": "pnpm add --filter=native",
     "add:web": "pnpm add --filter=web"
+    "locale": "pnpm run --filter=@tooling/i18n locale"
   },
   "nohoist": [
     "**/expo-router",

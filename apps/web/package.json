@@ -16,7 +16,6 @@
   "dependencies": {
     "@legendapp/state": "3.0.0-beta.30",
     "@repo/design": "workspace:*",
-    "@repo/i18n-config": "workspace:*",
     "@t3-oss/env-nextjs": "0.13.4",
     "@tanstack/react-query": "5.76.1",
     "geist": "1.4.2",
