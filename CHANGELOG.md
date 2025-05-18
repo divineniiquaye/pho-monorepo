@@ -1,3 +1,17 @@
+# v0.1.26 (Sun May 18 2025)
+
+#### ⚠️ Pushed to `main`
+
+- chore(deps): bump commander from 13.1.0 to 14.0.0 ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: improved build, test, dev, & deps scripts ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.25 (Sat May 17 2025)
 
 #### ⚠️ Pushed to `main`
