@@ -68,7 +68,7 @@ My main goals driving this template are:
 
 ## 💅 Shadcn UI Kit (Web & Native)
 
->> A web demo most ui listed is available [here](https://pho-monorepo.vercel.app/)
+>> A web demo of most ui listed is available [here](https://pho-monorepo.vercel.app/)
 
 - Accordion
 - Alert
