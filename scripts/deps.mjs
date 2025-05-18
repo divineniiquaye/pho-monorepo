@@ -10,7 +10,7 @@ program
     .description("Add/Remove a dependency from monorepo")
     .argument("[path]", "path name found in monorepo")
     .argument("[package]", "package name to add/remove")
-    .option("-t, --type <TYPE>", "Type of action to add/remove")
+    .option("-t, --type <TYPE>", "Type of action to add/remove/update")
     .option("-D, --dev", "Add/Remove as dev dependency")
     .option("--non-interactive", "Skip interactive prompt", false)
     .action(async (path, packageName, options) => {
@@ -21,6 +21,11 @@ program
             if (!!targetPath) {
                 execSync(
                     `pnpm --filter ${targetPath} ${options.type} ${packageName} ${devFlag}`,
+                    { stdio: "inherit" },
+                );
+            } else if (options.type === "update") {
+                execSync(
+                    "pnpm dlx npm-check-updates --deep -u -x '/^(?:@types/)?react(?:-dom|-test-renderer)?$/' && pnpm install",
                     { stdio: "inherit" },
                 );
             } else {
