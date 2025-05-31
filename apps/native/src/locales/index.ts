@@ -20,13 +20,19 @@ declare global {
 }
 
 // Loading translations should be done as early as possible
-const locales = require.context("./", true, /\.json$/);
 loadI18nAsync(
     Object.assign(
         {},
-        ...locales.keys().map((key) => ({
-            [key.replace(/^\.\/|\.json$/g, "")]: { translation: locales(key) },
-        })),
+        ...(() => {
+            if (!process.env["JEST_WORKER_ID"]) {
+                const locales = require.context("./", true, /\.json$/);
+                return locales.keys().map((key) => ({
+                    [key.replace(/^\.\/|\.json$/g, "")]: { translation: locales(key) },
+                }));
+            }
+
+            return [{ en: { translation: require("./en.json") } }];
+        })(),
     ),
 );
 

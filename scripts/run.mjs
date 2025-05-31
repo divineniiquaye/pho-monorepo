@@ -53,7 +53,9 @@ program
                     stdio: "inherit",
                 });
             } else {
-                execSync(`turbo run ${type}`, { stdio: "inherit" });
+                execSync(`turbo run ${type} ${"test" === type ? "--parallel" : ""}`, {
+                    stdio: "inherit",
+                });
             }
 
             if (type === "build") log(chalk.green("Build completed successfully!"));
