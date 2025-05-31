@@ -6,8 +6,8 @@
     "clean": "rm -rf dist node_modules"
   },
   "devDependencies": {
-    "@babel/core": "7.27.3",
-    "@types/node": "22.15.27",
+    "@babel/core": "7.27.4",
+    "@types/node": "22.15.29",
     "ts-node": "10.9.2",
     "typescript": "5.8.3"
   }

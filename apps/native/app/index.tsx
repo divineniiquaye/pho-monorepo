@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { Link } from "expo-router";
 
 import { useColorScheme } from "@repo/design/hooks";

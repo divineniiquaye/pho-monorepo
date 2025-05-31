@@ -54,13 +54,13 @@
     "react": "19.0.0"
   },
   "dependencies": {
-    "@expo-google-fonts/noto-sans": "0.3.0",
+    "@expo-google-fonts/noto-sans": "0.4.0",
     "@legendapp/state": "3.0.0-beta.30",
     "@react-native-async-storage/async-storage": "2.1.2",
     "@repo/bottom-sheet": "workspace:*",
     "@repo/design": "workspace:*",
     "@sentry/react-native": "6.14.0",
-    "@tanstack/react-query": "5.76.1",
+    "@tanstack/react-query": "5.79.0",
     "expo": "53.0.9",
     "expo-asset": "11.1.5",
     "expo-constants": "17.1.6",
@@ -77,12 +77,12 @@
     "react-dom": "catalog:",
     "react-native": "catalog:",
     "react-native-gesture-handler": "catalog:",
-    "react-native-keyboard-controller": "1.17.2",
+    "react-native-keyboard-controller": "1.17.3",
     "react-native-reanimated": "catalog:",
     "react-native-safe-area-context": "catalog:",
     "react-native-screens": "catalog:",
     "react-native-svg": "15.12.0",
-    "react-native-webview": "13.13.5"
+    "react-native-webview": "13.14.0"
   },
   "devDependencies": {
     "@dev-plugins/react-query": "0.3.1",
