@@ -38,6 +38,27 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
+    filter:
+        runs-on: macos-latest
+        outputs:
+            web: ${{ steps.paths.outputs.web }}
+            native: ${{ steps.paths.outputs.native }}
+        steps:
+            - name: 🏗 Checkout full history
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: 🔍 Filter for changed paths
+              id: paths
+              uses: dorny/paths-filter@v3
+              with:
+                  filters: |
+                      native:
+                        - 'apps/native/**'
+                      web:
+                        - 'apps/web/**'
+
     lint:
         name: Lint
         runs-on: macos-latest
@@ -65,14 +86,14 @@ jobs:
               uses: ./.github/actions/setup-monorepo
 
             - name: 🧪 Test packages
-              run: pnpm test
+              run: pnpm test all
               continue-on-error: true
 
     web:
         name: Web Build
         runs-on: macos-latest
-        needs: lint
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name != 'pull_request' }}
+        needs: [filter, lint]
+        if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && needs.filter.outputs.web == 'true') }}
 
         steps:
             - name: 🏗 Setup repository
@@ -113,8 +134,8 @@ jobs:
     native:
         name: EAS Build
         runs-on: macos-latest
-        needs: lint
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name != 'pull_request' }}
+        needs: [filter, lint]
+        if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && needs.filter.outputs.native == 'true') }}
 
         steps:
             - name: 🏗 Setup repository
@@ -168,13 +189,16 @@ jobs:
 
             # In order not to push dev env to production, make sure to set envs in your expo account
             - name: 🚀 OTA Update
-              uses: expo/expo-github-action/preview@v8
               if: ${{ steps.expo.outputs.EAS_BUILD == 'update' }}
-              with:
-                  command: eas update --auto --json --non-interactive --platform ios --environment=${{ steps.expo.outputs.EAS_UPDATE_ENV }} --branch=${{ steps.expo.outputs.EAS_UPDATE_BRANCH }}
-                  comment: false
+              working-directory: ./apps/mybitstore
+              run: |
+                  eas update --auto --json --non-interactive \
+                    --platform ${{ github.event.inputs.platform || 'all' }} \
+                    --environment=${{ steps.expo.outputs.EAS_UPDATE_ENV }} \
+                    --branch=${{ steps.expo.outputs.EAS_UPDATE_BRANCH }}
 
-            # Uncomment this if you want to auto-bump build number
+            # Uncomment this if you face an issue with eas update for android
+            # and change --platform for OTA to ios
             # - name: Android Build Cleanup
             #   uses: actions-js/push@v1.5
             #   if: ${{ steps.expo.outputs.EAS_BUILD == 'update' }}
