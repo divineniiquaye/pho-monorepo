@@ -69,7 +69,7 @@ program
                 const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
 
                 packageJson.workspaces = ["apps/*", "packages/*"];
-                packageJson.packageManager = "bun@1.1.38";
+                packageJson.packageManager = "bun@1.2.5";
 
                 writeFileSync(
                     packageJsonPath,
