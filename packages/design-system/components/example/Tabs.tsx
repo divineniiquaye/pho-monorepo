@@ -19,6 +19,7 @@ import { Text } from "@repo/design/ui/text";
 
 export function TabsExample() {
   const [value, setValue] = React.useState("account");
+  const [value2, setValue2] = React.useState("");
   return (
     <View className="flex-1 justify-center p-6">
       <Tabs
@@ -74,13 +75,22 @@ export function TabsExample() {
             <CardContent className="gap-4 native:gap-2">
               <View className="gap-1">
                 <Input label="Current password">
-                  <InputField aria-labelledby="current" secureTextEntry />
+                  <InputField
+                    secureTextEntry
+                    value={value2}
+                    onChangeText={setValue2}
+                    aria-labelledby="current"
+                  />
                 </Input>
               </View>
               <View className="gap-1">
                 <Label nativeID="new">New password</Label>
                 <Input>
-                  <InputField placeholder="********" aria-labelledby="new" secureTextEntry />
+                  <InputField
+                    placeholder="********"
+                    aria-labelledby="new"
+                    secureTextEntry
+                  />
                 </Input>
               </View>
             </CardContent>

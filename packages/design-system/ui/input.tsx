@@ -31,17 +31,20 @@ const inputVariant = cva(
   },
 );
 
-const inputIconVariant = cva("justify-center items-center text-muted-foreground fill-none", {
-  variants: {
-    size: {
-      sm: "h-4 w-4",
-      md: "h-[18px] w-[18px]",
-      lg: "h-5 w-5",
-      xl: "h-6 w-6",
-      "2xl": "h-7 w-7",
+const inputIconVariant = cva(
+  "justify-center items-center text-muted-foreground fill-none",
+  {
+    variants: {
+      size: {
+        sm: "h-4 w-4",
+        md: "h-[18px] w-[18px]",
+        lg: "h-5 w-5",
+        xl: "h-6 w-6",
+        "2xl": "h-7 w-7",
+      },
     },
   },
-});
+);
 
 const inputFieldVariant = cva(
   "flex-1 text-foreground py-0 placeholder:text-muted-foreground h-full ios:leading-[0px] web:cursor-text",
@@ -87,6 +90,7 @@ type InputProps = React.ComponentProps<typeof View> &
   VariantProps<typeof inputVariant> & {
     /** If false, text is not editable. The default value is true. */
     editable?: boolean;
+    /** Label only works if a value is provided for the input field, else it will behave like focus-in/focus-out */
     label?: string;
     labelClassName?: string;
     labelStyle?: StyleProp<TextStyle>;
