@@ -1,6 +1,6 @@
 {
   "name": "pho-monorepo",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "bin": {
     "pho-monorepo": "scripts/init.mjs"
   },
