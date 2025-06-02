@@ -1,3 +1,22 @@
+# v0.1.28 (Mon Jun 02 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat(design-system,native): improved theming ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system,native): improved fonts size & loading for native ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added doc comment to label input UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: updated bun version as package for new installs ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore: prepare release of 0.2.1 to npm ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update CHANGELOG.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: allow the release CI workflow on all branches ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.27 (Mon Jun 02 2025)
 
 #### 🐛 Pushed to  `next`
