@@ -39,7 +39,7 @@ export function ThemeProvider({
 }: {
   children: React.ReactNode;
   theme: "light" | "dark";
-  themes: Record<"light" | "dark", Theme>;
+  themes?: Record<"light" | "dark", Theme>;
 }) {
-  return <NativeThemeProvider value={themes[theme]}>{children}</NativeThemeProvider>;
+  return <NativeThemeProvider value={themes?.[theme]}>{children}</NativeThemeProvider>;
 }

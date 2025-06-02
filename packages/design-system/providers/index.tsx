@@ -29,7 +29,7 @@ export function Providers({
   themes,
 }: {
   children: React.ReactNode;
-  themes: Record<"light" | "dark", Theme>;
+  themes?: Record<"light" | "dark", Theme>;
 }) {
   const { colorScheme } = useColorScheme();
 
