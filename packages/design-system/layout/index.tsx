@@ -1,7 +1,6 @@
-import { ActivityIndicator, ColorValue, Platform, View } from "react-native";
-import Animated, { SharedValue } from "react-native-reanimated";
-import { StatusBar, StatusBarProps } from "expo-status-bar";
-import * as NavigationBar from "expo-navigation-bar";
+import Animated, { FadeIn, SharedValue } from "react-native-reanimated";
+import { SystemBars, SystemBarsProps } from "react-native-edge-to-edge";
+import { ActivityIndicator, View } from "react-native";
 import React from "react";
 
 import { useAfterInteractions } from "../hooks/useAfterInteraction";
@@ -18,16 +17,14 @@ export type LayoutProps = Omit<
         loaded: boolean,
         placeholder: React.ComponentType,
       ) => React.ReactNode | SharedValue<React.ReactNode>);
-  androidNavigationBarColor?: ColorValue;
   placeholder?: React.ComponentType;
-  status?: StatusBarProps;
+  status?: SystemBarsProps;
   className?: string;
   wait?: boolean;
   delay?: number | false;
 };
 
 export function ScreenLayout({
-  androidNavigationBarColor,
   placeholder: Placeholder,
   children,
   className,
@@ -39,7 +36,7 @@ export function ScreenLayout({
   const DefaultPlaceHolder = () => (
     <Animated.View
       className={cn("bg-background h-full w-full justify-center pb-safe")}
-      entering={props?.entering}
+      entering={props?.entering ?? FadeIn}
       exiting={props?.exiting}
     >
       <ActivityIndicator size="large" />
@@ -49,13 +46,7 @@ export function ScreenLayout({
   const { transitionRef, areInteractionsComplete } = useAfterInteractions<Animated.View>(
     (timeout) =>
       new Promise((resolve) => {
-        const interaction = () => {
-          if ("android" === Platform.OS && androidNavigationBarColor) {
-            NavigationBar.setBackgroundColorAsync(androidNavigationBarColor as string);
-          }
-
-          resolve(wait ?? true); // Wait for the next interaction
-        };
+        const interaction = () => resolve(wait ?? true);
 
         if (typeof delay === "number") {
           timeout.current = setTimeout(interaction, Math.max(300, delay));
@@ -67,11 +58,11 @@ export function ScreenLayout({
   return (
     <View
       className={cn(
-        "bg-background flex-grow pb-safe android:pb-safe-offset-2 pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300",
+        "bg-background flex-grow pb-safe android:pb-safe-offset-2 pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300 rounded-t-3xl",
         className,
       )}
     >
-      <StatusBar style="auto" {...status} />
+      <SystemBars style="auto" {...status} />
       <Animated.View ref={transitionRef} style={{ flex: 1 }} {...props}>
         {areInteractionsComplete ? (
           typeof children === "function" ? (

@@ -4,12 +4,20 @@ import {
   BottomSheetModalProps,
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
-
 import { ParamListBase, useTheme } from "@react-navigation/native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { FullWindowOverlay } from "react-native-screens";
-import { Platform, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SystemBars } from "react-native-edge-to-edge";
+import Animated, {
+  Easing,
+  interpolate,
+  runOnJS,
+  useAnimatedReaction,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from "react-native-reanimated";
 import * as React from "react";
+
 import type {
   BottomSheetDescriptorMap,
   BottomSheetNavigationConfig,
@@ -25,24 +33,19 @@ type BottomSheetModalScreenProps = BottomSheetModalProps & {
    * @default false
    */
   clickThrough?: boolean;
+
+  /**
+   * Opacity of the sheet's overlay.
+   * @default 0.45
+   */
+  opacity?: number;
 };
-
-function Overlay({ children }: React.PropsWithChildren) {
-  if (Platform.OS === "ios") {
-    return (
-      <FullWindowOverlay>
-        <SafeAreaProvider style={styles.safeAreaProvider}>{children}</SafeAreaProvider>
-      </FullWindowOverlay>
-    );
-  }
-
-  return <>{children}</>;
-}
 
 function BottomSheetModalScreen({
   index,
   navigation,
   clickThrough,
+  opacity,
   children,
   ...props
 }: BottomSheetModalScreenProps) {
@@ -69,8 +72,9 @@ function BottomSheetModalScreen({
 
   const onChange = React.useCallback(
     (newIndex: number) => {
+      const currentIndex = lastIndexRef.current;
       lastIndexRef.current = newIndex;
-      if (newIndex >= 0) {
+      if (newIndex >= 0 && newIndex !== currentIndex) {
         navigation.snapTo(newIndex);
       }
     },
@@ -97,6 +101,7 @@ function BottomSheetModalScreen({
           appearsOnIndex={0}
           disappearsOnIndex={-1}
           enableTouchThrough={!!clickThrough}
+          opacity={opacity || 0.45}
         />
       )}
       {...props}
@@ -114,8 +119,9 @@ type Props = BottomSheetNavigationConfig & {
   descriptors: BottomSheetDescriptorMap;
 };
 
-export function BottomSheetView({ state, navigation, descriptors }: Props) {
+export function BottomSheetView({ state, descriptors }: Props) {
   const { colors } = useTheme();
+  const { top } = useSafeAreaInsets();
   const themeBackgroundStyle = React.useMemo(
     () => ({
       backgroundColor: colors.card,
@@ -129,6 +135,37 @@ export function BottomSheetView({ state, navigation, descriptors }: Props) {
       width: 50,
     }),
     [colors.border],
+  );
+
+  // IOS modal sheet type of animation
+  const isFullScreen = useSharedValue(0);
+  const animatedStyle = useAnimatedStyle(() => ({
+    flex: 1,
+    transform: [
+      {
+        scaleX: withSpring(interpolate(isFullScreen.value, [0, 1], [1, 0.92]), {
+          damping: 15,
+          stiffness: 100,
+        }),
+      },
+      {
+        translateY: withSpring(interpolate(isFullScreen.value, [0, 1], [0, top + 5]), {
+          damping: 15,
+          stiffness: 100,
+        }),
+      },
+    ],
+  }));
+
+  // Since background color is white, we need to set status bar to light
+  const setStatusBar = SystemBars.setStyle;
+  useAnimatedReaction(
+    () => isFullScreen.value,
+    (currentValue) => {
+      "worklet";
+      runOnJS(setStatusBar)(currentValue === 1 ? "light" : "auto");
+    },
+    [],
   );
 
   // Avoid rendering provider if we only have one screen.
@@ -149,7 +186,9 @@ export function BottomSheetView({ state, navigation, descriptors }: Props) {
 
   return (
     <>
-      {firstDescriptor.render?.()}
+      <Animated.View style={{ flex: 1, backgroundColor: "#000" }}>
+        <Animated.View style={animatedStyle}>{firstDescriptor.render?.()}</Animated.View>
+      </Animated.View>
       {shouldRenderProvider.current && (
         <BottomSheetModalProvider>
           {state.routes.slice(1).map((route) => {
@@ -160,6 +199,7 @@ export function BottomSheetView({ state, navigation, descriptors }: Props) {
             const {
               index,
               snapPoints,
+              handleStyle,
               backgroundStyle,
               handleIndicatorStyle,
               enableDynamicSizing,
@@ -173,18 +213,27 @@ export function BottomSheetView({ state, navigation, descriptors }: Props) {
                 // and snapPoints is changed.
                 index={Math.min(
                   route.snapToIndex ?? index ?? 0,
-                  snapPoints != null ? snapPoints.length - 1 : 0,
+                  !!snapPoints ? snapPoints.length - 1 : 0,
                 )}
                 snapPoints={
-                  snapPoints == null && !enableDynamicSizing
-                    ? DEFAULT_SNAP_POINTS
-                    : snapPoints
+                  !snapPoints && !enableDynamicSizing ? DEFAULT_SNAP_POINTS : snapPoints
                 }
+                onAnimate={(_, to) => {
+                  // @ts-ignore TODO: Fix types
+                  isFullScreen.value = ["%100", "100%"].includes(snapPoints?.[to])
+                    ? 1
+                    : 0;
+                }}
+                animationConfigs={{
+                  duration: 300,
+                  easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+                }}
+                topInset={top + 18}
                 navigation={navigation}
                 enableDynamicSizing={enableDynamicSizing}
                 backgroundStyle={[themeBackgroundStyle, backgroundStyle]}
                 handleIndicatorStyle={[themeHandleIndicatorStyle, handleIndicatorStyle]}
-                containerComponent={Overlay}
+                handleStyle={[themeBackgroundStyle, { borderRadius: 20 }, handleStyle]}
                 {...sheetProps}
               >
                 {render?.()}
@@ -196,7 +245,3 @@ export function BottomSheetView({ state, navigation, descriptors }: Props) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  safeAreaProvider: { flex: 1, pointerEvents: "box-none" },
-});

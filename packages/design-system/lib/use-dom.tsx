@@ -2,9 +2,20 @@ import { View } from "react-native";
 import React from "react";
 import { cn } from "./utils";
 
+export type DomProps<P extends Record<string, any>> = {
+  dom?: import("expo/dom").DOMProps;
+  children: React.ComponentType<P>;
+  /** If loader is string, it will be used as className for the default loader */
+  loader?: React.ReactNode;
+  duration?: number;
+  className?: string;
+} & P;
+
 /**
  * Custom hook for dynamically loading and rendering DOM-specific components.
  * Provides a way to lazy load components with proper mounting/unmounting handling.
+ * 
+ * NOTE: Always use this hook at the top-level, do not use it inside a component.
  *
  * @template P - Generic type extending object for component props
  * @param {() => Promise<{ default: React.ComponentType<P> }>} importFn - Dynamic import function for the component
@@ -15,6 +26,7 @@ import { cn } from "./utils";
  */
 export function useDom<P extends object>(
   importFn: () => Promise<{ default: React.ComponentType<P> }>,
+  { dom, loader, className }: Pick<DomProps<P>, "dom" | "loader" | "className"> = {},
 ) {
   return React.memo(function DynamicComponent(props: P) {
     const [Component, setComponent] = React.useState<React.ComponentType<P> | null>(null);
@@ -42,7 +54,15 @@ export function useDom<P extends object>(
       return null;
     }
 
-    return <DomComponent children={Component} {...props} />;
+    return (
+      <DomComponent
+        dom={dom}
+        loader={loader}
+        className={className}
+        children={Component}
+        {...props}
+      />
+    );
   });
 }
 
@@ -76,26 +96,18 @@ export function useDom<P extends object>(
  */
 export function DomComponent<P extends object>({
   children: DOMComponent,
-  duration = 2000,
   className,
   loader,
+  dom,
   ...props
 }: {
   dom?: import("expo/dom").DOMProps;
   children: React.ComponentType<P>;
   /** If loader is string, it will be used as className for the default loader */
   loader?: React.ReactNode;
-  duration?: number;
   className?: string;
 } & P) {
-  const [isLoading, setIsLoading] = React.useState(duration < 1000 ? false : true);
-
-  React.useEffect(() => {
-    if (duration >= 1000) {
-      const timer = setTimeout(() => setIsLoading(false), duration);
-      return () => clearTimeout(timer);
-    }
-  }, []);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   return (
     <View className={cn("relative flex-1", className)}>
@@ -110,7 +122,14 @@ export function DomComponent<P extends object>({
             <View className="animate-spin h-8 w-8 border-4 border-muted rounded-full border-t-primary" />
           </View>
         ))}
-      <DOMComponent {...(props as P)} />
+      <DOMComponent
+        dom={{
+          onLoadEnd: () => setIsLoading(false),
+          matchContents: true,
+          ...dom,
+        }}
+        {...(props as P)}
+      />
     </View>
   );
 }

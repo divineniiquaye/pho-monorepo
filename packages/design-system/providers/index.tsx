@@ -2,7 +2,6 @@
 
 import { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { PortalHost } from "@rn-primitives/portal";
 import Constants from "expo-constants";
 import React from "react";
@@ -44,11 +43,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
           <QueryProvider>
-            <BottomSheetModalProvider>
-              <React.Fragment key={forceUpdate}>{children}</React.Fragment>
-              <PortalHost />
-              <SonnerProvider theme={colorScheme} />
-            </BottomSheetModalProvider>
+            <React.Fragment key={forceUpdate}>{children}</React.Fragment>
+            <PortalHost />
+            <SonnerProvider theme={colorScheme} />
           </QueryProvider>
         </KeyboardProvider>
       </GestureHandlerRootView>

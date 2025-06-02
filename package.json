@@ -25,13 +25,13 @@
     "**/expo-router/**"
   ],
   "dependencies": {
-    "@inquirer/select": "^4.2.1",
+    "@inquirer/select": "^4.2.3",
     "chalk": "^5.4.1",
     "commander": "^14.0.0"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
-    "turbo": "^2.5.3"
+    "turbo": "^2.5.4"
   },
   "engines": {
     "node": ">=20"
@@ -44,11 +44,5 @@
     "include": [
       "./packages/design-system/components"
     ]
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "@react-native/assets-registry": "patches/@react-native__assets-registry.patch",
-      "react-native-bottom-sheet-manager": "patches/react-native-bottom-sheet-manager.patch"
-    }
   }
 }

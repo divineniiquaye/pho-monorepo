@@ -35,13 +35,12 @@ My main goals driving this template are:
 - 💅 Minimal UI kit built with [TailwindCSS](https://www.nativewind.dev/), featuring common components essential for your app.
 - ⚙️ Multi-environment build support (Production, Staging, Development) using Expo configuration.
 - 💡 Clean project structure with Absolute Imports for easier code navigation and management.
-- 🚫 Lint-staged: Run Eslint and TypeScript checks on Git staged files to maintain code quality.
 - 🗂 VSCode recommended extensions, settings, and snippets for an enhanced developer experience.
 - 🛠 [Github Actions](https://github.com/features/actions) workflows for building, releasing, testing, and distributing your app.
-- 🔥 [React Query](https://react-query.tanstack.com/) and [axios](https://github.com/axios/axios) for efficient data fetching and state management. **(In progress)**
+- 🔥 [React Query](https://react-query.tanstack.com/) for efficient data fetching and state management.
 - 🧵 Robust form handling with [react-hook-form](https://react-hook-form.com/) and [zod](https://github.com/colinhacks/zod) for validation, plus keyboard handling.
 - 🎯 Localization support with [i18next](https://www.i18next.com/).
-- 🧪 Unit testing setup with [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) **(In progress)**.
+- 🧪 Unit testing setup with [Jest](https://jestjs.io/) and [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/).
 
 
 ## 💎 Libraries used
@@ -51,7 +50,6 @@ My main goals driving this template are:
 - [NextJS](https://nextjs.org/)
 - [Nativewind](https://www.nativewind.dev/v4/overview)
 - [React Query](https://tanstack.com/query/v4)
-- [Axios](https://axios-http.com/docs/intro)
 - [React Hook Form](https://react-hook-form.com/)
 - [i18next](https://www.i18next.com/)
 - [Legend State](https://github.com/LegendApp/legend-state)
@@ -87,7 +85,7 @@ My main goals driving this template are:
 - Command
 - Context-menu
 - Dialog
-- Drawer
+- Drawer (Web only, use `@repo/bottom-sheet` or [@gorhom/bottom-sheet](https://github.com/gorhom/react-native-bottom-sheet) for native support)
 - Dropdown-menu
 - Form
 - Hover-card
@@ -128,8 +126,6 @@ My main goals driving this template are:
 ## RoadMap
 
 - [ ] Add Toast UI Component
-- [ ] Add Tests Mocks for every UI component
-- [ ] Add Storybook for every UI component
 - [ ] Add Documentation
 - [ ] Add AI Integration
 

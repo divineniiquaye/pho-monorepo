@@ -70,6 +70,7 @@ export type BottomSheetNavigationOptions = Omit<
     | "gestureEventsHandlersHook"
     | "animatedPosition"
     | "animatedIndex"
+    | "topInset"
     | "onChange"
     | "onAnimate"
     | "onClose"

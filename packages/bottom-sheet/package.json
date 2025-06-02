@@ -1,0 +1,21 @@
+{
+  "name": "@repo/bottom-sheet",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf dist node_modules"
+  },
+  "dependencies": {
+    "@gorhom/bottom-sheet": "5.1.5",
+    "@react-navigation/native": "7.1.10",
+    "nanoid": "5.1.5",
+    "react": "catalog:",
+    "react-native": "catalog:",
+    "react-native-edge-to-edge": "1.6.1",
+    "react-native-reanimated": "catalog:",
+    "react-native-safe-area-context": "catalog:"
+  },
+  "devDependencies": {
+    "@tooling/typescript": "workspace:*"
+  }
+}

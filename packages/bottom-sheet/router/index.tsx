@@ -51,30 +51,32 @@ function BottomSheetNavigator({
 }
 
 /**
- * To use BottomSheetNavigator with expo-router, use this example code:
- * 
+ * To use BottomSheetNavigator with expo-router, the first screen should be your app content
+ * and add a border radius of 24px to the root view if want to snap to 100%.
+ *
+ * @example
  * ```tsx
  * import {
  *   createBottomSheetNavigator,
  *   BottomSheetNavigationOptions,
  *   BottomSheetNavigationEventMap,
  *   BottomSheetNavigationState,
- * } from "@repo/design/bottom-sheet";
- * import { withLayoutContext } from "expo-router";
- * 
+ * } from "@repo/bottom-sheet";
+ * import { Slot, withLayoutContext } from "expo-router";
+ *
  * const { Navigator } = createBottomSheetNavigator();
- * 
+ *
  * const BottomSheet = withLayoutContext<
  *   BottomSheetNavigationOptions,
  *   typeof Navigator,
  *   BottomSheetNavigationState<any>,
  *   BottomSheetNavigationEventMap
  * >(Navigator);
- * 
+ *
  * export const unstable_settings = {
  *   initialRouteName: "index",
  * };
- * 
+ *
  * export default function Layout() {
  *   if (typeof window === "undefined") return <Slot />;
  *   return (
@@ -85,7 +87,7 @@ function BottomSheetNavigator({
  *           // And: https://gorhom.github.io/react-native-bottom-sheet/modal/props/
  *         }
  *       }
- *     />
+ *
  *   );
  * }
  * ```
@@ -123,3 +125,5 @@ export function createBottomSheetNavigator<
   // but pass in the config to get the typed container
   return createNavigatorFactory(BottomSheetNavigator)(config);
 }
+
+export * from "./types";

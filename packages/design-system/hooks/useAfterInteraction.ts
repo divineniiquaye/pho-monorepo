@@ -8,7 +8,9 @@ export function useAfterInteractions<T extends React.Component>(
     ) => Promise<boolean>,
     deps: React.DependencyList = [],
 ) {
-    const [areInteractionsComplete, setInteractionsComplete] = React.useState(false);
+    const [areInteractionsComplete, setInteractionsComplete] = React.useState(
+        !!process.env["JEST_WORKER_ID"],
+    );
     const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
     const transitionRef = useAnimatedRef<T>();
     const subscriptionRef = React.useRef<ReturnType<
@@ -16,6 +18,7 @@ export function useAfterInteractions<T extends React.Component>(
     > | null>(null);
 
     React.useEffect(() => {
+        if (process.env["JEST_WORKER_ID"]) return;
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         subscriptionRef.current = InteractionManager.runAfterInteractions(async () => {
             if (transitionRef.current) {

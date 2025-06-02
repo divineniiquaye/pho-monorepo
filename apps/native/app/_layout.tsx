@@ -14,6 +14,7 @@ import {
 } from "@expo-google-fonts/noto-sans";
 
 import { Providers } from "@repo/design/providers";
+import { SheetProvider } from "@repo/bottom-sheet";
 
 // Register bottom sheets
 import "@/sheets";
@@ -65,7 +66,9 @@ export default function RootLayout() {
 
   return (
     <Providers>
-      <Stack screenOptions={{ headerShown: false }} />
+      <SheetProvider context="global">
+        <Stack screenOptions={{ headerShown: false }} />
+      </SheetProvider>
     </Providers>
   );
 }

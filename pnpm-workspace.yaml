@@ -1,16 +1,28 @@
 packages:
-    - "apps/*"
-    - "packages/*"
-    - "tooling/*"
+    - apps/*
+    - packages/*
+    - tooling/*
 
 # This packages are considered crucial and updating may break the app
 # NOTE: Only update any of these packages if you are sure that the update is safe
 catalog:
-    "react": 19.0.0
-    "react-dom": 19.0.0
-    "react-native": 0.79.2
-    "react-native-gesture-handler": 2.25.0
-    "react-native-reanimated": 3.17.5
-    "react-native-safe-area-context": 5.4.0
-    "react-native-screens": 4.10.0
-    "tailwindcss": 3.4.17
+    "@types/react": 19.0.12
+    babel-jest: 29.7.0
+    react: 19.0.0
+    react-dom: 19.0.0
+    react-native: 0.79.2
+    react-native-edge-to-edge: 1.6.1
+    react-native-gesture-handler: 2.25.0
+    react-native-reanimated: 3.17.5
+    react-native-safe-area-context: 5.4.1
+    react-native-screens: 4.11.1
+    react-test-renderer: 19.0.0
+    tailwindcss: 3.4.17
+
+# As of pnpm v10.1.0 to mitigate supply chain risks, you'll have to specify
+# the packages that are allowed to be built.
+onlyBuiltDependencies:
+    - "@sentry/cli"
+    - esbuild
+    - sharp
+    - unrs-resolver
