@@ -1,3 +1,14 @@
+# v0.1.27 (Mon Jun 02 2025)
+
+#### 🐛 Bug Fix
+
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.1.26 (Sun May 18 2025)
 
 #### ⚠️ Pushed to `main`
