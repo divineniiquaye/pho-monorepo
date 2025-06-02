@@ -4,6 +4,7 @@ import { Link } from "expo-router";
 import { useColorScheme } from "@repo/design/hooks";
 import * as Typography from "@repo/design/ui/typography";
 import { ScreenLayout } from "@repo/design/layout";
+import { SheetManager } from "@repo/bottom-sheet";
 import {
   Button,
   HStack,
@@ -18,7 +19,7 @@ import {
   toast,
   VStack,
 } from "@repo/design/ui";
-import { 
+import {
   AccordionExample,
   AlertDialogExample,
   AspectRatioExample,
@@ -51,7 +52,7 @@ import {
   PaginationExample,
   CommandExample,
   FormExample,
- } from "@repo/design/components/example";
+} from "@repo/design/components/example";
 
 export default function Native() {
   const { setColorScheme } = useColorScheme();
@@ -108,7 +109,10 @@ export default function Native() {
         </HStack>
         <AccordionExample />
         <AlertDialogExample />
-        <DrawerExample />
+        <DrawerExample onPress={() => SheetManager.show("drawer")} />
+        <Button variant="outline" onPress={() => SheetManager.show("example")}>
+          <Text>Open Modal Sheet</Text>
+        </Button>
         <AspectRatioExample />
         <AvatarExample />
         <CalendarExample />

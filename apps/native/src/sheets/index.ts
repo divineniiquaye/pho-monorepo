@@ -1,4 +1,4 @@
-import { registerSheet, type SheetDefinition } from "react-native-bottom-sheet-manager";
+import { registerSheet, type SheetDefinition } from "@repo/bottom-sheet";
 
 // Register all sheets in the modals folder
 const sheets = require.context("./modals", true, /\.tsx$/);
@@ -8,9 +8,10 @@ sheets
         registerSheet(key.replace(/^\.\/|\.tsx$/g, ""), sheets(key).default),
     );
 
-declare module "react-native-bottom-sheet-manager" {
+declare module "@repo/bottom-sheet" {
     interface Sheets {
-        "example": SheetDefinition;
+        example: SheetDefinition;
+        drawer: SheetDefinition;
     }
 }
 
