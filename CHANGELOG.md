@@ -1,3 +1,16 @@
+# v0.2.2 (Mon Jun 02 2025)
+
+#### ⚠️ Pushed to `main`
+
+- Update CHANGELOG.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system,web): theming type error ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.1 (Mon Jun 02 2025)
 
 #### ⚠️ Pushed to `main`
