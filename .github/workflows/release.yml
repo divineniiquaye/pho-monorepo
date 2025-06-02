@@ -4,6 +4,8 @@ on:
     push:
         branches: [main]
         paths: ["scripts/init.mjs"]
+    pull_request:
+        types: [opened, reopened, synchronize]
     workflow_dispatch: # Allows manual triggering of the workflow
 
 permissions:
