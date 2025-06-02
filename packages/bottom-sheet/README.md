@@ -13,7 +13,7 @@ Add it to your project with package.json:
 
 ## Usage
 
-`SheetManager` is great because it helps you save lots of development time. One great feature is that you can reuse the same ActionSheet in the app and don't have to create or define it in multiple places. Another is that you don't have to write boilerplate for every ActionSheet component. Everything just works.
+`SheetManager` is great because it helps you save lots of development time. One great feature is that you can reuse the same modal sheet in the app and don't have to create or define it in multiple places. Another is that you don't have to write boilerplate for every component. Everything just works.
 
 Import `BottomSheet`.
 
