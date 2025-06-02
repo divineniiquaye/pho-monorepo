@@ -4,5 +4,4 @@ export * from "./useColorScheme";
 export * from "./useCopyToClipboard";
 export * from "./useMediaQuery";
 export * from "./useMobile";
-export * from "./useLazyRef";
 export * from "./useKeyboard";

@@ -2,7 +2,6 @@ import { Pressable, TextInput, View } from "react-native";
 import * as React from "react";
 
 import { SlottableWithNestedChildren } from "@repo/design/lib/as-child";
-import { useLazyRef } from "@repo/design/hooks/useLazyRef";
 import { Search } from "@repo/design/icons/Search";
 import { cn } from "@repo/design/lib/utils";
 
@@ -79,7 +78,7 @@ const Command = React.forwardRef<React.ComponentRef<typeof View>, CommandProps>(
     const labelId = React.useId();
     const inputId = React.useId();
 
-    const state = useLazyRef<State>(() => ({
+    const state = React.useRef<State>({
       search: "",
       value: props.value ?? props.defaultValue ?? "",
       filtered: {
@@ -87,14 +86,14 @@ const Command = React.forwardRef<React.ComponentRef<typeof View>, CommandProps>(
         items: new Map(),
         groups: new Set(),
       },
-    }));
+    });
 
     const [filteredState, setFilteredState] = React.useState<State>(state.current);
 
-    const allItems = useLazyRef<Set<string>>(() => new Set());
-    const allGroups = useLazyRef<Map<string, Set<string>>>(() => new Map());
-    const ids = useLazyRef<Map<string, { value: string; keywords?: string[] }>>(
-      () => new Map(),
+    const allItems = React.useRef<Set<string>>(new Set());
+    const allGroups = React.useRef<Map<string, Set<string>>>(new Map());
+    const ids = React.useRef<Map<string, { value: string; keywords?: string[] }>>(
+      new Map(),
     );
 
     const propsRef = React.useRef(props);
