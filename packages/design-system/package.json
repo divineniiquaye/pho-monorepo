@@ -21,7 +21,6 @@
   "dependencies": {
     "@expo/dom-webview": "0.1.4",
     "@expo/vector-icons": "14.1.0",
-    "@gorhom/bottom-sheet": "5.1.4",
     "@hookform/resolvers": "5.0.1",
     "@radix-ui/react-scroll-area": "1.2.8",
     "@radix-ui/react-slot": "1.2.2",
