@@ -1,7 +1,22 @@
 # v0.1.27 (Mon Jun 02 2025)
 
-#### 🐛 Bug Fix
+#### 🐛 Pushed to  `next`
 
+- fix: pnpm auto build script issue [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: fix pull request CI run & fail on test job [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore(deps): updated dependencies & remove patches [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): added `@repo/bottom-sheet` support [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(bottom-sheet): added a new package for handling modal sheets [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): router's background should always be transparent [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved the code for `use dom` support [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system,native): use react native edge to edge [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): removed gorhom's bottom sheet [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): removed lazy ref hook [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): removed drawer UI component for native [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: improved GitHub CI flow [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/jest): added jest test for expo & nextjs [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore(deps): updated site dependencies [#9](https://github.com/divineniiquaye/pho-monorepo/pull/9) ([@divineniiquaye](https://github.com/divineniiquaye))
 
 #### Authors: 1
 
