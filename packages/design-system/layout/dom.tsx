@@ -6,9 +6,9 @@ import React from "react";
 import { useColorScheme } from "../hooks/useColorScheme";
 import isWeb from "../lib/isWeb";
 
-if (isWeb) {
+if (!isWeb) {
   console.warn(
-    "Using the DomLayout component on the web is not recommended. It's meant for components with the `use dom` directive.",
+    "Using the DomLayout component with ios/android is not recommended. It's meant for components with the `use dom` directive.",
   );
 }
 
