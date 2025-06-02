@@ -66,9 +66,6 @@ importers:
 
   apps/native:
     dependencies:
-      '@expo-google-fonts/noto-sans':
-        specifier: 0.4.0
-        version: 0.4.0
       '@legendapp/state':
         specifier: 3.0.0-beta.30
         version: 3.0.0-beta.30(react@19.0.0)
@@ -1423,9 +1420,6 @@ packages:
   '@eslint/plugin-kit@0.3.1':
     resolution: {integrity: sha512-0J+zgWxHN+xXONWIyPWKFMgVuJoZuGiIFu8yxk7RJjxkzpGmyja5wRFqZIVtjDVOQpV+Rw0iOAjYPE2eQyjr0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@expo-google-fonts/noto-sans@0.4.0':
-    resolution: {integrity: sha512-538I/VLGfnZQTXAywNwQ5w7ZDkvpwlBSef0RZB8TcS4AblDdO3YdW9v/XjYbOHIICKbqxQdFsjQSSyf9la2bOw==}
 
   '@expo/cli@0.24.13':
     resolution: {integrity: sha512-2LSdbvYs+WmUljnplQXMCUyNzyX4H+F4l8uExfA1hud25Bl5kyaGrx1jjtgNxMTXmfmMjvgBdK798R50imEhkA==}
@@ -9044,8 +9038,6 @@ snapshots:
     dependencies:
       '@eslint/core': 0.14.0
       levn: 0.4.1
-
-  '@expo-google-fonts/noto-sans@0.4.0': {}
 
   '@expo/cli@0.24.13':
     dependencies:

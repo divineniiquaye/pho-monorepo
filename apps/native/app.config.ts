@@ -136,7 +136,15 @@ const config: import("expo/config").ExpoConfig = {
         fallbackToCacheTimeout: 0,
     },
     plugins: [
-        "expo-font",
+        [
+            "expo-font",
+            {
+                fonts: [
+                    "./node_modules/@repo/design/fonts/NunitoSans.ttf",
+                    "./node_modules/@repo/design/fonts/RobotoMono.ttf",
+                ],
+            },
+        ],
         [
             "expo-splash-screen",
             {

@@ -90,40 +90,18 @@ const config: Omit<import("tailwindcss").Config, "content"> = {
             fontFamily: {
                 sans: [
                     platformSelect({
-                        ios: "NotoSans-Regular",
-                        android: "NotoSans_400Regular",
+                        web: "var(--font-geist-sans)",
+                        default: "NunitoSans",
                     }),
                     ...defaultTheme.fontFamily.sans,
                 ],
                 mono: [
                     platformSelect({
-                        ios: "NotoSans-Regular",
-                        android: "NotoSans_500Medium",
+                        web: "var(--font-geist-mono)",
+                        default: "RobotoMono",
                     }),
                     ...defaultTheme.fontFamily.mono,
                 ],
-                ...platformSelect({
-                    ios: {
-                        "noto-sans-thin": "NotoSans-Thin",
-                        "noto-sans-extra-light": "NotoSans-ExtraLight",
-                        "noto-sans-light": "NotoSans-Light",
-                        "noto-sans-medium": "NotoSans-Medium",
-                        "noto-sans-semibold": "NotoSans-SemiBold",
-                        "noto-sans-bold": "NotoSans-Bold",
-                        "noto-sans-extra-bold": "NotoSans-ExtraBold",
-                        "noto-sans-black": "NotoSans-Black",
-                    },
-                    android: {
-                        "noto-sans-thin": "NotoSans_100Thin",
-                        "noto-sans-extra-light": "NotoSans_200ExtraLight",
-                        "noto-sans-light": "NotoSans_300Light",
-                        "noto-sans-medium": "NotoSans_500Medium",
-                        "noto-sans-semibold": "NotoSans_600SemiBold",
-                        "noto-sans-bold": "NotoSans_700Bold",
-                        "noto-sans-extra-bold": "NotoSans_800ExtraBold",
-                        "noto-sans-black": "NotoSans_900Black",
-                    },
-                }),
             },
             keyframes: {
                 "accordion-down": {
