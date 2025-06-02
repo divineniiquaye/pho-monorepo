@@ -5,9 +5,8 @@ on:
         branches: [develop, main]
         paths: ["packages/**", "apps/**", "package.json"]
     pull_request:
-        paths: ["packages/**", "apps/**", "package.json"]
-        types: [opened, reopened, auto_merge_enabled]
-        branches: [develop]
+        paths: ["packages/**", "apps/**", "package.json", ".github/workflows/ci.yml"]
+        types: [opened, reopened, synchronize]
 
     workflow_dispatch:
         inputs:
@@ -40,6 +39,7 @@ concurrency:
 jobs:
     filter:
         runs-on: macos-latest
+        name: Check paths
         outputs:
             web: ${{ steps.paths.outputs.web }}
             native: ${{ steps.paths.outputs.native }}
@@ -87,7 +87,6 @@ jobs:
 
             - name: 🧪 Test packages
               run: pnpm test all
-              continue-on-error: true
 
     web:
         name: Web Build
