@@ -1,0 +1,14 @@
+{
+  "extends": "@tooling/typescript/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "bundler",
+    "paths": {
+      "@repo/*": ["../*"],
+      "@repo/design/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
