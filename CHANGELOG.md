@@ -1,4 +1,4 @@
-# v0.1.28 (Mon Jun 02 2025)
+# v0.2.1 (Mon Jun 02 2025)
 
 #### ⚠️ Pushed to `main`
 
