@@ -2,6 +2,7 @@ import { enableReactNativeComponents } from "@legendapp/state/config/enableReact
 import { SplashScreen, Stack } from "expo-router";
 import React from "react";
 
+import { NavigationTheme } from "@/constants/theme";
 import { Providers } from "@repo/design/providers";
 import { SheetProvider } from "@repo/bottom-sheet";
 
@@ -43,7 +44,7 @@ export default function RootLayout() {
   if (isSplashScreenShown) return null;
 
   return (
-    <Providers>
+    <Providers themes={NavigationTheme}>
       <SheetProvider context="global">
         <Stack screenOptions={{ headerShown: false }} />
       </SheetProvider>

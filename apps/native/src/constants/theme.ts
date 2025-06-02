@@ -1,44 +1,24 @@
 import { DefaultTheme, type Theme } from "@react-navigation/native";
-import { Platform } from "react-native";
 
-export const FontTheme = Platform.select({
-    ios: {
-        regular: {
-            fontFamily: "System",
-            fontWeight: "400",
-        },
-        medium: {
-            fontFamily: "System",
-            fontWeight: "500",
-        },
-        bold: {
-            fontFamily: "System",
-            fontWeight: "600",
-        },
-        heavy: {
-            fontFamily: "System",
-            fontWeight: "700",
-        },
+export const DefaultFont = "NunitoSans";
+export const FontTheme = {
+    regular: {
+        fontFamily: DefaultFont,
+        fontWeight: "400",
     },
-    default: {
-        regular: {
-            fontFamily: "sans-serif",
-            fontWeight: "normal",
-        },
-        medium: {
-            fontFamily: "sans-serif-medium",
-            fontWeight: "normal",
-        },
-        bold: {
-            fontFamily: "sans-serif",
-            fontWeight: "600",
-        },
-        heavy: {
-            fontFamily: "sans-serif",
-            fontWeight: "700",
-        },
+    medium: {
+        fontFamily: DefaultFont,
+        fontWeight: "500",
     },
-});
+    bold: {
+        fontFamily: DefaultFont,
+        fontWeight: "600",
+    },
+    heavy: {
+        fontFamily: DefaultFont,
+        fontWeight: "700",
+    },
+};
 
 export const LightTheme = {
     background: "transparent", // background

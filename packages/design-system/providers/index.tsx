@@ -3,6 +3,7 @@
 import { configureReanimatedLogger, ReanimatedLogLevel } from "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PortalHost } from "@rn-primitives/portal";
+import { Theme } from "@react-navigation/native";
 import Constants from "expo-constants";
 import React from "react";
 
@@ -23,7 +24,13 @@ configureReanimatedLogger({
   strict: true, // Reanimated runs in strict mode by default
 });
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+  themes,
+}: {
+  children: React.ReactNode;
+  themes: Record<"light" | "dark", Theme>;
+}) {
   const { colorScheme } = useColorScheme();
 
   const hasMounted = React.useRef(false);
@@ -39,7 +46,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ThemeProvider theme={colorScheme}>
+    <ThemeProvider theme={colorScheme} themes={themes}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
           <QueryProvider>
