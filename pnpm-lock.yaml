@@ -405,6 +405,9 @@ importers:
       expo-clipboard:
         specifier: 7.1.4
         version: 7.1.4(expo@53.0.9)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
+      expo-linear-gradient:
+        specifier: 14.1.4
+        version: 14.1.4(expo@53.0.9)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
       expo-network:
         specifier: 7.1.5
         version: 7.1.5(expo@53.0.9)(react@19.0.0)
@@ -447,6 +450,9 @@ importers:
       react-native-reanimated:
         specifier: 'catalog:'
         version: 3.17.5(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
+      react-native-reanimated-skeleton:
+        specifier: 1.6.0
+        version: 1.6.0(react-native-linear-gradient@2.8.3(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.17.5(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
       react-native-safe-area-context:
         specifier: 'catalog:'
         version: 5.4.1(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
@@ -6824,6 +6830,20 @@ packages:
       react: '*'
       react-native: '*'
       react-native-reanimated: '>=3.0.0'
+
+  react-native-linear-gradient@2.8.3:
+    resolution: {integrity: sha512-KflAXZcEg54PXkLyflaSZQ3PJp4uC4whM7nT/Uot9m0e/qxFV3p6uor1983D1YOBJbJN7rrWdqIjq0T42jOJyA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  react-native-reanimated-skeleton@1.6.0:
+    resolution: {integrity: sha512-JSiI5GJaMeVomVZCVwAe4pGJbQNNNAuwCpFY7wcZKI1EkjMMyue8BIr4iKxBVWgnehXQxNy+F+HqmTz4oOsKqQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-linear-gradient: '*'
+      react-native-reanimated: '*'
 
   react-native-reanimated@3.17.5:
     resolution: {integrity: sha512-SxBK7wQfJ4UoWoJqQnmIC7ZjuNgVb9rcY5Xc67upXAFKftWg0rnkknTw6vgwnjRcvYThrjzUVti66XoZdDJGtw==}
@@ -15368,6 +15388,18 @@ snapshots:
       react: 19.0.0
       react-native: 0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0)
       react-native-is-edge-to-edge: 1.1.7(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
+      react-native-reanimated: 3.17.5(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
+
+  react-native-linear-gradient@2.8.3(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-native: 0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0)
+
+  react-native-reanimated-skeleton@1.6.0(react-native-linear-gradient@2.8.3(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0))(react-native-reanimated@3.17.5(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0))(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-native: 0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0)
+      react-native-linear-gradient: 2.8.3(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
       react-native-reanimated: 3.17.5(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
 
   react-native-reanimated@3.17.5(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@19.0.12)(react@19.0.0))(react@19.0.0):
