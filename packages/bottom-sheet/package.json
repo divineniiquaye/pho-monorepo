@@ -6,7 +6,7 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
-    "@gorhom/bottom-sheet": "5.1.5",
+    "@gorhom/bottom-sheet": "5.1.6",
     "@react-navigation/native": "7.1.10",
     "nanoid": "5.1.5",
     "react": "catalog:",
