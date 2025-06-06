@@ -224,10 +224,10 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
         ref={bottomSheetRef}
         onClose={hideSheet}
         topInset={top + 18}
-        onAnimate={(from, to) => {
+        onAnimate={(fromIndex, to, fromPosition, toPosition) => {
           // @ts-ignore TODO: Fix types
           isFullScreen.value = ["%100", "100%"].includes(snapPoints?.[to]) ? 1 : 0;
-          onAnimate?.(from, to);
+          onAnimate?.(fromIndex, to, fromPosition, toPosition);
         }}
         snapPoints={enableDynamicSizing ? undefined : (snapPoints ?? ["66%"])}
         handleIndicatorStyle={[themeHandleIndicatorStyle, handleIndicatorStyle]}
