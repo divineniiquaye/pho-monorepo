@@ -1,0 +1,8 @@
+# Ignore the entire /ios folder
+/ios/**/*
+
+# Ignore the entire /android folder
+/android/**/*
+
+# Ignore /.expo folder
+/.expo/**/*

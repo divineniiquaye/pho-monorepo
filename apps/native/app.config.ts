@@ -209,6 +209,13 @@ const config: import("expo/config").ExpoConfig = {
     },
     experiments: {
         typedRoutes: true,
+        buildCacheProvider: {
+            plugin: "@tooling/expo-github-cache",
+            options: {
+                owner: "divineniiquaye",
+                repo: "pho-monorepo-artifacts",
+            },
+        },
     },
     extra: {
         ClientEnv: client.parse(_clientEnv),

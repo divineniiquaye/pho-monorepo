@@ -87,6 +87,7 @@
     "@dev-plugins/react-query": "0.3.1",
     "@expo/ngrok": "4.1.3",
     "@tooling/eslint": "workspace:*",
+    "@tooling/expo-github-cache": "workspace:*",
     "@tooling/jest": "workspace:*",
     "@tooling/typescript": "workspace:*",
     "@types/lodash": "4.17.17",
