@@ -9,8 +9,9 @@
   ],
   "packageManager": "pnpm@10.11.0",
   "scripts": {
-    "dev": "node scripts/run.mjs dev",
+    "postinstall": "node scripts/postinstall.mjs",
     "build": "node scripts/run.mjs build",
+    "dev": "node scripts/run.mjs dev",
     "test": "node scripts/run.mjs test",
     "deps": "node scripts/deps.mjs",
     "patch": "pnpm dlx pnpm-patch-i",
