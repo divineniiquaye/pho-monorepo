@@ -1,3 +1,23 @@
+# v0.2.3 (Fri Jun 06 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat: updated release CI runner to macos ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(web): increased build test case timeout to 90 seconds ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: added synchronize pull request type to site GitHub CI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: updated GitHub action's pnpm to version 10.11.1 ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore(deps): updated dependencies ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: added a global post install script ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/egc,native): added expo remote build cache support ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added auto skeleton support by id ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.2 (Mon Jun 02 2025)
 
 #### ⚠️ Pushed to `main`
