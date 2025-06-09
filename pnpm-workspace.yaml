@@ -26,3 +26,8 @@ onlyBuiltDependencies:
     - esbuild
     - sharp
     - unrs-resolver
+
+# These overrides is to lock some dependencies to a specific version
+overrides:
+    react: 19.0.0
+    lightningcss: 1.27.0

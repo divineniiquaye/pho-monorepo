@@ -15,9 +15,6 @@
       "optional": true
     }
   },
-  "overrides": {
-    "react": "19.0.0"
-  },
   "dependencies": {
     "@expo/dom-webview": "0.1.5",
     "@expo/vector-icons": "14.1.0",

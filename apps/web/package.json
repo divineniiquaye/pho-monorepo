@@ -10,9 +10,6 @@
     "test": "jest --ci",
     "clean": "rm -rf .next .turbo dist node_modules"
   },
-  "overrides": {
-    "react": "19.0.0"
-  },
   "dependencies": {
     "@legendapp/state": "3.0.0-beta.30",
     "@repo/design": "workspace:*",
