@@ -57,18 +57,17 @@ export function registerSheet<SheetId extends keyof Sheets = never>(
  * and if you're using react native navigation theme provider, set the background color to transparent.
  *
  * For example
-```ts
-// Define your SheetProvider in the component/modal where
-// you want to show some Sheets.
-<SheetProvider context="local-context" />
-
-// Then register your sheet when for example the
-// Modal component renders.
-
-registerSheet('local-sheet', LocalSheet,'local-context');
-
-```
- * @returns
+ * ```ts
+ * // Define your SheetProvider in the component/modal where
+ * // you want to show some Sheets.
+ * <SheetProvider context="local-context" />
+ * 
+ * // Then register your sheet when for example the
+ * // Modal component renders.
+ * 
+ * registerSheet('local-sheet', LocalSheet,'local-context');
+ * 
+ * ```
  */
 export function SheetProvider({
   context = "global",
