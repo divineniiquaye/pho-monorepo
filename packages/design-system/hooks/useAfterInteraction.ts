@@ -1,36 +1,29 @@
-import { useAnimatedRef } from "react-native-reanimated";
 import { InteractionManager } from "react-native";
 import React from "react";
 
-export function useAfterInteractions<T extends React.Component>(
-    callback?: (
-        timeout: React.MutableRefObject<ReturnType<typeof setTimeout> | null>,
-    ) => Promise<boolean>,
+export function useAfterInteractions(
+    /**
+     * Optional async callback that returns a boolean
+     * to drive the “ready” state. If you don’t need
+     * any post-interaction logic, just omit it.
+     */
+    callback?: () => Promise<boolean>,
     deps: React.DependencyList = [],
 ) {
-    const [areInteractionsComplete, setInteractionsComplete] = React.useState(
-        !!process.env["JEST_WORKER_ID"],
-    );
-    const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
-    const transitionRef = useAnimatedRef<T>();
-    const subscriptionRef = React.useRef<ReturnType<
+    const [ready, setReady] = React.useState(Boolean(process.env.JEST_WORKER_ID));
+    const interactionHandle = React.useRef<ReturnType<
         typeof InteractionManager.runAfterInteractions
     > | null>(null);
 
     React.useEffect(() => {
-        if (process.env["JEST_WORKER_ID"]) return;
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        subscriptionRef.current = InteractionManager.runAfterInteractions(async () => {
-            if (transitionRef.current) {
-                setInteractionsComplete(callback ? await callback(timeoutRef) : true);
-            }
-            subscriptionRef.current = null;
+        if (process.env.JEST_WORKER_ID) return;
+        interactionHandle.current = InteractionManager.runAfterInteractions(async () => {
+            const result = callback ? await callback() : true;
+            setReady(result);
         });
-        return () => {
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-            subscriptionRef.current?.cancel();
-        };
-    }, [transitionRef, ...deps]);
 
-    return { areInteractionsComplete, transitionRef };
+        return () => interactionHandle.current?.cancel();
+    }, [callback, ...deps]);
+
+    return { ready };
 }

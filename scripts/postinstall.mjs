@@ -6,11 +6,6 @@ const { log } = console;
 // Define all postinstall tasks here
 const tasks = [
     {
-        name: "react-native-reanimated-skeleton expo support",
-        description: "Updating imports for linear gradient",
-        command: `find ./node_modules/react-native-reanimated-skeleton -type f -exec sed -i '' -e 's/import LinearGradient/import { LinearGradient }/g' -e 's/react-native-linear-gradient/expo-linear-gradient/g' {} +`,
-    },
-    {
         name: "build expo-github-cache",
         description: "Building expo-github-cache",
         command: "pnpm run --filter=@tooling/expo-github-cache build",

@@ -1,10 +1,9 @@
+import Animated, { FadeIn, SharedValue } from "react-native-reanimated";
 import { SystemBars, SystemBarsProps } from "react-native-edge-to-edge";
-import Animated, { SharedValue } from "react-native-reanimated";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import React from "react";
 
 import { useAfterInteractions } from "../hooks/useAfterInteraction";
-import { AutoSkeleton } from "./skeleton";
 import { cn } from "../lib/utils";
 
 export type LayoutProps = Omit<
@@ -12,10 +11,10 @@ export type LayoutProps = Omit<
   "children"
 > & {
   children: React.ReactNode | SharedValue<React.ReactNode>;
-  placeholder?: React.ComponentType;
+  placeholder?: React.ComponentType<React.ComponentPropsWithoutRef<typeof Animated.View>>;
   status?: SystemBarsProps;
   className?: string;
-  wait?: boolean | (() => boolean);
+  wait?: boolean;
   delay?: number | false;
 };
 
@@ -28,38 +27,43 @@ export function ScreenLayout({
   delay = false,
   ...props
 }: LayoutProps) {
-  const { transitionRef, areInteractionsComplete } = useAfterInteractions<Animated.View>(
-    (timeout) =>
+  const { ready } = useAfterInteractions(
+    () =>
       new Promise((resolve) => {
-        const interaction = () => {
-          if (typeof wait === "function") {
-            resolve(wait());
-          } else {
-            const show = !wait || wait === true;
-            if (show) resolve(show);
-          }
-        };
-
         if (typeof delay === "number") {
-          timeout.current = setTimeout(interaction, Math.max(300, delay));
-        } else interaction();
+          setTimeout(() => resolve(true), Math.max(300, delay));
+        } else resolve(true);
       }),
-    [wait],
+    [delay],
   );
 
   return (
     <View
       className={cn(
-        "bg-background flex-grow pb-safe android:pb-safe-offset-2 pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300 rounded-t-3xl",
+        "flex-1 bg-background flex-grow pb-safe android:pb-safe-offset-2 pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300 rounded-t-3xl",
         className,
       )}
     >
       <SystemBars style="auto" {...status} />
-      <Animated.View ref={transitionRef} style={{ flex: 1 }} {...props}>
-        <AutoSkeleton isLoading={!areInteractionsComplete}>
-          {children as any}
-        </AutoSkeleton>
-      </Animated.View>
+      {!wait && ready ? (
+        Object.keys(props).length === 0 ? (
+          (children as React.ReactNode)
+        ) : (
+          <Animated.View style={{ flex: 1 }} {...props}>
+            {children}
+          </Animated.View>
+        )
+      ) : Placeholder ? (
+        <Placeholder {...props} />
+      ) : (
+        <Animated.View
+          className={cn("flex-1 bg-background h-full w-full justify-center pb-safe")}
+          entering={props?.entering ?? FadeIn}
+          exiting={props?.exiting}
+        >
+          <ActivityIndicator size="large" />
+        </Animated.View>
+      )}
     </View>
   );
 }
