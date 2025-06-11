@@ -104,12 +104,14 @@ const RippleButton = React.forwardRef<
   const [ripples, setRipples] = React.useState<Ripple[]>([]);
 
   const handlePress = (e: GestureResponderEvent) => {
-    const id = Date.now();
-    const { offsetX, offsetY, locationX, locationY } =
-      e.nativeEvent as typeof e.nativeEvent & { offsetX: number; offsetY: number };
-    setRipples((r) => [
-      { x: (offsetX ?? locationX) - 50, y: (offsetY ?? locationY) - 50, id },
-    ]);
+    if (e?.nativeEvent) {
+      const id = Date.now();
+      const { offsetX, offsetY, locationX, locationY } =
+        e.nativeEvent as typeof e.nativeEvent & { offsetX: number; offsetY: number };
+      setRipples((r) => [
+        { x: (offsetX ?? locationX) - 50, y: (offsetY ?? locationY) - 50, id },
+      ]);
+    }
     onPress?.(e);
   };
 
