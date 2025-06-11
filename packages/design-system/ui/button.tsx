@@ -10,7 +10,7 @@ import { cn } from "../lib/utils";
 import isWeb from "../lib/isWeb";
 
 const buttonVariants = cva(
-  "group flex items-center justify-center rounded-md web:ring-offset-background active:scale-95 web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2",
+  "group flex items-center justify-center rounded-md web:ring-offset-background native:active:scale-95 web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2",
   {
     variants: {
       variant: {
