@@ -1,3 +1,26 @@
+# v0.2.4 (Wed Jun 11 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix(design-system): jest native test for button ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore(deps): updated dependencies ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved screen layout & remove skeleton layout ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system,native,web): added skeleton example card ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-sysem): improved skeleton ui component ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): scale in animation on button ui to native only ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): removed css import from dom layout component ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: lock lightningcss & react to specific versions ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(bottom-sheet): incorrect format for doc comments ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added a few animations to tailwind config ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added ripple button UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(bottom-sheet): onAnimate function not handling all props ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.3 (Fri Jun 06 2025)
 
 #### ⚠️ Pushed to `main`
