@@ -18,7 +18,7 @@
   "dependencies": {
     "@expo/dom-webview": "0.1.5",
     "@expo/vector-icons": "14.1.0",
-    "@hookform/resolvers": "5.0.1",
+    "@hookform/resolvers": "5.1.1",
     "@radix-ui/react-scroll-area": "1.2.9",
     "@radix-ui/react-slot": "1.2.3",
     "@react-navigation/native": "7.1.10",
@@ -62,7 +62,7 @@
     "fuse.js": "7.1.0",
     "i18next": "25.2.1",
     "input-otp": "1.4.2",
-    "lucide-react-native": "0.513.0",
+    "lucide-react-native": "0.514.0",
     "nativewind": "4.1.23",
     "next-themes": "0.4.6",
     "react": "catalog:",
@@ -77,10 +77,10 @@
     "react-resizable-panels": "3.0.2",
     "recharts": "2.15.3",
     "sonner": "2.0.5",
-    "sonner-native": "0.20.0",
-    "tailwind-merge": "3.3.0",
+    "sonner-native": "0.21.0",
+    "tailwind-merge": "3.3.1",
     "vaul": "1.1.2",
-    "zod": "3.25.55"
+    "zod": "3.25.61"
   },
   "devDependencies": {
     "@tailwindcss/typography": "0.5.16",
