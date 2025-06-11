@@ -94,6 +94,7 @@ import {
 import { Text } from "@repo/design/ui/text";
 import { Input, InputField } from "@repo/design/ui/input";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@repo/design/ui/tooltip";
+import { Skeleton, SkeletonText } from "@repo/design/ui/skeleton";
 import * as Typography from "@repo/design/ui/typography";
 import { Calendar } from "@repo/design/ui/calender";
 import {
@@ -504,6 +505,19 @@ export function SelectExample() {
         </SelectGroup>
       </SelectContent>
     </Select>
+  );
+}
+
+export function SkeletonCard() {
+  return (
+    <View className="w-full gap-4 p-3 rounded-md">
+      <Skeleton className="h-[150px]" />
+      <SkeletonText _lines={3} className="h-3" />
+      <View className="flex-row gap-2 items-center">
+        <Skeleton variant="circular" className="size-[24px] mr-2" />
+        <SkeletonText _lines={2} gap={1} className="h-2 w-2/5" />
+      </View>
+    </View>
   );
 }
 

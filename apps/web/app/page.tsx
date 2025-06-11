@@ -30,6 +30,7 @@ import {
   PopoverExample,
   ResizableExample,
   SelectExample,
+  SkeletonCard,
   TableExample,
   TooltipExample,
 } from "@repo/design/components/example";
@@ -60,6 +61,7 @@ export default function Web() {
       <Typography.Lead className="mb-2">Web</Typography.Lead>
       <Button
         testID="button"
+        disableRipple={true}
         onPress={() => {
           console.log("Pressed!");
           toast.info(
@@ -120,6 +122,7 @@ export default function Web() {
         <Progress value={50} />
         <RadioGroupExample />
         <SelectExample />
+        <SkeletonCard />
         <Separator />
         <InputOTPExample />
         <SliderExample />

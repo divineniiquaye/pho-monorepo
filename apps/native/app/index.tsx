@@ -52,19 +52,21 @@ import {
   PaginationExample,
   CommandExample,
   FormExample,
+  SkeletonCard,
 } from "@repo/design/components/example";
 
 export default function Native() {
   const { setColorScheme } = useColorScheme();
 
   return (
-    <ScreenLayout delay={false}>
+    <ScreenLayout>
       <VStack className="mx-4 items-center">
         <Text role="heading" className="text-2xl text-center font-bold mb-2">
           Native
         </Text>
         <Button
           variant="default"
+          disableRipple={true}
           onPress={() => {
             console.log("Pressed!");
             toast.info(
@@ -97,7 +99,7 @@ export default function Native() {
           <LocaleSwitcher />
         </HStack>
       </VStack>
-      <ScrollView contentContainerClassName="gap-5" className="my-3">
+      <ScrollView contentContainerClassName="gap-5">
         <HStack space="sm" className="items-baseline">
           <Typography.H2>@rn-primitives</Typography.H2>
           <Typography.P className="font-medium">
@@ -129,6 +131,7 @@ export default function Native() {
         <Progress value={50} />
         <RadioGroupExample />
         <SelectExample />
+        <SkeletonCard />
         <Separator />
         <InputOTPExample />
         <SliderExample />
