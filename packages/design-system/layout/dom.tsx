@@ -1,5 +1,3 @@
-import "@repo/design/tailwind/global.css";
-
 import { ThemeProvider } from "next-themes";
 import React from "react";
 

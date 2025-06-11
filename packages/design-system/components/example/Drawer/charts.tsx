@@ -1,5 +1,8 @@
 "use dom";
 
+// Css should always be imported where `use dom` is declared
+import "@repo/design/tailwind/global.css";
+
 import { Button } from "@repo/design/ui/button";
 import { Minus, Plus } from "lucide-react-native";
 import { Bar, BarChart, ResponsiveContainer } from "recharts";
