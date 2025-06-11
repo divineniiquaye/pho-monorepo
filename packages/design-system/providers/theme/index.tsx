@@ -4,10 +4,12 @@ import {
   type Theme,
 } from "@react-navigation/native";
 import { WebView } from "@expo/dom-webview";
+import { LinearGradient } from "expo-linear-gradient";
 import { cssInterop } from "nativewind";
 
-// NativeWind doesn't support webview yet
+// Components Not Supported by NativeWind
 cssInterop(WebView, { className: "containerStyle" });
+cssInterop(LinearGradient, { className: "style" });
 
 /**
  * If your background theme doesn't work well with android navigation bar,
