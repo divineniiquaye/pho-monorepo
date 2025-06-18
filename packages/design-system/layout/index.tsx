@@ -16,10 +16,13 @@ export type LayoutProps = Omit<
   className?: string;
   wait?: boolean;
   delay?: number | false;
+  // Callback that is called when the layout is ready
+  onReady?: () => Promise<boolean>;
 };
 
 export function ScreenLayout({
   placeholder: Placeholder,
+  onReady,
   children,
   className,
   status,
@@ -27,16 +30,7 @@ export function ScreenLayout({
   delay = false,
   ...props
 }: LayoutProps) {
-  const { ready } = useAfterInteractions(
-    () =>
-      new Promise((resolve) => {
-        if (typeof delay === "number") {
-          setTimeout(() => resolve(true), Math.max(300, delay));
-        } else resolve(true);
-      }),
-    [delay],
-  );
-
+  const { ready } = useAfterInteractions(delay, onReady);
   return (
     <View
       className={cn(
