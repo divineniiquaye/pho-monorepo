@@ -1,3 +1,18 @@
+# v0.2.5 (Wed Jun 18 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat: updated GitHub action's pnpm to version 10.12.1 ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update CHANGELOG.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved theme loading interactions ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore(deps): updated dependencies ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.4 (Wed Jun 11 2025)
 
 #### ⚠️ Pushed to `main`
