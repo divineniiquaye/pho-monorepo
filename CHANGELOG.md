@@ -6,7 +6,7 @@
 - chore(deps): updated dependencies ([@divineniiquaye](https://github.com/divineniiquaye))
 - feat(design-system): improved screen layout & remove skeleton layout ([@divineniiquaye](https://github.com/divineniiquaye))
 - feat(design-system,native,web): added skeleton example card ([@divineniiquaye](https://github.com/divineniiquaye))
-- feat(design-sysem): improved skeleton ui component ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved skeleton ui component ([@divineniiquaye](https://github.com/divineniiquaye))
 - fix(design-system): scale in animation on button ui to native only ([@divineniiquaye](https://github.com/divineniiquaye))
 - feat(design-system): removed css import from dom layout component ([@divineniiquaye](https://github.com/divineniiquaye))
 - feat: lock lightningcss & react to specific versions ([@divineniiquaye](https://github.com/divineniiquaye))
