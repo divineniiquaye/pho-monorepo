@@ -17,6 +17,6 @@
     "jest": "29.7.0",
     "jest-expo": "53.0.7",
     "react-test-renderer": "catalog:",
-    "ts-jest": "29.3.4"
+    "ts-jest": "29.4.0"
   }
 }

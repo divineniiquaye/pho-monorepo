@@ -1,2 +1,9 @@
 # https://github.com/pnpm/pnpm/issues/2412
 packages: []
+
+# As of pnpm v10.1.0 to mitigate supply chain risks, you'll have to specify
+# the packages that are allowed to be built.
+onlyBuiltDependencies:
+    - "@tailwindcss/oxide"
+    - esbuild
+    - sharp

@@ -17,6 +17,6 @@
   "devDependencies": {
     "fs-extra": "11.3.0",
     "chokidar": "4.0.3",
-    "glob": "11.0.2"
+    "glob": "11.0.3"
   }
 }
