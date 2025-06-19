@@ -26,12 +26,11 @@ program
     .argument("<type>", "type of build")
     .argument("[app]", "app name from apps directory")
     .option("--non-interactive", "Skip interactive prompt", false)
-    .option("-e, --except", "Exclude app from running")
+    .option("-O, --only", "Exclude app from running")
     .action(async (type, app, options) => {
         try {
             const apps = await getApps();
             let targetApp = apps.length <= 1 ? "all" : app;
-            const except = options.except ? "!" : "";
 
             if (!targetApp && !options.nonInteractive) {
                 targetApp = await select({
@@ -40,20 +39,26 @@ program
                 });
             }
 
-            if (targetApp && targetApp !== "all") {
-                if (!apps.includes(targetApp)) {
-                    log(
-                        chalk.red(
-                            `Error: App '${targetApp}' not found in apps directory`,
-                        ),
-                    );
-                    process.exit(1);
-                }
-                execSync(`turbo run --filter ${except}${targetApp} ${type}`, {
+            if ("all" === targetApp) {
+                execSync(`turbo run ${type} --parallel`, { stdio: "inherit" });
+            } else if (!targetApp || !apps.includes(targetApp)) {
+                log(
+                    chalk.red(
+                        targetApp
+                            ? `Error: App '${targetApp}' not found in apps directory`
+                            : "No app defined, please specify one use an interactive terminal",
+                    ),
+                );
+                process.exit(1);
+            } else if (options.only) {
+                execSync(`pnpm --filter ./apps/${targetApp} run ${type}`, {
                     stdio: "inherit",
                 });
             } else {
-                execSync(`turbo run ${type} ${"test" === type ? "--parallel" : ""}`, {
+                const exclude = apps
+                    .filter((app) => app !== targetApp)
+                    .map((app) => `--filter !${app}`);
+                execSync(`turbo run ${type} ${exclude.join(" ")}`, {
                     stdio: "inherit",
                 });
             }
