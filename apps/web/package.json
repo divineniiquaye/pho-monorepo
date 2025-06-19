@@ -16,7 +16,7 @@
     "@t3-oss/env-nextjs": "0.13.8",
     "@tanstack/react-query": "5.80.7",
     "geist": "1.4.2",
-    "next": "15.3.3",
+    "next": "15.3.4",
     "next-view-transitions": "0.3.4",
     "raf": "3.4.1",
     "react": "catalog:",
