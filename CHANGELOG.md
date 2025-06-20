@@ -1,3 +1,19 @@
+# v0.2.6 (Fri Jun 20 2025)
+
+#### ⚠️ Pushed to `main`
+
+- feat: improved exported `pho-monorepo` commands ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: improved auto release CI workflow ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore(deps): updated dependencies ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: improved the global dev & build command for better dx ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: improve the deps command for better dx ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.5 (Wed Jun 18 2025)
 
 #### ⚠️ Pushed to `main`
