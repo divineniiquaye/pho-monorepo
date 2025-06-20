@@ -1,13 +1,20 @@
 {
   "name": "pho-monorepo",
   "version": "0.2.5",
+  "pho": "0.2.5",
   "bin": {
     "pho-monorepo": "scripts/init.mjs"
   },
   "files": [
-    "scripts/init.mjs"
+    "scripts/init.mjs",
+    "CHANGELOG.md"
   ],
   "packageManager": "pnpm@10.12.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tooling/*"
+  ],
   "scripts": {
     "postinstall": "node scripts/postinstall.mjs",
     "build": "node scripts/run.mjs build",
@@ -27,6 +34,7 @@
   ],
   "dependencies": {
     "@inquirer/select": "^4.2.3",
+    "@clack/prompts": "^0.11.0",
     "chalk": "^5.4.1",
     "commander": "^14.0.0"
   },
