@@ -1,8 +1,24 @@
 {
-    "prereleaseBranches": ["next", "beta"],
-    "plugins": ["npm", "released"],
     "owner": "divineniiquaye",
     "repo": "pho-monorepo",
     "name": "Divine Niiquaye Ibok",
-    "email": "divineibok@gmail.com"
+    "email": "divineibok@gmail.com",
+    "plugins": [
+        "npm",
+        "released",
+        "first-time-contributor",
+        [
+            "conventional-commits",
+            {
+                "preset": "angular",
+                "defaultReleaseType": "patch"
+            }
+        ],
+        [
+            "exec",
+            {
+                "afterChangelog": "node -e \"const pkg=require('./package.json');const fs=require('node:fs');fs.writeFileSync('./package.json',JSON.stringify({...pkg,pho:pkg.version},null,2)+'\\n')\""
+            }
+        ]
+    ]
 }

@@ -2,11 +2,16 @@ name: Release
 
 on:
     push:
-        branches: [main]
         paths: ["scripts/init.mjs"]
     pull_request:
-        types: [opened, reopened, synchronize]
-    workflow_dispatch: # Allows manual triggering of the workflow
+        types: [opened, synchronize]
+    workflow_dispatch:
+        inputs:
+            version:
+                description: Profile to release (latest/next/canary/release)
+                type: choice
+                required: false
+                options: [latest, next, canary, release]
 
 permissions:
     contents: write
@@ -27,9 +32,13 @@ jobs:
             - name: Setup monorepo
               uses: ./.github/actions/setup-monorepo
 
+            - name: Install Auto Plugins
+              run: npm i -g @auto-it/exec @auto-it/first-time-contributor @auto-it/conventional-commits
+
             - name: Create Release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-              run: git reset --hard && npx auto shipit
-              continue-on-error: true
+              run: |
+                git reset --hard && npm i -g auto
+                auto ${{ github.event.inputs.version || github.event_name == 'pull_request' && 'canary' || 'shipit' }}
