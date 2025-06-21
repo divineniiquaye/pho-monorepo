@@ -39,11 +39,22 @@ export const skeletonTextStyle = cva("rounded-sm w-full", {
   },
 });
 
-type SkeletonProps = React.ComponentPropsWithoutRef<typeof View> &
+type SkeletonProps = Omit<React.ComponentPropsWithoutRef<typeof View>, "children"> &
   VariantProps<typeof skeletonStyle> & {
     type?: "shimmer" | "pulse";
-    isLoaded?: boolean;
-  };
+  } & (
+    | {
+        isLoaded: "progressive";
+        children: (
+          setIsLoaded: (isLoaded: boolean) => void,
+          ready: boolean,
+        ) => React.ReactNode;
+      }
+    | {
+        isLoaded?: boolean;
+        children?: React.ReactNode;
+      }
+  );
 
 const Shimmer = ({ speed }: { speed?: 1 | 2 | 3 | 4 | null }) => {
   if (Platform.OS !== "web") {
@@ -73,7 +84,7 @@ const Shimmer = ({ speed }: { speed?: 1 | 2 | 3 | 4 | null }) => {
   );
 };
 
-const Skeleton = React.forwardRef<React.ElementRef<typeof View>, SkeletonProps>(
+const Skeleton = React.forwardRef<React.ComponentRef<typeof View>, SkeletonProps>(
   (
     {
       className,
@@ -86,10 +97,14 @@ const Skeleton = React.forwardRef<React.ElementRef<typeof View>, SkeletonProps>(
     },
     ref,
   ) => {
-    if (isLoaded) return <>{children}</>;
+    if (true === isLoaded) return <>{children}</>;
+    const [ready, setIsReady] = React.useState<boolean>(
+      typeof isLoaded === "boolean" ? isLoaded : false,
+    );
 
     const baseClass = cn(
       "relative overflow-hidden bg-accent/50",
+      "progressive" === isLoaded && "absolute",
       type === "pulse" && "animate-pulse bg-accent",
       type !== "shimmer" && type !== "pulse" && "bg-accent",
       skeletonStyle({ variant, speed }),
@@ -97,9 +112,15 @@ const Skeleton = React.forwardRef<React.ElementRef<typeof View>, SkeletonProps>(
     );
 
     return (
-      <View ref={ref} className={baseClass} {...props}>
-        {type === "shimmer" && <Shimmer speed={speed} />}
-      </View>
+      <>
+        {/* @ts-ignore - children is not a valid prop */}
+        {"progressive" === isLoaded && children(setIsReady, ready)}
+        {!ready && (
+          <View ref={ref} className={baseClass} {...props}>
+            {type === "shimmer" && <Shimmer speed={speed} />}
+          </View>
+        )}
+      </>
     );
   },
 );
