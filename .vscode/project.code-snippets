@@ -48,15 +48,14 @@
         ],
         "description": "Component",
     },
-    // https: //snippet-generator.app/?description=Modal+Sheet&tabtrigger=sheet&snippet=import+%7B+SheetProps+%7D+from+%22react-native-bottom-sheet-manager%22%3B%0A%0Aimport+%7B+Sheet%2C+BottomSheet+%7D+from+%22..%2Froot%22%3B%0Aimport+%7B+VStack+%7D+from+%22%40repo%2Fdesign%2Fui%2Fstack%22%3B%0Aimport+%7B+Text+%7D+from+%22%40repo%2Fdesign%2Fui%22%3B%0A%0Aexport+default+function+ModalScreen%28%7B+id+%7D%3A+SheetProps%3C%22example%22%3E%29+%7B%0A++%0A++return+%28%0A++++%3CSheet+id%3D%7Bid%7D+enableDynamicSizing%3E%0A++++++%3CBottomSheet.View%3E%0A++++++++%3CVStack+className%3D%22mb-safe-offset-2+p-8%22%3E%0A++++++++++%3CText%3EHello+World%3C%2FText%3E%0A++++++++%3C%2FVStack%3E%0A++++++%3C%2FBottomSheet.View%3E%0A++++%3C%2FSheet%3E%0A++%29%3B%0A%7D%0A&mode=vscode
+    // https: //snippet-generator.app/?description=Modal+Sheet&tabtrigger=sheet&snippet=import+%7B+SheetProps+%7D+from+%22@repo/bottom-sheet%22%3B%0A%0Aimport+%7B+Sheet%2C+BottomSheet+%7D+from+%22..%2Froot%22%3B%0Aimport+%7B+VStack+%7D+from+%22%40repo%2Fdesign%2Fui%2Fstack%22%3B%0Aimport+%7B+Text+%7D+from+%22%40repo%2Fdesign%2Fui%22%3B%0A%0Aexport+default+function+ModalScreen%28%7B+id+%7D%3A+SheetProps%3C%22example%22%3E%29+%7B%0A++%0A++return+%28%0A++++%3CSheet+id%3D%7Bid%7D+enableDynamicSizing%3E%0A++++++%3CBottomSheet.View%3E%0A++++++++%3CVStack+className%3D%22mb-safe-offset-2+p-8%22%3E%0A++++++++++%3CText%3EHello+World%3C%2FText%3E%0A++++++++%3C%2FVStack%3E%0A++++++%3C%2FBottomSheet.View%3E%0A++++%3C%2FSheet%3E%0A++%29%3B%0A%7D%0A&mode=vscode
     "Modal Sheet": {
         "prefix": "sheet",
         "body": [
-            "import { SheetProps } from \"react-native-bottom-sheet-manager\";",
+            "import { SheetProps } from \"@repo/bottom-sheet\";",
             "",
             "import { Sheet, BottomSheet } from \"../root\";",
-            "import { VStack } from \"@repo/design/ui/stack\";",
-            "import { Text } from \"@repo/design/ui\";",
+            "import { Text, VStack } from \"@repo/design/ui\";",
             "",
             "export default function ModalScreen({ id }: SheetProps<\"example\">) {",
             "  ",
