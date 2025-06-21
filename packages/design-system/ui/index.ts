@@ -1,5 +1,3 @@
-
-
 export * from "./alert";
 export * from "./accordion";
 export * from "./alert-dialog";
@@ -24,6 +22,7 @@ export * from "./hover-card";
 export * from "./input";
 export * from "./input-otp";
 export * from "./label";
+export * from "./marquee";
 export * from "./menubar";
 export * from "./navigation-menu";
 export * from "./pagination";
