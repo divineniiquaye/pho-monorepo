@@ -1,53 +1,55 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import * as React from "react";
 
-const badgeRootVariants = cva("items-center rounded-full border px-2.5 py-0.5", {
-  variants: {
-    variant: {
-      default: "border-transparent bg-primary",
-      secondary: "border-transparent bg-secondary",
-      destructive: "border-transparent bg-destructive",
-      outline: "border-border",
+import { TextClassContext } from "./text";
+
+const badgeVariants = cva(
+  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-colors web:transition-[color,box-shadow] overflow-hidden",
+  {
+    variants: {
+      variant: {
+        default: "border-transparent bg-primary [a&]:hover:bg-primary/90",
+        secondary: "border-transparent bg-secondary [a&]:hover:bg-secondary/90",
+        destructive:
+          "border-transparent bg-destructive [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline: "[a&]:hover:bg-accent",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
     },
   },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+);
 
-const badgeTextVariants = cva("font-semibold", {
+const badgeTextVariants = cva("text-xs native:text-sm font-medium", {
   variants: {
     variant: {
       default: "text-primary-foreground",
       secondary: "text-secondary-foreground",
-      destructive: "text-destructive-foreground",
-      outline: "text-foreground",
-    },
-    size: {
-      sm: "text-xs native:text-sm",
-      md: "text-sm native:text-base",
-      lg: "text-base native:text-lg",
+      destructive: "text-white",
+      outline: "text-foreground [a&]:hover:text-accent-foreground",
     },
   },
   defaultVariants: {
     variant: "default",
-    size: "md",
   },
 });
 
 const Badge = React.forwardRef<
   React.ComponentRef<typeof View>,
-  React.ComponentProps<typeof View> &
-    VariantProps<typeof badgeTextVariants> & { textClass?: string }
->(({ className, children, textClass, variant, size, ...props }, ref) => {
+  React.ComponentPropsWithoutRef<typeof View> &
+    VariantProps<typeof badgeVariants> & { textClass?: string }
+>(({ className, children, textClass, variant = "default", ...props }, ref) => {
   return (
-    <View ref={ref} className={badgeRootVariants({ variant, className })} {...props}>
-      <Text className={badgeTextVariants({ variant, size, className: textClass })}>
+    <View ref={ref} className={badgeVariants({ variant, className })} {...props}>
+      <TextClassContext.Provider
+        value={badgeTextVariants({ variant, className: textClass })}
+      >
         {children}
-      </Text>
+      </TextClassContext.Provider>
     </View>
   );
 });
 
-export { Badge, badgeRootVariants, badgeTextVariants };
+export { Badge, badgeVariants, badgeTextVariants };
