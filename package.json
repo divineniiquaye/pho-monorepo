@@ -16,7 +16,6 @@
     "tooling/*"
   ],
   "scripts": {
-    "postinstall": "node scripts/postinstall.mjs",
     "build": "node scripts/run.mjs build",
     "dev": "node scripts/run.mjs dev",
     "test": "node scripts/run.mjs test",
