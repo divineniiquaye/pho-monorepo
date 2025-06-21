@@ -121,6 +121,7 @@ My main goals driving this template are:
 > Each component is 100% [TypeScript](https://www.typescriptlang.org/). Here's extra components included in the UI kit:
 
 - Stack (HStack, VStack)
+- Marquee
 
 
 ## RoadMap
