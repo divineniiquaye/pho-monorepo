@@ -1,42 +1,45 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
 {
-    "name": "Pho Monorepo",
-    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
-
-    // Features to add to the dev container. More info: https://containers.dev/features.
-    "features": {
-      "git": "latest",
-      "github-cli": "latest"
+  "name": "Pho Monorepo",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/typescript-node",
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": "true",
+      "upgradePackages": "true",
+      "installZsh": "true",
+      "username": "node"
     },
-
-    // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [8081, 3000],
-
-    "initializeCommand": "bash .devcontainer/initializeCommand.sh",
-
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
-
-    // Configure tool-specific properties.
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "bradlc.vscode-tailwindcss",
-          "christian-kohler.path-intellisense",
-          "christian-kohler.npm-intellisense",
-          "eamodio.gitlens",
-          "EditorConfig.EditorConfig",
-          "esbenp.prettier-vscode",
-          "expo.vscode-expo-tools",
-          "github.copilot",
-          "github.vscode-pull-request-github",
-          "mikestead.dotenv"
-        ]
-      }
-    },
-
-    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-    // "remoteUser": "root"
+    "ghcr.io/devcontainers-extra/features/expo-cli:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    8081,
+    3000
+  ],
+  "initializeCommand": "bash .devcontainer/initializeCommand.sh",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bradlc.vscode-tailwindcss",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense",
+        "eamodio.gitlens",
+        "EditorConfig.EditorConfig",
+        "esbenp.prettier-vscode",
+        "expo.vscode-expo-tools",
+        "github.copilot",
+        "github.vscode-pull-request-github",
+        "mikestead.dotenv"
+      ]
+    }
+  },
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }
