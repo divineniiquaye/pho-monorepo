@@ -30,6 +30,7 @@ const internalContentFiles = [
     ".github/workflows/release.yml",
     ".github/workflows/site.yml",
     "/scripts/init.mjs",
+    "/scripts/auto.js",
     "CHANGELOG.md",
     "LICENSE",
     ".autorc",
@@ -148,7 +149,7 @@ const clonePhoMonorepo = async (name, packageManager) => {
     const command = [
         // `${runCommand[packageManager]} create`,
         "npx create-next-app@latest",
-        projectName,
+        name,
         "--example",
         url,
         "--disable-git",

@@ -20,7 +20,7 @@ permissions:
 jobs:
     release:
         # The operating system it will run on
-        runs-on: macos-latest
+        runs-on: ubuntu-latest
         # The list of steps that the action will go through
         steps:
             - name: Checkout
@@ -33,12 +33,18 @@ jobs:
               uses: ./.github/actions/setup-monorepo
 
             - name: Install Auto Plugins
-              run: npm i -g @auto-it/exec @auto-it/first-time-contributor @auto-it/conventional-commits
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  npm i -g auto @auto-it/core @auto-it/npm @auto-it/released @auto-it/first-time-contributor @auto-it/conventional-commits
+                  auto info --list-plugins
+              continue-on-error: true
 
             - name: Create Release
               env:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NODE_PATH: $(npm root -g)
               run: |
-                git reset --hard && npm i -g auto
-                auto ${{ github.event.inputs.version || github.event_name == 'pull_request' && 'canary' || 'shipit' }}
+                  git reset --hard
+                  auto ${{ github.event.inputs.version || github.event_name == 'pull_request' && 'canary' || 'shipit' }} -v
