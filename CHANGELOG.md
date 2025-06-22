@@ -1,3 +1,16 @@
+# v0.2.8 (Sun Jun 22 2025)
+
+#### ⚠️ Pushed to `main`
+
+- chore(deps): updated dependencies ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: updated node CI to 24.x ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.7 (Sun Jun 22 2025)
 
 #### ⚠️ Pushed to `main`
