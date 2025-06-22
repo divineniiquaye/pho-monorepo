@@ -1,3 +1,24 @@
+# v0.2.7 (Sun Jun 22 2025)
+
+#### ⚠️ Pushed to `main`
+
+- infra: added prod docker config ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: improved auto release CI & plugin configs ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: improved dev container configs ([@divineniiquaye](https://github.com/divineniiquaye))
+- Update README.md ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: removed postinstall script from root package.json ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added progressive loading support to skeleton UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added marquee UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added on press smooth animation to button UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved the badge UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: made some changes to vscode snippets ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.6 (Fri Jun 20 2025)
 
 #### ⚠️ Pushed to `main`
