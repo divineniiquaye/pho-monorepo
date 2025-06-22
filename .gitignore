@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+.pnpm-store
 .pnp
 .pnp.js
 
@@ -36,6 +37,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.devcontainer/.env
 
 # turbo
 .turbo

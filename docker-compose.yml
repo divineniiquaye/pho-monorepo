@@ -1,0 +1,76 @@
+version: "3.8"
+
+services:
+    next:
+        build:
+            context: .
+            dockerfile_inline: |
+                # 1. Builder stage
+                FROM node:24-alpine AS base
+
+                # 2. Install dependencies only when needed
+                FROM base AS deps
+                # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+                RUN apk add --no-cache libc6-compat
+
+                WORKDIR /app
+
+                # 3. Install dependencies based on the preferred package manager and build
+                COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* bun.lock* bun.lockb* ./
+                RUN \
+                  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+                  elif [ -f package-lock.json ]; then npm ci; \
+                  elif [ -f pnpm-lock.yaml ]; then npm install -g pnpm && pnpm i; \
+                  elif [ -f bun.lockb ] || [ -f bun.lock ]; then bun install; \
+                  # Allow install without lockfile, so example works even without Node.js installed locally
+                  else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && npm install -g pnpm && pnpm i; \
+                  fi
+
+                # 4. Rebuild the source code only when needed
+                # Note: It is not necessary to add an intermediate step that does a full copy of `node_modules` here
+                FROM deps AS builder
+                WORKDIR /app
+                RUN \
+                  if [ -f yarn.lock ]; then yarn build web; \
+                  elif [ -f package-lock.json ]; then npm run build web; \
+                  elif [ -f pnpm-lock.yaml ]; then pnpm build web; \
+                  elif [ -f bun.lockb ] || [ -f bun.lock ]; then bun build web; \
+                  else echo "Failed to build. Lockfile not found." && exit 1; \
+                  fi
+
+                # 4. Production image, copy all the files and run next
+                FROM base AS runner
+                WORKDIR /app
+
+                ENV NODE_ENV=production
+                # Uncomment the following line in case you want to disable telemetry during the build.
+                # ENV NEXT_TELEMETRY_DISABLED=1
+                ENV NEXT_PRIVATE_STANDALONE=true
+
+                RUN addgroup --system --gid 1001 nodejs
+                RUN adduser --system --uid 1001 nextjs
+                USER nextjs
+
+                # Automatically leverage output traces to reduce image size
+                # https://nextjs.org/docs/advanced-features/output-file-tracing
+                COPY --from=builder /app/apps/web/public ./public
+                COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+                COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./.next/static
+
+                # Ensuring no unnecessary permissions are given and add necessary permissions for it to run server.js properly.
+                RUN chmod -R a-w+x . && chmod -R a+x .next
+                CMD ["node", "server.js"]
+        ports:
+            - "3000:3000"
+        networks:
+            - my_network
+        environment:
+            NODE_ENV: production
+
+        # Add more containers below (nginx, postgres, etc.)
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+    my_network:
+        external: true

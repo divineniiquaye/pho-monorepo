@@ -23,6 +23,7 @@
     "patch": "pnpm dlx pnpm-patch-i",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
+    "docker": "docker-compose -f docker-compose.yml up",
     "watchman": "watchman watch-del './' ; watchman watch-project './'",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
     "locale": "pnpm run --filter=@tooling/i18n locale"
