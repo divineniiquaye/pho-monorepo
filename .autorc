@@ -7,7 +7,6 @@
         "npm",
         "released",
         "first-time-contributor",
-        "./scripts/auto.js",
         [
             "conventional-commits",
             {
@@ -18,7 +17,7 @@
         [
             "exec",
             {
-                "afterChangelog": "node -e \"const pkg=require('./package.json');const fs=require('node:fs');fs.writeFileSync('./package.json',JSON.stringify({...pkg,pho:pkg.version},null,2)+'\\n')\""
+                "afterVersion": "node -e \"const pkg=require('./package.json');const fs=require('node:fs');fs.writeFileSync('./package.json',JSON.stringify({...pkg,pho:pkg.version},null,2)+'\\n')\" && git commit -a --amend --no-edit"
             }
         ]
     ]
