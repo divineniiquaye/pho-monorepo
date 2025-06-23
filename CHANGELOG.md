@@ -1,3 +1,15 @@
+# v0.2.10 (Mon Jun 23 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix: installation command not cloning repo ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.9 (Mon Jun 23 2025)
 
 #### ⚠️ Pushed to `main`
