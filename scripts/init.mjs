@@ -539,7 +539,7 @@ program
             s.start(`Preparing to update from ${from} to ${to}...`);
 
             s.message("Creating temporary directory...");
-            const tempDir = await createTemporaryDirectory("phox-update");
+            const tempDir = await createTemporaryDirectory(cwd, "phox-update");
 
             s.message("Cloning pho-monorepo...");
             await exec("git --version");
