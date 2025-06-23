@@ -19,7 +19,14 @@ const inputVariant = cva(
   "flex-row overflow-hidden content-center items-center border-input px-3",
   {
     variants: {
-      size: { "2xl": "h-16", xl: "h-14", lg: "h-12", md: "h-11", sm: "h-9" },
+      size: {
+        "2xl": "h-16",
+        auto: "h-auto",
+        xl: "h-14",
+        lg: "h-12",
+        md: "h-11",
+        sm: "h-9",
+      },
 
       variant: {
         underlined: "rounded-none border-b",
@@ -40,6 +47,7 @@ const inputIconVariant = cva(
         md: "h-[18px] w-[18px]",
         lg: "h-5 w-5",
         xl: "h-6 w-6",
+        auto: "h-auto",
         "2xl": "h-7 w-7",
       },
     },
@@ -61,6 +69,7 @@ const inputFieldVariant = cva(
         md: "text-base",
         lg: "text-lg",
         xl: "text-xl",
+        auto: "text-lg",
         "2xl": "text-xl",
       },
     },
@@ -72,6 +81,7 @@ const floatInputVariant = {
   md: [14, 11],
   lg: [15.8, 12.4],
   xl: [17.4, 13.4],
+  auto: [15.8, 12.4],
   "2xl": [17.4, 14],
 };
 
@@ -79,7 +89,7 @@ type InputContextType = {
   isFocused: boolean;
   setIsFocused: (value: boolean) => void;
   variant: "underlined" | "outline" | "rounded" | null;
-  size?: "2xl" | "xl" | "lg" | "md" | "sm" | null;
+  size?: "auto" | "2xl" | "xl" | "lg" | "md" | "sm" | null;
   editable?: boolean;
   label: { text?: string; position: Animated.Value };
 };
@@ -154,8 +164,14 @@ const Input = React.forwardRef<View, InputProps>(
           {...props}
         >
           <Animated.Text
-            className={cn("absolute text-muted-foreground native:pl-3", labelClassName)}
+            className={cn(
+              "absolute text-muted-foreground native:pl-3 w-[97%] z-10",
+              labelClassName,
+            )}
             style={[labelAnimatedStyle, labelStyle]}
+            pointerEvents="none"
+            ellipsizeMode="tail"
+            numberOfLines={1}
           >
             {label}
           </Animated.Text>
