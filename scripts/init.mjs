@@ -580,7 +580,7 @@ program
                 !!options.force,
             );
 
-            await rm(tempDirName, { recursive: true, force: true });
+            await rm(tempDir, { recursive: true, force: true });
             s.stop(`Successfully updated project from ${from} to ${to}!`);
             outro("Please review and test the changes carefully.");
         } catch (error) {
