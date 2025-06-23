@@ -25,11 +25,13 @@ configureReanimatedLogger({
 });
 
 export function Providers({
+  defaultTheme,
   children,
   themes,
 }: {
   children: React.ReactNode;
   themes?: Record<"light" | "dark", Theme>;
+  defaultTheme?: "light" | "dark";
 }) {
   const { colorScheme } = useColorScheme();
 
@@ -46,7 +48,7 @@ export function Providers({
   }, []);
 
   return (
-    <ThemeProvider theme={colorScheme} themes={themes}>
+    <ThemeProvider theme={colorScheme} defaultTheme={defaultTheme} themes={themes}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
           <QueryProvider>

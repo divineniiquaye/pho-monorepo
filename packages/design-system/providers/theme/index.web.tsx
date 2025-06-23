@@ -21,10 +21,11 @@ cssInterop(Animated.FlatList, { className: { target: "style" } });
 cssInterop(RNAnimated.SectionList, { className: { target: "style" } });
 
 export function ThemeProvider({
+  defaultTheme,
   children,
-  theme,
 }: {
   children: React.ReactNode;
+  defaultTheme?: "light" | "dark";
   theme: "light" | "dark";
 }) {
   useServerInsertedHTML(() => {
@@ -37,7 +38,7 @@ export function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme={theme}
+      defaultTheme={defaultTheme}
       disableTransitionOnChange
       enableColorScheme
       enableSystem

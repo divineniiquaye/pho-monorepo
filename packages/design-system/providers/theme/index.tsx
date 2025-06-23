@@ -35,13 +35,15 @@ cssInterop(LinearGradient, { className: "style" });
  * ```
  */
 export function ThemeProvider({
+  defaultTheme,
   children,
   themes,
   theme,
 }: {
   children: React.ReactNode;
   theme: "light" | "dark";
+  defaultTheme?: "light" | "dark";
   themes?: Record<"light" | "dark", Theme>;
 }) {
-  return <NativeThemeProvider value={themes?.[theme]}>{children}</NativeThemeProvider>;
+  return <NativeThemeProvider value={themes?.[defaultTheme || theme]}>{children}</NativeThemeProvider>;
 }
