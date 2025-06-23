@@ -1,3 +1,19 @@
+# v0.2.9 (Mon Jun 23 2025)
+
+#### ⚠️ Pushed to `main`
+
+- infra: fixed release CI build issues ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: fix docker CI build issues ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: make project name required before setting-up optional ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: package.json workspaces issue on new installation ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: fix auto release CI & plugin configs ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.8 (Sun Jun 22 2025)
 
 #### ⚠️ Pushed to `main`
