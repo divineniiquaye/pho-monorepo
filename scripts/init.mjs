@@ -236,7 +236,7 @@ const updateInternalPackageDependencies = async (path) => {
 
 /** @returns {Promise<string[]>} */
 export const getAvailableVersions = async () => {
-    const changelog = await readFile(join(__dirname, "../CHANGELOG.md"), "utf-8");
+    const changelog = await readFile("../CHANGELOG.md", "utf-8");
     const versionRegex = /# v(\d+\.\d+\.\d+)/g;
     const matches = [...changelog.matchAll(versionRegex)];
 
