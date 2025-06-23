@@ -1,3 +1,15 @@
+# v0.2.13 (Mon Jun 23 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix: `pho-monorepo` update command dir issue ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.12 (Mon Jun 23 2025)
 
 #### ⚠️ Pushed to `main`
