@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
+import { copyFile, readFile, mkdir, rm } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
 import { exec as execRaw } from "node:child_process";
-import { readFile, mkdir, rm } from "node:fs/promises";
 import { readdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
