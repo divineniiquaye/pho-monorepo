@@ -110,7 +110,7 @@ const selectVersion = async (label, availableVersions, initialValue) => {
  * @param {string} type - eg. "overwrite", "delete"
  * @returns "yes" | "no" | "all" | "none"
  */
-async function confirmAction(file, type) {
+async function confirmAction(cwd, file, type) {
     const choice = await select({
         message: `\nDo you want to ${type} this file? (${relative(cwd, file)})`,
         options: [
