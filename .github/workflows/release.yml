@@ -45,6 +45,4 @@ jobs:
                   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
                   NODE_PATH: $(npm root -g)
-              run: |
-                  git reset --hard
-                  auto ${{ github.event.inputs.version || github.event_name == 'pull_request' && 'canary' || 'shipit' }} -v
+              run: auto ${{ github.event.inputs.version || github.event_name == 'pull_request' && 'canary' || 'shipit' }}

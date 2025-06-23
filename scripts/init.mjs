@@ -455,7 +455,7 @@ program
             const projectDir = join(cwd, name);
 
             s.start("Cloning pho-monorepo...");
-            clonePhoMonorepo(name, packageManager);
+            await clonePhoMonorepo(name, packageManager);
 
             s.message("Moving into repository...");
             process.chdir(projectDir);
