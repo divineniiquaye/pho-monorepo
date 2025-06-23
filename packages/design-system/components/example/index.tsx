@@ -510,7 +510,7 @@ export function SelectExample() {
 
 export function SkeletonCard() {
   return (
-    <View className="w-full gap-4 p-3 rounded-md">
+    <View className="w-full overflow-hidden gap-4 p-3 rounded-md">
       <Skeleton className="h-[150px]" />
       <SkeletonText _lines={3} className="h-3" />
       <View className="flex-row gap-2 items-center">
