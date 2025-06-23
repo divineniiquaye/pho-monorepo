@@ -431,7 +431,7 @@ const deletedFiles = async (cwd, files, forced) => {
 };
 
 program
-    .command("init <name>")
+    .command("init [name]")
     .description("Initialize a new php-monorepo project")
     .option("--skip-install", "Skip installing dependencies", false)
     .option("--disable-git", "Disable git initialization", false)
