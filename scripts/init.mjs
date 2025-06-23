@@ -4,6 +4,7 @@ import { dirname, join, relative } from "node:path";
 import { exec as execRaw } from "node:child_process";
 import { readFile, mkdir, rm } from "node:fs/promises";
 import { readdirSync, existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import { program } from "commander";
 import {
@@ -19,6 +20,10 @@ import {
 
 const url = "https://github.com/divineniiquaye/pho-monorepo";
 const exec = promisify(execRaw);
+
+// Using ESM, __dirname and __filename are not available.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Escapes special characters in filenames that would cause issues in bash commands
 // Adds backslash before: () [] {} ^ $ * + ? . | and \
@@ -236,7 +241,7 @@ const updateInternalPackageDependencies = async (path) => {
 
 /** @returns {Promise<string[]>} */
 export const getAvailableVersions = async () => {
-    const changelog = await readFile("../CHANGELOG.md", "utf-8");
+    const changelog = await readFile(join(__dirname, "../CHANGELOG.md"), "utf-8");
     const versionRegex = /# v(\d+\.\d+\.\d+)/g;
     const matches = [...changelog.matchAll(versionRegex)];
 
