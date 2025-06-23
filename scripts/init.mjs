@@ -184,6 +184,9 @@ const updatePackageManagerConfiguration = async (projectDir, packageManager) => 
     const packageJsonFile = await readFile(packageJsonPath, "utf8");
     const packageJson = JSON.parse(packageJsonFile);
 
+    // Add workspaces to package.json
+    packageManager.workspaces = ["apps/*", "packages/*", "tooling/*"];
+
     if (packageManager === "bun") {
         packageJson.packageManager = "bun@1.1.43";
     } else if (packageManager === "npm") {

@@ -10,11 +10,7 @@
     "CHANGELOG.md"
   ],
   "packageManager": "pnpm@10.12.1",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "tooling/*"
-  ],
+  "workspaces": [],
   "scripts": {
     "build": "node scripts/run.mjs build",
     "dev": "node scripts/run.mjs dev",
