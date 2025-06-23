@@ -1,3 +1,19 @@
+# v0.2.11 (Mon Jun 23 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix: `pho-monorepo` update command dir issue ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat:(design-system): refactor useAfterInteraction hook ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added defaultTheme prop to provider ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): clicking on floating label & added auto size ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(web): homepage layout overflow issue ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.10 (Mon Jun 23 2025)
 
 #### ⚠️ Pushed to `main`
