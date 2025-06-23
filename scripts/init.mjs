@@ -30,7 +30,6 @@ const internalContentFiles = [
     ".github/workflows/release.yml",
     ".github/workflows/site.yml",
     "/scripts/init.mjs",
-    "/scripts/auto.js",
     "CHANGELOG.md",
     "LICENSE",
     ".autorc",

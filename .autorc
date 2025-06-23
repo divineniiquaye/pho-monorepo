@@ -14,6 +14,12 @@
                 "preset": "angular",
                 "defaultReleaseType": "patch"
             }
+        ],
+        [
+            "exec",
+            {
+                "afterChangelog": "node -e \"const pkg=require('./package.json');const fs=require('node:fs');fs.writeFileSync('./package.json',JSON.stringify({...pkg,pho:pkg.version},null,2)+'\\n')\""
+            }
         ]
     ]
 }

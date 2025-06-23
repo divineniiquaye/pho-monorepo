@@ -11,7 +11,7 @@ on:
                 description: Profile to release (latest/next/canary/release)
                 type: choice
                 required: false
-                options: [latest, next, canary, release]
+                options: [shipit, latest, next, canary, release]
 
 permissions:
     contents: write
@@ -36,7 +36,7 @@ jobs:
               env:
                 GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
-                  npm i -g auto @auto-it/core @auto-it/npm @auto-it/released @auto-it/first-time-contributor @auto-it/conventional-commits
+                  npm i -g auto @auto-it/core @auto-it/exec @auto-it/npm @auto-it/released @auto-it/first-time-contributor @auto-it/conventional-commits
                   auto info --list-plugins
               continue-on-error: true
 
