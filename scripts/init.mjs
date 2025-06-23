@@ -23,7 +23,7 @@ const exec = promisify(execRaw);
 
 // Using ESM, __dirname and __filename are not available.
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = dirname(__filename);
 
 // Escapes special characters in filenames that would cause issues in bash commands
 // Adds backslash before: () [] {} ^ $ * + ? . | and \
