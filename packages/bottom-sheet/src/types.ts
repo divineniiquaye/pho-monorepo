@@ -83,7 +83,7 @@ export interface BottomSheetInstance<Id extends SheetIds = SheetIds> {
 
 export type BottomSheetProps = Omit<
     RNBottomSheetProps,
-    "children" | "onClose" | "topInset"
+    "children" | "onClose" | "animatedIndex" | "topInset"
 > & {
     /**
      * ID of the `BottomSheet`.
@@ -119,6 +119,12 @@ export type BottomSheetProps = Omit<
      * @default 0.45
      */
     opacity?: number;
+
+    /**
+     * Defines the stack behavior when modal mounts. (experimental)
+     * @default "switch"
+     */
+    stackBehavior?: "push" | "replace" | "switch";
 
     className?: string;
     handleIndicatorClassName?: string;

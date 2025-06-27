@@ -7,12 +7,13 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import { SystemBars } from "react-native-edge-to-edge";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { BottomSheetInstance, Sheets } from "./types";
+import { BottomSheetInstance, SheetPayload, Sheets } from "./types";
 import { eventManager } from "./events";
 
 export const providerRegistryStack: string[] = [];
@@ -52,7 +53,7 @@ export function registerSheet<SheetId extends keyof Sheets = never>(
  * The SheetProvider makes available the sheets in a given context. The default context is
  * `global`. However if you want to render a Sheet within another sheet or if you want to render
  * Sheets in a modal. You can use a separate Provider with a custom context value.
- * 
+ *
  * Remember to add a border radius of 24px to the root view if you want to snap to 100%,
  * and if you're using react native navigation theme provider, set the background color to transparent.
  *
@@ -61,31 +62,24 @@ export function registerSheet<SheetId extends keyof Sheets = never>(
  * // Define your SheetProvider in the component/modal where
  * // you want to show some Sheets.
  * <SheetProvider context="local-context" />
- * 
+ *
  * // Then register your sheet when for example the
  * // Modal component renders.
- * 
+ *
  * registerSheet('local-sheet', LocalSheet,'local-context');
- * 
+ *
  * ```
  */
 export function SheetProvider({
   context = "global",
-  duration = 250,
   children,
-}: {
-  context?: string;
-  children?: React.ReactNode;
-  /** Hide delay in milliseconds */
-  duration?: number;
-}) {
+}: React.PropsWithChildren<{ context?: string }>) {
   const { top } = useSafeAreaInsets();
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const sheetIds = Object.keys(sheetsRegistry[context] || sheetsRegistry["global"] || {});
-  const onRegister = React.useCallback(() => {
-    // Rerender when a new sheet is added.
-    forceUpdate();
-  }, [forceUpdate]);
+
+  // Rerender when a new sheet is added.
+  const onRegister = React.useCallback(forceUpdate, [forceUpdate]);
 
   // IOS modal sheet type of animation
   const isFullScreen = useSharedValue(0);
@@ -93,16 +87,15 @@ export function SheetProvider({
     flex: 1,
     transform: [
       {
-        scaleX: withSpring(interpolate(isFullScreen.value, [0, 1], [1, 0.92]), {
-          damping: 15,
-          stiffness: 100,
-        }),
+        scaleX: withTiming(
+          interpolate(isFullScreen.value, [0, 0.9, 1], [1, 1, 0.92], "clamp"),
+        ),
       },
       {
-        translateY: withSpring(interpolate(isFullScreen.value, [0, 1], [0, top + 5]), {
-          damping: 15,
-          stiffness: 100,
-        }),
+        translateY: withSpring(
+          interpolate(isFullScreen.value, [0, 0.9, 1], [0, top, top + 5], "clamp"),
+          { duration: 300, dampingRatio: 1.5 },
+        ),
       },
     ],
   }));
@@ -113,7 +106,7 @@ export function SheetProvider({
     () => isFullScreen.value,
     (currentValue) => {
       "worklet";
-      runOnJS(setStatusBar)(currentValue === 1 ? "light" : "auto");
+      runOnJS(setStatusBar)(currentValue >= 0.5 ? "light" : "auto");
     },
     [],
   );
@@ -129,16 +122,16 @@ export function SheetProvider({
     };
   }, [context, onRegister]);
 
-  const renderSheet = (sheetId: string) => (
-    <RenderSheet key={sheetId} id={sheetId} context={context} duration={duration} />
-  );
-
   return (
     <SheetAnimationContext.Provider value={{ isFullScreen }}>
       <Animated.View style={{ flex: 1, backgroundColor: "#000" }}>
         <Animated.View style={animatedStyle}>{children}</Animated.View>
       </Animated.View>
-      <BottomSheetModalProvider>{sheetIds.map(renderSheet)}</BottomSheetModalProvider>
+      <BottomSheetModalProvider>
+        {sheetIds.map((id) => (
+          <RenderSheet key={id} id={id} context={context} />
+        ))}
+      </BottomSheetModalProvider>
     </SheetAnimationContext.Provider>
   );
 }
@@ -182,15 +175,21 @@ export function useSheetPayload<SheetId extends keyof Sheets = never>() {
   return React.useContext(SheetPayloadContext) as Sheets[SheetId]["payload"];
 }
 
-const RenderSheet = ({
-  id,
-  context,
-  duration,
-}: {
-  id: string;
-  context: string;
-  duration: number;
-}) => {
+/**
+ * Listen to sheet events.
+ */
+export function useOnSheet<SheetId extends keyof Sheets = never>(
+  id: SheetId | (string & {}),
+  type: "show" | "hide" | "onclose",
+  listener: (payload: SheetPayload<SheetId>, context: string, ...args: any[]) => void,
+) {
+  React.useEffect(() => {
+    const subscription = eventManager.subscribe(`${type}_${id}`, listener);
+    return () => subscription.unsubscribe();
+  }, [id, listener]);
+}
+
+const RenderSheet = ({ id, context }: { id: string; context: string }) => {
   const [payload, setPayload] = React.useState();
   const [visible, setVisible] = React.useState(false);
   const ref = React.useRef<BottomSheetInstance | null>(null);
@@ -201,21 +200,19 @@ const RenderSheet = ({
       : undefined;
 
   const onShow = React.useCallback(
-    (data: any, ctx = "global") => {
+    (data: any, ctx = "global", reopened?: boolean) => {
       if (ctx !== context) return;
-      setPayload(data);
+      if (!reopened) setPayload(data);
       setVisible(true);
     },
     [context],
   );
 
   const onClose = React.useCallback(
-    (_data: any, ctx = "global") => {
+    (_data: any, ctx = "global", reopened?: boolean) => {
       if (context !== ctx) return;
-      setTimeout(() => {
-        setVisible(false);
-        setPayload(undefined);
-      }, duration);
+      if (!reopened) setPayload(undefined);
+      setVisible(false);
     },
     [context],
   );
@@ -246,7 +243,7 @@ const RenderSheet = ({
 
   if (!Sheet) return null;
 
-  return !visible ? null : (
+  return visible ? (
     <ProviderContext.Provider value={context}>
       <SheetIDContext.Provider value={id}>
         <SheetRefContext.Provider value={ref}>
@@ -256,5 +253,5 @@ const RenderSheet = ({
         </SheetRefContext.Provider>
       </SheetIDContext.Provider>
     </ProviderContext.Provider>
-  );
+  ) : null;
 };

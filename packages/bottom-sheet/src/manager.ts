@@ -4,23 +4,18 @@ import { providerRegistryStack, sheetsRegistry } from "./provider";
 import { BottomSheetInstance, Sheets } from "./types";
 import { eventManager } from "./events";
 
-// Array of all the ids of ActionSheets currently rendered in the app.
+// Array of all the ids of Sheets currently rendered in the app.
 const ids: string[] = [];
+const keys: string[] = [];
 const refs: { [name: string]: RefObject<BottomSheetInstance> } = {};
+const DEFAULT_Z_INDEX = 999;
 
-/**
- * Get rendered modal sheets stack
- */
-export function getSheetStack() {
-    return ids.map((id) => {
-        return {
-            id: id.split(":")[0],
-            context: id.split(":")?.[1] || "global",
-        };
-    });
-}
+const makeKey = (id: string, context: string) => `${id}:${context}`;
 
-class _SheetManager {
+export const PrivateManager = {
+    // Return to the previous sheet when the current sheet is closed.
+    history: [] as { id: string; context: string }[],
+
     context(options?: { context?: string; id?: string }) {
         if (!options) options = {};
         if (!options?.context) {
@@ -38,19 +33,80 @@ class _SheetManager {
             }
         }
         return options.context;
-    }
+    },
+
+    registerRef: (
+        id: string,
+        context: string,
+        instance: RefObject<BottomSheetInstance>,
+    ) => {
+        const key = makeKey(id, context);
+        refs[key] = instance;
+        keys.push(key);
+    },
 
     /**
-     * Show the ActionSheet with an id.
      *
-     * @param id id of the ActionSheet to show
+     * Get internal ref of a sheet by the given id.
+     *
+     * @param id Id of the sheet
+     * @param context Context in which the sheet is rendered. Normally this function returns the top most rendered sheet ref automatically.
+     */
+    get: <SheetId extends keyof Sheets>(
+        id: SheetId | (string & {}),
+        context?: string,
+    ): RefObject<BottomSheetInstance<SheetId>> => {
+        if (!context) {
+            for (let ctx of providerRegistryStack.slice().reverse()) {
+                for (let _id in sheetsRegistry[ctx]) {
+                    if (_id === id) {
+                        context = ctx;
+                        break;
+                    }
+                }
+            }
+        }
+        return refs[makeKey(id, context!)] as RefObject<BottomSheetInstance<SheetId>>;
+    },
+
+    add: (id: string, context: string) => {
+        if (ids.indexOf(id) < 0) {
+            ids[ids.length] = makeKey(id, context);
+        }
+    },
+
+    remove: (id: string, context: string) => {
+        if (ids.indexOf(makeKey(id, context)) > -1) {
+            ids.splice(ids.indexOf(makeKey(id, context)));
+        }
+    },
+
+    zIndex: (id: string, context: string = "global"): number => {
+        const index = keys.indexOf(makeKey(id, context));
+        return index > -1 ? DEFAULT_Z_INDEX + index + 1 : DEFAULT_Z_INDEX;
+    },
+
+    stack: () =>
+        ids.map((id) => {
+            return {
+                id: id.split(":")[0],
+                context: id.split(":")?.[1] || "global",
+            };
+        }),
+};
+
+class _SheetManager {
+    /**
+     * Show the Modal Sheet with an id.
+     *
+     * @param id id of the Sheet to show
      * @param options
      */
     async show<SheetId extends keyof Sheets>(
         id: SheetId | (string & {}),
         options?: {
             /**
-             * Any data to pass to the ActionSheet. Will be available from the component `props` or in `onBeforeShow` prop on the action sheet.
+             * Any data to pass to the Sheet. Will be available from the component `props` prop on the modal sheet.
              */
             payload?: Sheets[SheetId]["payload"];
 
@@ -66,19 +122,19 @@ class _SheetManager {
         },
     ): Promise<Sheets[SheetId]["returnValue"]> {
         return new Promise((resolve) => {
-            let currentContext = this.context({
-                ...options,
-                id: id,
-            });
+            const currentContext = PrivateManager.context({ ...options, id: id });
             const handler = (data: any, context = "global") => {
                 if (context !== "global" && currentContext && currentContext !== context)
                     return;
-
                 options?.onClose?.(data);
                 sub?.unsubscribe();
                 resolve(data);
             };
+
             var sub = eventManager.subscribe(`onclose_${id}`, handler);
+            PrivateManager.stack().forEach(({ id, context }) => {
+                eventManager.publish(`hide_${id}`, undefined, context, true);
+            });
 
             // Check if the sheet is registered with any `SheetProviders`.
             let isRegisteredWithSheetProvider = false;
@@ -98,9 +154,9 @@ class _SheetManager {
     }
 
     /**
-     * An async hide function. This is useful when you want to show one ActionSheet after closing another.
+     * An async hide function. This is useful when you want to show one Sheet after closing another.
      *
-     * @param id id of the ActionSheet to show
+     * @param id id of the Sheet to show
      * @param data
      */
     async hide<SheetId extends keyof Sheets>(
@@ -116,7 +172,7 @@ class _SheetManager {
             context?: string;
         },
     ): Promise<Sheets[SheetId]["returnValue"]> {
-        let currentContext = this.context({
+        let currentContext = PrivateManager.context({
             ...options,
             id: id,
         });
@@ -149,7 +205,7 @@ class _SheetManager {
     }
 
     /**
-     * Hide all the opened ActionSheets.
+     * Hide all the opened Sheets.
      *
      * @param id Hide all sheets for the specific id.
      */
@@ -159,50 +215,6 @@ class _SheetManager {
             eventManager.publish(`hide_${_id.split(":")?.[0]}`);
         });
     }
-
-    registerRef = (
-        id: string,
-        context: string,
-        instance: RefObject<BottomSheetInstance>,
-    ) => {
-        refs[`${id}:${context}`] = instance;
-    };
-
-    /**
-     *
-     * Get internal ref of a sheet by the given id.
-     *
-     * @param id Id of the sheet
-     * @param context Context in which the sheet is rendered. Normally this function returns the top most rendered sheet ref automatically.
-     */
-    get = <SheetId extends keyof Sheets>(
-        id: SheetId | (string & {}),
-        context?: string,
-    ): RefObject<BottomSheetInstance<SheetId>> => {
-        if (!context) {
-            for (let ctx of providerRegistryStack.slice().reverse()) {
-                for (let _id in sheetsRegistry[ctx]) {
-                    if (_id === id) {
-                        context = ctx;
-                        break;
-                    }
-                }
-            }
-        }
-        return refs[`${id}:${context}`] as RefObject<BottomSheetInstance<SheetId>>;
-    };
-
-    add = (id: string, context: string) => {
-        if (ids.indexOf(id) < 0) {
-            ids[ids.length] = `${id}:${context}`;
-        }
-    };
-
-    remove = (id: string, context: string) => {
-        if (ids.indexOf(`${id}:${context}`) > -1) {
-            ids.splice(ids.indexOf(`${id}:${context}`));
-        }
-    };
 }
 
 /**

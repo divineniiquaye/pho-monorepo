@@ -1,3 +1,5 @@
+import RNEventEmitter from "react-native/Libraries/vendor/emitter/EventEmitter";
+
 /* eslint-disable curly */
 export type EventHandler = (...args: any[]) => void;
 export type EventHandlerSubscription = {
@@ -5,42 +7,29 @@ export type EventHandlerSubscription = {
 };
 
 export default class EventManager {
-    _registry: Map<
-        EventHandler,
-        {
-            name: string;
-            once: boolean;
-        }
-    >;
+    _registry: RNEventEmitter;
     constructor() {
-        this._registry = new Map();
+        this._registry = new RNEventEmitter();
     }
 
     unsubscribeAll() {
-        this._registry.clear();
+        this._registry.removeAllListeners();
     }
 
-    subscribe(name: string, handler: EventHandler, once = false) {
+    subscribe(name: string, handler: EventHandler) {
         if (!name || !handler) throw new Error("name and handler are required.");
-        this._registry.set(handler, { name, once });
-        return { unsubscribe: () => this.unsubscribe(name, handler) };
-    }
-
-    unsubscribe(_name: string, handler: EventHandler) {
-        return this._registry.delete(handler);
+        const event = this._registry.addListener(name, handler);
+        return { unsubscribe: () => event.remove() };
     }
 
     publish(name: string, ...args: any[]) {
-        this._registry.forEach((props, handler) => {
-            if (props.name === name) handler(...args);
-            if (props.once) this._registry.delete(handler);
-        });
+        this._registry.emit(name, ...args);
     }
 
     remove(...names: string[]) {
-        this._registry.forEach((props, handler) => {
-            if (names.includes(props.name)) this._registry.delete(handler);
-        });
+        for (const eventType of names) {
+            this._registry.removeAllListeners(eventType);
+        }
     }
 }
 
