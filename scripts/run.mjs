@@ -27,15 +27,17 @@ program
     .argument("[app]", "app name from apps directory")
     .option("--non-interactive", "Skip interactive prompt", false)
     .option("-O, --only", "Exclude app from running")
-    .action(async (type, app, options) => {
+    .action(async (type, targetApp, options) => {
         try {
             const apps = await getApps();
-            let targetApp = apps.length <= 1 ? "all" : app;
 
             if (!targetApp && !options.nonInteractive) {
                 targetApp = await select({
                     message: `Which app would you like to ${type}?`,
-                    choices: [...apps.map((app) => ({ name: app, value: app })), "all"],
+                    choices: [
+                        ...apps.map((app) => ({ name: app, value: app })),
+                        ...(apps.length <= 1 ? [] : ["all"]),
+                    ],
                 });
             }
 
