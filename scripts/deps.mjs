@@ -76,7 +76,7 @@ program
 
                 if (!!targetPath && !!commandType) {
                     execSync(
-                        `pnpm --filter ${targetPath} ${commandType} ${args.join(" ")}`,
+                        `pnpm ${commandType} --filter ${targetPath} ${args.join(" ")}`,
                         { stdio: "inherit" },
                     );
                 } else {
