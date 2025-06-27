@@ -16,7 +16,7 @@
     "@expo/config": "11.0.10",
     "@expo/spawn-async": "1.7.2",
     "@octokit/rest": "22.0.0",
-    "expo-module-scripts": "4.1.7",
+    "expo-module-scripts": "4.1.8",
     "fs-extra": "11.3.0",
     "log-symbols": "7.0.1",
     "node-fetch": "3.3.2",

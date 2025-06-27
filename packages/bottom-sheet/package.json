@@ -11,7 +11,7 @@
     "nanoid": "5.1.5",
     "react": "catalog:",
     "react-native": "catalog:",
-    "react-native-edge-to-edge": "1.6.1",
+    "react-native-edge-to-edge": "1.6.2",
     "react-native-reanimated": "catalog:",
     "react-native-safe-area-context": "catalog:"
   },

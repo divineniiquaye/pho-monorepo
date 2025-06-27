@@ -9,7 +9,7 @@
     "scripts/init.mjs",
     "CHANGELOG.md"
   ],
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.12.4",
   "workspaces": [],
   "scripts": {
     "build": "node scripts/run.mjs build",
@@ -35,7 +35,7 @@
     "commander": "^14.0.0"
   },
   "devDependencies": {
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "turbo": "^2.5.4"
   },
   "engines": {
