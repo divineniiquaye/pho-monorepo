@@ -195,8 +195,11 @@ importers:
         specifier: 0.14.6
         version: 0.14.6(expo@53.0.12)
       expo-dev-client:
-        specifier: 5.2.1
-        version: 5.2.1(expo@53.0.12)
+        specifier: 5.2.2
+        version: 5.2.2(expo@53.0.13)
+      tree-kill:
+        specifier: 1.2.2
+        version: 1.2.2
 
   apps/web:
     dependencies:
