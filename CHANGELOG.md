@@ -1,3 +1,26 @@
+# v0.2.18 (Sat Jun 28 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix(web): build issues with react-native-gesture-handler ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): renamed ripple prop on button ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): as child in form UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): form issue in form example component ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore(deps): updated dependencies ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(bottom-sheet): improved bottom sheet's stack behaviour ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: deps command not working add/remove/update ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(native): added jest test to test expo start ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: updated GitHub action's pnpm to version 10.12.4 ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): updated chart UI to work for react 19 ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(bottom-sheet): refactor sheets stack and event management ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: improve run script running from a single folder in apps/* ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.17 (Mon Jun 23 2025)
 
 #### ⚠️ Pushed to `main`
