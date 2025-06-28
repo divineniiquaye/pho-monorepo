@@ -79,7 +79,7 @@ export function FormExample() {
               <FormLabel>Date of birth</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
-                  <FormControl>
+                  <FormControl asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
