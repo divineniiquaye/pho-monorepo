@@ -76,6 +76,7 @@ const nextConfig = {
         "nativewind",
         "react-native-css-interop",
         "react-native-reanimated",
+        "react-native-gesture-handler",
         "@react-native/assets-registry",
         "@rn-primitives/accordion",
         "@rn-primitives/alert-dialog",
