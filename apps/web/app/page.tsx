@@ -61,7 +61,6 @@ export default function Web() {
       <Typography.Lead className="mb-2">Web</Typography.Lead>
       <Button
         testID="button"
-        disableRipple={true}
         onPress={() => {
           console.log("Pressed!");
           toast.info(

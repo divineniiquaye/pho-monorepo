@@ -66,7 +66,6 @@ export default function Native() {
         </Text>
         <Button
           variant="default"
-          disableRipple={true}
           onPress={() => {
             console.log("Pressed!");
             toast.info(

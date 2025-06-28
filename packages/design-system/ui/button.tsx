@@ -68,12 +68,12 @@ type ButtonProps = React.ComponentPropsWithoutRef<typeof RNPressable> &
     /** Web only */
     type?: "submit" | "reset" | "button";
     asChild?: boolean;
-    disableRipple?: boolean;
+    enableRipple?: boolean;
   };
 
 const Button = React.forwardRef<React.ComponentRef<typeof RNPressable>, ButtonProps>(
-  ({ className, variant, size, asChild, disableRipple, ...props }, ref) => {
-    const Btn = asChild && isWeb ? Pressable : disableRipple ? RNPressable : RippleButton;
+  ({ className, variant, size, asChild, enableRipple, ...props }, ref) => {
+    const Btn = asChild && isWeb ? Pressable : enableRipple ? RippleButton : RNPressable;
     return (
       <TextClassContext.Provider
         value={cn(
