@@ -72,8 +72,9 @@ export function registerSheet<SheetId extends keyof Sheets = never>(
  */
 export function SheetProvider({
   context = "global",
+  duration = 300,
   children,
-}: React.PropsWithChildren<{ context?: string }>) {
+}: React.PropsWithChildren<{ context?: string; duration?: number }>) {
   const { top } = useSafeAreaInsets();
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const sheetIds = Object.keys(sheetsRegistry[context] || sheetsRegistry["global"] || {});
@@ -129,7 +130,7 @@ export function SheetProvider({
       </Animated.View>
       <BottomSheetModalProvider>
         {sheetIds.map((id) => (
-          <RenderSheet key={id} id={id} context={context} />
+          <RenderSheet key={id} id={id} context={context} duration={duration} />
         ))}
       </BottomSheetModalProvider>
     </SheetAnimationContext.Provider>
@@ -189,7 +190,15 @@ export function useOnSheet<SheetId extends keyof Sheets = never>(
   }, [id, listener]);
 }
 
-const RenderSheet = ({ id, context }: { id: string; context: string }) => {
+const RenderSheet = ({
+  id,
+  context,
+  duration,
+}: {
+  id: string;
+  context: string;
+  duration: number;
+}) => {
   const [payload, setPayload] = React.useState();
   const [visible, setVisible] = React.useState(false);
   const ref = React.useRef<BottomSheetInstance | null>(null);
@@ -211,8 +220,12 @@ const RenderSheet = ({ id, context }: { id: string; context: string }) => {
   const onClose = React.useCallback(
     (_data: any, ctx = "global", reopened?: boolean) => {
       if (context !== ctx) return;
-      if (!reopened) setPayload(undefined);
-      setVisible(false);
+      if (!reopened) {
+        setPayload(undefined);
+        setTimeout(() => setVisible(false), Math.max(duration ?? 300, 300));
+      } else {
+        setVisible(false);
+      }
     },
     [context],
   );

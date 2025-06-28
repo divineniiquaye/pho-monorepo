@@ -124,8 +124,7 @@ class _SheetManager {
         return new Promise((resolve) => {
             const currentContext = PrivateManager.context({ ...options, id: id });
             const handler = (data: any, context = "global") => {
-                if (context !== "global" && currentContext && currentContext !== context)
-                    return;
+                if (context !== "global" && currentContext && currentContext !== context) return;
                 options?.onClose?.(data);
                 sub?.unsubscribe();
                 resolve(data);
@@ -210,9 +209,9 @@ class _SheetManager {
      * @param id Hide all sheets for the specific id.
      */
     hideAll<SheetId extends keyof Sheets>(id?: SheetId | (string & {})) {
-        ids.forEach((_id) => {
+        PrivateManager.stack().forEach(({ id: _id, context }) => {
             if (id && !_id.startsWith(id)) return;
-            eventManager.publish(`hide_${_id.split(":")?.[0]}`);
+            eventManager.publish(`hide_${_id}`, undefined, context);
         });
     }
 }

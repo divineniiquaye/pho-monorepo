@@ -29,7 +29,7 @@ import RNBottomSheet, {
 } from "@gorhom/bottom-sheet";
 
 import { BottomSheetInstance, BottomSheetProps, SheetIds } from "./types";
-import { PrivateManager, SheetManager } from "./manager";
+import { PrivateManager } from "./manager";
 import { eventManager } from "./events";
 import {
   useProviderContext,
@@ -107,6 +107,7 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
       backgroundStyle,
       handleStyle,
       clickThrough,
+      fullScreen,
       opacity,
       ...props
     },
@@ -166,8 +167,9 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
       (index) => {
         "worklet";
         const points: (string | number)[] = ["%100", "100%"];
-        const checkFullScreen =
-          snapPoints instanceof Array
+        const checkFullScreen = fullScreen
+          ? -1
+          : snapPoints instanceof Array
             ? snapPoints.findIndex((p) => points.includes(p))
             : snapPoints?.value?.findIndex((p) => points.includes(p)) || -1;
 
@@ -186,16 +188,15 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
       (data?: any, isSheetManagerOrRef?: boolean, dismiss?: boolean) => {
         const value = data ?? valueRef.current;
 
-        if (stackBehavior !== "push") {
+        if (!dismiss || stackBehavior !== "push") {
           hardwareBackPressEvent.current?.remove();
           bottomSheetRef.current?.close();
-
           onClose?.(value);
         }
 
         if (sheetId) {
-          if (dismiss && stackBehavior === "push") return;
           PrivateManager.remove(sheetId, currentCtx);
+          if (dismiss && stackBehavior === "push") return;
 
           const history = PrivateManager.history.length >= 1;
           eventManager.publish(
@@ -269,7 +270,12 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
         pointerEvents="box-none"
         style={[
           StyleSheet.absoluteFill,
-          { zIndex: sheetId ? PrivateManager.zIndex(sheetId, currentCtx) : 0 },
+          {
+            zIndex:
+              sheetId && stackBehavior === "push"
+                ? PrivateManager.zIndex(sheetId, currentCtx)
+                : 0,
+          },
         ]}
       >
         <RNBottomSheet
@@ -287,8 +293,8 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
           {...props}
           ref={bottomSheetRef}
           onClose={hideSheet}
-          topInset={top + 18}
           animatedIndex={animatedIndex}
+          topInset={fullScreen ? 0 : top + 18}
           snapPoints={enableDynamicSizing ? undefined : (snapPoints ?? ["66%"])}
           handleIndicatorStyle={[themeHandleIndicatorStyle, handleIndicatorStyle]}
           backgroundStyle={[themeBackgroundStyle, backgroundStyle]}

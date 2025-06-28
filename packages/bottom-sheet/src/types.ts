@@ -126,6 +126,12 @@ export type BottomSheetProps = Omit<
      */
     stackBehavior?: "push" | "replace" | "switch";
 
+    /**
+     * Whether the bottom sheet edge to edge.
+     * @default false
+     */
+    fullScreen?: boolean;
+
     className?: string;
     handleIndicatorClassName?: string;
     backgroundClassName?: string;
