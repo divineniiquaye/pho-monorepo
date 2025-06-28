@@ -80,13 +80,14 @@ const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue,
 );
 
-const FormItem = React.forwardRef<RNView, React.ComponentPropsWithoutRef<typeof RNView>>(
+const FormItem = React.forwardRef<ViewRef, SlottableViewProps>(
   ({ className, ...props }, ref) => {
     const id = React.useId();
+    const Component = props?.asChild ? View : RNView;
 
     return (
       <FormItemContext.Provider value={{ id }}>
-        <RNView ref={ref} className={cn("space-y-2", className)} {...props} />
+        <Component ref={ref} className={cn("space-y-2", className)} {...props} />
       </FormItemContext.Provider>
     );
   },
@@ -112,9 +113,10 @@ FormLabel.displayName = "FormLabel";
 
 const FormControl = React.forwardRef<ViewRef, SlottableViewProps>(({ ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
+  const Component = props?.asChild ? View : RNView;
 
   return (
-    <View
+    <Component
       ref={ref}
       id={formItemId}
       aria-describedby={

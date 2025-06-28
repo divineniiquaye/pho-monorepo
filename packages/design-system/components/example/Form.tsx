@@ -78,8 +78,8 @@ export function FormExample() {
             <FormItem className="flex flex-col gap-2">
               <FormLabel>Date of birth</FormLabel>
               <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl asChild>
+                <FormControl asChild>
+                  <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
@@ -92,8 +92,8 @@ export function FormExample() {
                       </Text>
                       <CalendarIcon className="ml-auto size-5 opacity-50 text-foreground" />
                     </Button>
-                  </FormControl>
-                </PopoverTrigger>
+                  </PopoverTrigger>
+                </FormControl>
                 <PopoverContent className="max-w-[320px] p-0" align="start">
                   <Calendar
                     mode="single"
