@@ -38,7 +38,7 @@ export function ScreenLayout({
         className,
       )}
     >
-      <SystemBars style="auto" {...status} />
+      {ready && <SystemBars style="auto" {...status} />}
       {!wait && ready ? (
         Object.keys(props).length === 0 ? (
           (children as React.ReactNode)
