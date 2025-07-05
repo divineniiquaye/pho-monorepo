@@ -487,21 +487,11 @@ export function SelectExample() {
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Fruits</SelectLabel>
-          <SelectItem label="Apple" value="apple">
-            Apple
-          </SelectItem>
-          <SelectItem label="Banana" value="banana">
-            Banana
-          </SelectItem>
-          <SelectItem label="Blueberry" value="blueberry">
-            Blueberry
-          </SelectItem>
-          <SelectItem label="Grapes" value="grapes">
-            Grapes
-          </SelectItem>
-          <SelectItem label="Pineapple" value="pineapple">
-            Pineapple
-          </SelectItem>
+          <SelectItem label="Apple" value="apple" />
+          <SelectItem label="Banana" value="banana" />
+          <SelectItem label="Blueberry" value="blueberry" />
+          <SelectItem label="Grapes" value="grapes" />
+          <SelectItem label="Pineapple" value="pineapple" />
         </SelectGroup>
       </SelectContent>
     </Select>

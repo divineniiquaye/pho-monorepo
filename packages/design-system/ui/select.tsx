@@ -1,8 +1,15 @@
 "use client";
 
 import * as SelectPrimitive from "@rn-primitives/select";
-import { Dimensions, Platform, View } from "react-native";
-import { Pressable } from "react-native";
+import {
+  Dimensions,
+  Platform,
+  PressableStateCallbackType,
+  TextProps,
+  View,
+} from "react-native";
+import { Text as SlotText, View as SlotView } from "@rn-primitives/slot";
+import { Pressable, Text } from "react-native";
 import * as React from "react";
 
 import { ChevronDown } from "../icons/ChevronDown";
@@ -19,7 +26,30 @@ const Select = SelectPrimitive.Root;
 
 const SelectGroup = SelectPrimitive.Group;
 
-const SelectValue = SelectPrimitive.Value;
+const SelectValue = React.forwardRef<
+  View,
+  Omit<TextProps, "children"> & {
+    placeholder?: React.ReactNode;
+    asChild?: boolean;
+    children?: (value: Option) => React.ReactNode;
+  }
+>(({ asChild, placeholder, children, ...props }, ref) => {
+  const { value } = SelectPrimitive.useRootContext();
+  const Component =
+    (typeof placeholder === "string" && !value) || !children
+      ? asChild
+        ? SlotText
+        : Text
+      : asChild
+        ? SlotView
+        : View;
+
+  return (
+    <Component ref={ref} {...props}>
+      {value ? (children ? children(value) : value.label) : placeholder}
+    </Component>
+  );
+});
 
 const SelectTrigger = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Trigger>,
@@ -170,27 +200,55 @@ const SelectLabel = React.forwardRef<
 ));
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
+const SelectItemText: React.FC<{
+  pressed: boolean;
+  children?: (
+    state: PressableStateCallbackType & { label: string; value: string },
+  ) => React.ReactNode;
+}> = ({ pressed, children }) => {
+  const { itemValue, label } = SelectPrimitive.useItemContext();
+
+  return children ? (
+    children({ pressed, label, value: itemValue })
+  ) : (
+    <SelectPrimitive.ItemText className="text-sm text-popover-foreground native:text-base web:group-focus:text-accent-foreground" />
+  );
+};
+
 const SelectItem = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item
-    ref={ref}
-    className={cn(
-      "relative web:group flex flex-row w-full web:cursor-default web:select-none items-center rounded-sm py-1.5 native:py-2 pl-8 native:pl-10 pr-2 active:bg-accent web:outline-none web:focus:bg-accent",
-      props.disabled && "web:pointer-events-none opacity-50",
-      className,
-    )}
-    {...props}
-  >
-    <View className="absolute left-2 native:left-3.5 flex h-3.5 native:pt-px w-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <Check size={16} strokeWidth={3} className="text-popover-foreground" />
-      </SelectPrimitive.ItemIndicator>
-    </View>
-    <SelectPrimitive.ItemText className="text-sm text-popover-foreground native:text-base web:group-focus:text-accent-foreground" />
-  </SelectPrimitive.Item>
-));
+  Omit<React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>, "children"> & {
+    checkedIcon?: React.ReactNode;
+    children?: (
+      state: PressableStateCallbackType & { label: string; value: string },
+    ) => React.ReactNode;
+  }
+>(({ className, children, checkedIcon, ...props }, ref) => {
+  return (
+    <SelectPrimitive.Item
+      ref={ref}
+      className={cn(
+        "relative web:group flex flex-row w-full web:cursor-default web:select-none items-center rounded-sm py-1.5 native:py-2 pl-8 native:pl-10 pr-2 active:bg-accent web:outline-none web:focus:bg-accent",
+        props.disabled && "web:pointer-events-none opacity-50",
+        className,
+      )}
+      {...props}
+    >
+      {({ pressed }) => (
+        <React.Fragment>
+          <View className="absolute left-2 native:left-3.5 flex h-3.5 native:pt-px w-3.5 items-center justify-center">
+            <SelectPrimitive.ItemIndicator>
+              {checkedIcon ?? (
+                <Check size={16} strokeWidth={3} className="text-popover-foreground" />
+              )}
+            </SelectPrimitive.ItemIndicator>
+          </View>
+          <SelectItemText pressed={pressed} children={children} />
+        </React.Fragment>
+      )}
+    </SelectPrimitive.Item>
+  );
+});
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
 const SelectSeparator = React.forwardRef<
