@@ -48,11 +48,13 @@ type OTPInputProps = Omit<
   containerClassName?: string;
   children?: React.ReactNode;
   pattern?: string | RegExp;
+  as?: React.ComponentType<TextInputProps & { ref?: React.Ref<TextInput> }>;
 };
 
 const InputOTP = React.forwardRef<InputOTPRef, OTPInputProps>(
   (
     {
+      as: Component = TextInput,
       className,
       containerClassName,
       placeholder,
@@ -153,7 +155,7 @@ const InputOTP = React.forwardRef<InputOTPRef, OTPInputProps>(
           className={cn("flex items-center gap-2", containerClassName)}
           onTouchEnd={onFocus}
         >
-          <TextInput
+          <Component
             ref={inputRef}
             value={value}
             onChange={handleChange}
@@ -191,8 +193,7 @@ const InputOTPGroup = React.forwardRef<View, React.ComponentProps<typeof View>>(
 );
 InputOTPGroup.displayName = "InputOTPGroup";
 
-interface InputOTPSlotProps
-  extends Omit<React.ComponentProps<typeof View>, "children"> {
+interface InputOTPSlotProps extends Omit<React.ComponentProps<typeof View>, "children"> {
   index: number;
   children?:
     | React.ReactNode
@@ -217,7 +218,7 @@ const InputOTPSlot = React.forwardRef<View, InputOTPSlotProps>(
       >
         <Text className="text-base font-medium">{char}</Text>
         {isActive && (
-          <View className="absolute w-0.5 h-6 opacity-80 bg-foreground animate-caret-blink" />
+          <View className="absolute w-0.5 h-6 opacity-80 bg-foreground animate-caret-blink repeat-infinite" />
         )}
       </View>
     );
@@ -225,14 +226,13 @@ const InputOTPSlot = React.forwardRef<View, InputOTPSlotProps>(
 );
 InputOTPSlot.displayName = "InputOTPSlot";
 
-const InputOTPSeparator = React.forwardRef<
-  View,
-  React.ComponentProps<typeof View>
->(({ ...props }, ref) => (
-  <View ref={ref} role="separator" {...props}>
-    <Dot className="text-foreground" />
-  </View>
-));
+const InputOTPSeparator = React.forwardRef<View, React.ComponentProps<typeof View>>(
+  ({ ...props }, ref) => (
+    <View ref={ref} role="separator" {...props}>
+      <Dot className="text-foreground" />
+    </View>
+  ),
+);
 InputOTPSeparator.displayName = "InputOTPSeparator";
 
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
