@@ -28,7 +28,7 @@ type CarouselContextType = {
   itemWidth: number;
   autoPlay: boolean;
   autoPlayInterval: number;
-  scrollViewRef: React.RefObject<Animated.ScrollView>;
+  scrollViewRef: React.RefObject<Animated.ScrollView | null>;
   scrollTo: (index: number) => void;
   registerItem: (id: string) => number;
 };
@@ -329,8 +329,8 @@ CarouselNext.displayName = "CarouselNext";
 
 const CarouselEllipsis = forwardRef<
   React.ComponentRef<typeof View>,
-  React.ComponentProps<typeof View> & {
-    dotClassName?: string | ((isActive: boolean) => string);
+  React.ComponentPropsWithoutRef<typeof View> & {
+    dotClassName?: string | ((isActive: boolean, index: number) => string);
   }
 >(({ className, dotClassName, ...props }, ref) => {
   const { activeIndex, totalItems, scrollTo } = useCarousel();
@@ -353,7 +353,7 @@ const CarouselEllipsis = forwardRef<
             "transition-all duration-300 size-2 rounded-[4px] bg-black/50",
             activeIndex === index && "bg-black w-4",
             typeof dotClassName === "function"
-              ? dotClassName(activeIndex === index)
+              ? dotClassName(activeIndex === index, index)
               : dotClassName,
           )}
         />
