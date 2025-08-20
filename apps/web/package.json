@@ -14,15 +14,15 @@
     "@legendapp/state": "3.0.0-beta.30",
     "@repo/design": "workspace:*",
     "@t3-oss/env-nextjs": "0.13.8",
-    "@tanstack/react-query": "5.81.5",
+    "@tanstack/react-query": "5.85.5",
     "geist": "1.4.2",
-    "next": "15.3.4",
+    "next": "15.5.0",
     "next-view-transitions": "0.3.4",
     "raf": "3.4.1",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-mobile-app-button": "1.2.19",
-    "react-native-web": "0.20.0"
+    "react-native-web": "0.21.0"
   },
   "devDependencies": {
     "@tooling/jest": "workspace:*",

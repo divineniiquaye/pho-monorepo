@@ -10,13 +10,13 @@
     "babel-jest": "catalog:"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "6.6.3",
-    "@testing-library/react-native": "13.2.0",
+    "@testing-library/jest-dom": "6.7.0",
+    "@testing-library/react-native": "13.3.1",
     "@testing-library/react": "16.3.0",
     "@types/jest": "catalog:",
     "jest": "catalog:",
-    "jest-expo": "53.0.7",
+    "jest-expo": "53.0.9",
     "react-test-renderer": "catalog:",
-    "ts-jest": "29.4.0"
+    "ts-jest": "29.4.1"
   }
 }

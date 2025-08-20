@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "@babel/code-frame": "7.27.1",
-    "@expo/config": "11.0.10",
+    "@expo/config": "11.0.13",
     "@expo/spawn-async": "1.7.2",
     "@octokit/rest": "22.0.0",
-    "expo-module-scripts": "4.1.8",
-    "fs-extra": "11.3.0",
+    "expo-module-scripts": "4.1.10",
+    "fs-extra": "11.3.1",
     "log-symbols": "7.0.1",
     "node-fetch": "3.3.2",
     "ora": "8.2.0",
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@tooling/typescript": "workspace:*",
     "@types/fs-extra": "11.0.4",
-    "@types/node-fetch": "2.6.12",
+    "@types/node-fetch": "2.6.13",
     "@types/uuid": "10.0.0"
   }
 }

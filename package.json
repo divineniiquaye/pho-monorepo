@@ -9,7 +9,7 @@
     "scripts/init.mjs",
     "CHANGELOG.md"
   ],
-  "packageManager": "pnpm@10.12.4",
+  "packageManager": "pnpm@10.15.0",
   "workspaces": [],
   "scripts": {
     "build": "node scripts/run.mjs build",
@@ -29,14 +29,14 @@
     "**/expo-router/**"
   ],
   "dependencies": {
-    "@inquirer/select": "^4.2.3",
+    "@inquirer/select": "^4.3.1",
     "@clack/prompts": "^0.11.0",
-    "chalk": "^5.4.1",
+    "chalk": "^5.6.0",
     "commander": "^14.0.0"
   },
   "devDependencies": {
     "prettier": "^3.6.2",
-    "turbo": "^2.5.4"
+    "turbo": "^2.5.6"
   },
   "engines": {
     "node": ">=20"
