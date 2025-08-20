@@ -1,5 +1,5 @@
 {
-	"extends": "@tooling/typescript/base.json",
+	"extends": "@tooling/typescript/base",
 	"compilerOptions": {
     "module": "commonjs",
 		"importHelpers": true,

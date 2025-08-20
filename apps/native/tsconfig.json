@@ -1,5 +1,5 @@
 {
-  "extends": "@tooling/typescript/expo.json",
+  "extends": "@tooling/typescript/expo",
   "compilerOptions": {
     "strict": true,
     "jsxImportSource": "nativewind",

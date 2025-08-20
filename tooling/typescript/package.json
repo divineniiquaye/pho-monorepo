@@ -2,9 +2,16 @@
   "name": "@tooling/typescript",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "clean": "rm -rf dist node_modules"
+  "exports": {
+    "./base": "./base.json",
+    "./expo": "./expo.json",
+    "./react-library": "./react-library.json",
+    "./react-native-library": "./react-native-library.json",
+    "./nextjs": "./nextjs.json"
   },
+"scripts": {
+  "clean": "rm -rf build node_modules",
+},
   "devDependencies": {
     "@babel/core": "7.28.3",
     "@types/node": "24.3.0",
