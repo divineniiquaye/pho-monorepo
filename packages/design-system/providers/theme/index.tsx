@@ -5,9 +5,11 @@ import {
 } from "@react-navigation/native";
 import { WebView } from "@expo/dom-webview";
 import { LinearGradient } from "expo-linear-gradient";
+import { ActivityIndicator } from "react-native";
 import { cssInterop } from "nativewind";
 
 // Components Not Supported by NativeWind
+cssInterop(ActivityIndicator, { className: "style" });
 cssInterop(WebView, { className: "containerStyle" });
 cssInterop(LinearGradient, { className: "style" });
 
@@ -45,5 +47,9 @@ export function ThemeProvider({
   defaultTheme?: "light" | "dark";
   themes?: Record<"light" | "dark", Theme>;
 }) {
-  return <NativeThemeProvider value={themes?.[defaultTheme || theme]}>{children}</NativeThemeProvider>;
+  return (
+    <NativeThemeProvider value={themes?.[defaultTheme || theme]}>
+      {children}
+    </NativeThemeProvider>
+  );
 }

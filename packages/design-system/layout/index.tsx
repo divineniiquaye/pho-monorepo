@@ -24,6 +24,7 @@ export function ScreenLayout({
   placeholder: Placeholder,
   onReady,
   children,
+  style,
   className,
   status,
   wait,
@@ -32,9 +33,10 @@ export function ScreenLayout({
 }: LayoutProps) {
   const { ready } = useAfterInteractions(delay, onReady);
   return (
-    <View
+    <Animated.View
+      style={style}
       className={cn(
-        "flex-1 bg-background flex-grow pb-safe android:pb-safe-offset-2 pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300 rounded-t-3xl",
+        "flex-1 bg-background flex-grow android:pb-safe-offset-2 pt-safe-offset-2 px-safe-offset-4 transition-all android:duration-300",
         className,
       )}
     >
@@ -51,13 +53,13 @@ export function ScreenLayout({
         <Placeholder {...props} />
       ) : (
         <Animated.View
-          className={cn("flex-1 bg-background h-full w-full justify-center pb-safe")}
+          className={cn("flex-1 bg-transparent h-full w-full justify-center pb-safe")}
           entering={props?.entering ?? FadeIn}
           exiting={props?.exiting}
         >
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" className="text-foreground" />
         </Animated.View>
       )}
-    </View>
+    </Animated.View>
   );
 }
