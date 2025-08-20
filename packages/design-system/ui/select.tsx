@@ -53,9 +53,14 @@ const SelectValue = React.forwardRef<
 
 const SelectTrigger = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Trigger>,
-  Omit<React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, "asChild">
->(({ className, children, "aria-label": label, ...props }, ref) => {
+  Omit<React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>, "asChild"> & {
+    icon?: Omit<React.ReactNode, "string" | "bigint" | "boolean">;
+  }
+>(({ className, children, "aria-label": label, icon, ...props }, ref) => {
   const Component = isWeb ? "button" : Pressable;
+  const Icon = ({ size = 18 }: { size?: number }) => (
+    <ChevronDown size={size} aria-hidden={true} className="text-foreground opacity-60" />
+  );
 
   return (
     <SelectPrimitive.Trigger
@@ -70,11 +75,11 @@ const SelectTrigger = React.forwardRef<
     >
       <Component role="combobox" aria-label={label ?? "Select"}>
         {children as any}
-        <ChevronDown
-          size={18}
-          aria-hidden={true}
-          className="text-foreground opacity-60"
-        />
+        {typeof icon === "number" ? (
+          <Icon size={icon} />
+        ) : (
+          ((icon as React.ReactNode) ?? <Icon />)
+        )}
       </Component>
     </SelectPrimitive.Trigger>
   );
@@ -202,28 +207,39 @@ SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
 const SelectItemText: React.FC<{
   pressed: boolean;
+  className?: string;
   children?: (
     state: PressableStateCallbackType & { label: string; value: string },
   ) => React.ReactNode;
-}> = ({ pressed, children }) => {
+}> = ({ pressed, className, children }) => {
   const { itemValue, label } = SelectPrimitive.useItemContext();
 
   return children ? (
     children({ pressed, label, value: itemValue })
   ) : (
-    <SelectPrimitive.ItemText className="text-sm text-popover-foreground native:text-base web:group-focus:text-accent-foreground" />
+    <SelectPrimitive.ItemText
+      className={cn(
+        "text-sm text-popover-foreground native:text-base web:group-focus:text-accent-foreground",
+        className,
+      )}
+    />
   );
 };
 
 const SelectItem = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Item>,
   Omit<React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>, "children"> & {
-    checkedIcon?: React.ReactNode;
+    checkedIcon?: Omit<React.ReactNode, "string" | "bigint" | "boolean">;
+    labelClassName?: string;
     children?: (
       state: PressableStateCallbackType & { label: string; value: string },
     ) => React.ReactNode;
   }
->(({ className, children, checkedIcon, ...props }, ref) => {
+>(({ className, children, checkedIcon, labelClassName, ...props }, ref) => {
+  const Icon = ({ size = 16 }: { size?: number }) => (
+    <Check size={size} strokeWidth={3} className="text-popover-foreground" />
+  );
+
   return (
     <SelectPrimitive.Item
       ref={ref}
@@ -238,12 +254,18 @@ const SelectItem = React.forwardRef<
         <React.Fragment>
           <View className="absolute left-2 native:left-3.5 flex h-3.5 native:pt-px w-3.5 items-center justify-center">
             <SelectPrimitive.ItemIndicator>
-              {checkedIcon ?? (
-                <Check size={16} strokeWidth={3} className="text-popover-foreground" />
+              {typeof checkedIcon === "number" ? (
+                <Icon size={checkedIcon} />
+              ) : (
+                ((checkedIcon as React.ReactNode) ?? <Icon />)
               )}
             </SelectPrimitive.ItemIndicator>
           </View>
-          <SelectItemText pressed={pressed} children={children} />
+          <SelectItemText
+            pressed={pressed}
+            className={labelClassName}
+            children={children}
+          />
         </React.Fragment>
       )}
     </SelectPrimitive.Item>
