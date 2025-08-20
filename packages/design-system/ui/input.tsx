@@ -6,26 +6,27 @@ import {
   Animated,
   Easing,
   LayoutChangeEvent,
-  Pressable,
   TextInput as RNTextInput,
   StyleProp,
+  TextInputProps,
   TextStyle,
   View,
 } from "react-native";
 
 import { cn } from "../lib/utils";
+import { useColorScheme } from "../hooks";
 
 const inputVariant = cva(
   "flex-row overflow-hidden content-center items-center border-input px-3",
   {
     variants: {
       size: {
+        "4xl": "h-20",
         "2xl": "h-16",
-        auto: "h-auto",
-        xl: "h-14",
-        lg: "h-12",
-        md: "h-11",
-        sm: "h-9",
+        xl: "h-15",
+        lg: "h-14",
+        md: "h-13",
+        sm: "h-12",
       },
 
       variant: {
@@ -35,22 +36,6 @@ const inputVariant = cva(
       },
     },
     defaultVariants: { variant: "outline", size: "md" },
-  },
-);
-
-const inputIconVariant = cva(
-  "justify-center items-center text-muted-foreground fill-none",
-  {
-    variants: {
-      size: {
-        sm: "h-4 w-4",
-        md: "h-[18px] w-[18px]",
-        lg: "h-5 w-5",
-        xl: "h-6 w-6",
-        auto: "h-auto",
-        "2xl": "h-7 w-7",
-      },
-    },
   },
 );
 
@@ -65,31 +50,31 @@ const inputFieldVariant = cva(
       },
 
       size: {
-        sm: "text-sm",
-        md: "text-base",
-        lg: "text-lg",
-        xl: "text-xl",
-        auto: "text-lg",
-        "2xl": "text-xl",
+        sm: "text-lg",
+        md: "text-[1.14rem]",
+        lg: "text-[1.18rem]",
+        xl: "text-[1.24rem]",
+        "2xl": "text-[1.27rem]",
+        "4xl": "text-[1.40rem]",
       },
     },
   },
 );
 
 const floatInputVariant = {
-  sm: [12.2, 9],
-  md: [14, 11],
-  lg: [15.8, 12.4],
-  xl: [17.4, 13.4],
-  auto: [15.8, 12.4],
-  "2xl": [17.4, 14],
+  sm: [15.8, 13],
+  md: [16, 13.2],
+  lg: [16.4, 13.2],
+  xl: [17.4, 14.4],
+  "2xl": [17.8, 14.4],
+  "4xl": [19.6, 16.2],
 };
 
 type InputContextType = {
   isFocused: boolean;
   setIsFocused: (value: boolean) => void;
   variant: "underlined" | "outline" | "rounded" | null;
-  size?: "auto" | "2xl" | "xl" | "lg" | "md" | "sm" | null;
+  size?: "4xl" | "2xl" | "xl" | "lg" | "md" | "sm" | null;
   editable?: boolean;
   label: { text?: string; position: Animated.Value };
 };
@@ -129,7 +114,7 @@ const Input = React.forwardRef<View, InputProps>(
         {
           translateY: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [2 - (float[0] - float[1]), -float[1]],
+            outputRange: [2 - (float[0] - float[1] - 1), -(float[1] - 1)],
           }),
         },
       ],
@@ -157,8 +142,8 @@ const Input = React.forwardRef<View, InputProps>(
             size,
             className: cn(
               !editable && "opacity-50 cursor-not-allowed",
-              isFocused && "border-ring outline-none",
               className,
+              isFocused && "!border-ring outline-none",
             ),
           })}
           {...props}
@@ -184,11 +169,16 @@ const Input = React.forwardRef<View, InputProps>(
 Input.displayName = "Input";
 
 type InputFieldProps = Omit<React.ComponentProps<typeof RNTextInput>, "editable"> &
-  VariantProps<typeof inputFieldVariant> & { as?: typeof RNTextInput };
+  VariantProps<typeof inputFieldVariant> & {
+    as?: React.ComponentType<TextInputProps & { ref?: React.Ref<RNTextInput> }>;
+  };
 const InputField = React.forwardRef<RNTextInput, InputFieldProps>(
   (
     {
       as: TextInput = RNTextInput,
+      keyboardAppearance,
+      autoCapitalize,
+      returnKeyType,
       className,
       variant,
       size,
@@ -199,9 +189,11 @@ const InputField = React.forwardRef<RNTextInput, InputFieldProps>(
     },
     ref,
   ) => {
-    const value = props?.value || props?.defaultValue ? 1 : 0;
+    const { isDarkColorScheme } = useColorScheme();
     const context = React.useContext(InputContext);
     if (!context) throw new Error("InputField must be used within Input");
+
+    const value = props?.value || props?.defaultValue ? 1 : 0;
 
     const animateLabel = (toValue: number) => {
       Animated.timing(context.label.position, {
@@ -223,6 +215,8 @@ const InputField = React.forwardRef<RNTextInput, InputFieldProps>(
     return (
       <TextInput
         ref={ref}
+        keyboardAppearance={keyboardAppearance ?? (isDarkColorScheme ? "dark" : "light")}
+        autoCapitalize={autoCapitalize ?? "none"}
         className={inputFieldVariant({
           variant: variant ?? context.variant,
           size: size ?? context.size,
@@ -245,6 +239,14 @@ const InputField = React.forwardRef<RNTextInput, InputFieldProps>(
           onBlur?.(e);
           if (!value && context?.label?.text) animateLabel(0);
         }}
+        returnKeyType={
+          returnKeyType ??
+          (["numeric", "phone-pad", "number-pad", "decimal-pad"].includes(
+            props.keyboardType!,
+          )
+            ? "done"
+            : "default")
+        }
         {...props}
       />
     );
@@ -252,23 +254,4 @@ const InputField = React.forwardRef<RNTextInput, InputFieldProps>(
 );
 InputField.displayName = "InputField";
 
-type InputIconProps = React.ComponentProps<typeof Pressable> &
-  VariantProps<typeof inputIconVariant>;
-
-const InputIcon = React.forwardRef<React.ComponentRef<typeof Pressable>, InputIconProps>(
-  ({ className, size, ...props }, ref) => {
-    const context = React.useContext(InputContext);
-    if (!context) throw new Error("InputField must be used within Input");
-
-    return (
-      <Pressable
-        ref={ref}
-        className={inputIconVariant({ size: size ?? context.size, className })}
-        {...props}
-      />
-    );
-  },
-);
-InputIcon.displayName = "InputIcon";
-
-export { Input, InputField, InputIcon };
+export { Input, InputField };
