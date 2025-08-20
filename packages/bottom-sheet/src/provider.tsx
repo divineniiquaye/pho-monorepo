@@ -54,8 +54,9 @@ export function registerSheet<SheetId extends keyof Sheets = never>(
  * `global`. However if you want to render a Sheet within another sheet or if you want to render
  * Sheets in a modal. You can use a separate Provider with a custom context value.
  *
- * Remember to add a border radius of 24px to the root view if you want to snap to 100%,
- * and if you're using react native navigation theme provider, set the background color to transparent.
+ * If you enable `iosModalSheetTypeOfAnimation` remember to add a border radius
+ * of 24px to the root view if you want to snap to 100%, and if you're using react native navigation theme provider,
+ * set the background color to transparent.
  *
  * For example
  * ```ts
@@ -71,10 +72,15 @@ export function registerSheet<SheetId extends keyof Sheets = never>(
  * ```
  */
 export function SheetProvider({
+  iosModalSheetTypeOfAnimation = false,
   context = "global",
   duration = 300,
   children,
-}: React.PropsWithChildren<{ context?: string; duration?: number }>) {
+}: React.PropsWithChildren<{
+  context?: string;
+  duration?: number;
+  iosModalSheetTypeOfAnimation?: boolean;
+}>) {
   const { top } = useSafeAreaInsets();
   const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
   const sheetIds = Object.keys(sheetsRegistry[context] || sheetsRegistry["global"] || {});
@@ -84,22 +90,27 @@ export function SheetProvider({
 
   // IOS modal sheet type of animation
   const isFullScreen = useSharedValue(0);
-  const animatedStyle = useAnimatedStyle(() => ({
-    flex: 1,
-    transform: [
-      {
-        scaleX: withTiming(
-          interpolate(isFullScreen.value, [0, 0.9, 1], [1, 1, 0.92], "clamp"),
-        ),
-      },
-      {
-        translateY: withSpring(
-          interpolate(isFullScreen.value, [0, 0.9, 1], [0, top, top + 5], "clamp"),
-          { duration: 300, dampingRatio: 1.5 },
-        ),
-      },
-    ],
-  }));
+  const animatedStyle = useAnimatedStyle(
+    () => ({
+      flex: 1,
+      transform: iosModalSheetTypeOfAnimation
+        ? [
+            {
+              scaleX: withTiming(
+                interpolate(isFullScreen.value, [0, 0.9, 1], [1, 1, 0.92], "clamp"),
+              ),
+            },
+            {
+              translateY: withSpring(
+                interpolate(isFullScreen.value, [0, 0.9, 1], [0, top, top + 5], "clamp"),
+                { duration: 300, dampingRatio: 1.5 },
+              ),
+            },
+          ]
+        : [],
+    }),
+    [iosModalSheetTypeOfAnimation],
+  );
 
   // Since background color is white, we need to set status bar to light
   const setStatusBar = SystemBars.setStyle;
@@ -107,9 +118,11 @@ export function SheetProvider({
     () => isFullScreen.value,
     (currentValue) => {
       "worklet";
-      runOnJS(setStatusBar)(currentValue >= 0.5 ? "light" : "auto");
+      if (iosModalSheetTypeOfAnimation) {
+        runOnJS(setStatusBar)(currentValue >= 0.5 ? "light" : "auto");
+      }
     },
-    [],
+    [iosModalSheetTypeOfAnimation],
   );
 
   React.useEffect(() => {
@@ -124,8 +137,15 @@ export function SheetProvider({
   }, [context, onRegister]);
 
   return (
-    <SheetAnimationContext.Provider value={{ isFullScreen }}>
-      <Animated.View style={{ flex: 1, backgroundColor: "#000" }}>
+    <SheetAnimationContext.Provider
+      value={{ isFullScreen, iosModalSheetTypeOfAnimation }}
+    >
+      <Animated.View
+        style={{
+          flex: 1,
+          backgroundColor: iosModalSheetTypeOfAnimation ? "#000" : undefined,
+        }}
+      >
         <Animated.View style={animatedStyle}>{children}</Animated.View>
       </Animated.View>
       <BottomSheetModalProvider>
@@ -139,8 +159,9 @@ export function SheetProvider({
 const ProviderContext = React.createContext("global");
 const SheetIDContext = React.createContext<string | undefined>(undefined);
 const SheetAnimationContext = React.createContext<{
+  iosModalSheetTypeOfAnimation: boolean;
   isFullScreen: SharedValue<number>;
-}>({ isFullScreen: { value: 0 } as any });
+}>({ isFullScreen: { value: 0 } as any, iosModalSheetTypeOfAnimation: false });
 
 export const SheetRefContext = React.createContext<
   React.RefObject<BottomSheetInstance | null>

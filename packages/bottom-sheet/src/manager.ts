@@ -124,7 +124,8 @@ class _SheetManager {
         return new Promise((resolve) => {
             const currentContext = PrivateManager.context({ ...options, id: id });
             const handler = (data: any, context = "global") => {
-                if (context !== "global" && currentContext && currentContext !== context) return;
+                if (context !== "global" && currentContext && currentContext !== context)
+                    return;
                 options?.onClose?.(data);
                 sub?.unsubscribe();
                 resolve(data);

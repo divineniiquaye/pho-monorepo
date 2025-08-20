@@ -116,7 +116,7 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
     const currentSheetRef = useSheetRef();
     const currentCtx = useProviderContext();
 
-    const { isFullScreen } = useSheetAnimationContext();
+    const { isFullScreen, iosModalSheetTypeOfAnimation } = useSheetAnimationContext();
     const animatedIndex = useSharedValue(0);
 
     const { colors } = useTheme();
@@ -181,7 +181,7 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
           );
         }
       },
-      [],
+      [snapPoints],
     );
 
     const hideSheet = React.useCallback(
@@ -280,7 +280,7 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
       >
         <RNBottomSheet
           enableDynamicSizing={enableDynamicSizing}
-          animationConfigs={{ duration: 300, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
+          animationConfigs={{ duration: 400, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
           backdropComponent={(props) => (
             <BottomSheetBackdrop
               enableTouchThrough={!!clickThrough}
@@ -294,15 +294,11 @@ const BottomSheetComponent = React.forwardRef<BottomSheetInstance, BottomSheetPr
           ref={bottomSheetRef}
           onClose={hideSheet}
           animatedIndex={animatedIndex}
-          topInset={fullScreen ? 0 : top + 18}
+          topInset={fullScreen ? 0 : top + (iosModalSheetTypeOfAnimation? 18 : 5)}
           snapPoints={enableDynamicSizing ? undefined : (snapPoints ?? ["66%"])}
           handleIndicatorStyle={[themeHandleIndicatorStyle, handleIndicatorStyle]}
           backgroundStyle={[themeBackgroundStyle, backgroundStyle]}
-          handleStyle={[
-            themeBackgroundStyle,
-            { borderTopLeftRadius: 24, borderTopRightRadius: 24 },
-            handleStyle,
-          ]}
+          handleStyle={[themeBackgroundStyle, handleStyle]}
         >
           {children}
         </RNBottomSheet>
