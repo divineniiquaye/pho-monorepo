@@ -13,7 +13,7 @@ const client = z.object({
     VERSION: z.string().default("1.0.0"),
     SLUG: z.string().default("myapp"),
 
-    SENTRY_DSN: zExtend(z.string().min(1, "SENTRY_DSN is required")),
+    SENTRY_DSN: zExtend(z.string().min(1, "SENTRY_DSN is required").default("")),
 });
 
 const buildTime = z.object({
