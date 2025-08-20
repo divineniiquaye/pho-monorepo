@@ -18,7 +18,6 @@
     "dev": "node scripts/run.mjs dev",
     "test": "node scripts/run.mjs test",
     "deps": "node scripts/deps.mjs",
-    "patch": "pnpm dlx pnpm-patch-i",
     "lint": "turbo run lint",
     "clean": "turbo run clean && rm -rf node_modules",
     "docker": "docker-compose -f docker-compose.yml up",
