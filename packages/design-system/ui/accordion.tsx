@@ -14,7 +14,7 @@ import { ChevronDown } from "../icons/ChevronDown";
 import { cn } from "../lib/utils";
 
 const Accordion = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Root>,
+  React.ElementRef<typeof AccordionPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ children, ...props }, ref) => {
   return (
@@ -29,7 +29,7 @@ const Accordion = React.forwardRef<
 Accordion.displayName = AccordionPrimitive.Root.displayName;
 
 const AccordionItem = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Item>,
+  React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, value, ...props }, ref) => {
   return (
@@ -48,9 +48,9 @@ AccordionItem.displayName = AccordionPrimitive.Item.displayName;
 const Trigger = Platform.OS === "web" ? View : Pressable;
 
 const AccordionTrigger = React.forwardRef<
-  React.ComponentRef<typeof Pressable>,
-  React.ComponentPropsWithoutRef<typeof Pressable>
->(({ className, children, ...props }, ref) => {
+  React.ElementRef<typeof Pressable>,
+  React.ComponentPropsWithoutRef<typeof Pressable> & { hideIndicator?: boolean }
+>(({ className, children, hideIndicator, ...props }, ref) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();
 
   return (
@@ -64,14 +64,16 @@ const AccordionTrigger = React.forwardRef<
             )}
           >
             {children as any}
-            <View
-              className={cn(
-                "transition-transform",
-                isExpanded ? "rotate-180" : "rotate-0",
-              )}
-            >
-              <ChevronDown size={18} className="text-foreground shrink-0" />
-            </View>
+            {!hideIndicator && (
+              <View
+                className={cn(
+                  "transition-transform",
+                  isExpanded ? "rotate-180" : "rotate-0",
+                )}
+              >
+                <ChevronDown size={18} className="text-foreground shrink-0" />
+              </View>
+            )}
           </Trigger>
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
@@ -81,7 +83,7 @@ const AccordionTrigger = React.forwardRef<
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 
 const AccordionContent = React.forwardRef<
-  React.ComponentRef<typeof AccordionPrimitive.Content>,
+  React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => {
   const { isExpanded } = AccordionPrimitive.useItemContext();
