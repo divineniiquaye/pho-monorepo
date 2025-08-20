@@ -6,6 +6,7 @@
     "base": {
       "node": "24.2.0",
       "bun": "1.2.20",
+      "pnpm": "10.15.0",
       "env": {
         "EXPO_NO_DOTENV": "1",
         "FLIPPER_DISABLE": "1"

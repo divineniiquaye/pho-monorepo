@@ -72,6 +72,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-native": "catalog:",
+    "react-native-edge-to-edge": "catalog:",
     "react-native-gesture-handler": "catalog:",
     "react-native-keyboard-controller": "1.18.5",
     "react-native-reanimated": "catalog:",
@@ -90,7 +91,6 @@
     "@types/lodash": "4.17.20",
     "@types/numeral": "2.0.5",
     "@types/react": "catalog:",
-    "dotenv": "17.2.1",
     "expo-build-properties": "0.14.8",
     "expo-dev-client": "5.2.4",
     "tree-kill": "1.2.2"
