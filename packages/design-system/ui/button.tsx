@@ -10,7 +10,7 @@ import { cn } from "../lib/utils";
 import isWeb from "../lib/isWeb";
 
 const buttonVariants = cva(
-  "group flex items-center justify-center rounded-md web:ring-offset-background native:active:scale-95 native:transition-transform web:transition-colors web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2",
+  "group flex items-center justify-center rounded-md web:ring-offset-background native:active:scale-95 transition-all web:focus-visible:outline-none web:focus-visible:ring-2 web:focus-visible:ring-ring web:focus-visible:ring-offset-2",
   {
     variants: {
       variant: {
@@ -73,7 +73,7 @@ type ButtonProps = React.ComponentPropsWithoutRef<typeof RNPressable> &
 
 const Button = React.forwardRef<React.ComponentRef<typeof RNPressable>, ButtonProps>(
   ({ className, variant, size, asChild, enableRipple, ...props }, ref) => {
-    const Btn = asChild && isWeb ? Pressable : enableRipple ? RippleButton : RNPressable;
+    const Btn = asChild && isWeb ? Pressable : !enableRipple ? RNPressable : RippleButton;
     return (
       <TextClassContext.Provider
         value={cn(
