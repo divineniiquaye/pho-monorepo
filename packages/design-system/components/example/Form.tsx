@@ -24,8 +24,8 @@ import { Calendar } from "@repo/design/ui/calender";
 import { cn } from "@repo/design/lib/utils";
 
 const formSchema = z.object({
-  username: z.string().min(2, { message: "Username must be at least 2 characters." }),
-  dob: z.date({ required_error: "A date of birth is required." }),
+  username: z.string().min(2, { error: "Username must be at least 2 characters." }),
+  dob: z.date({ error: "A date of birth is required." }),
 });
 
 export function FormExample() {

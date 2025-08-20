@@ -204,11 +204,7 @@ function Calendar(props: CalendarProps) {
           <FlatList
             data={months}
             initialNumToRender={12}
-            renderItem={({ item }) => (
-              <SelectItem key={item} value={item} label={item}>
-                {item}
-              </SelectItem>
-            )}
+            renderItem={({ item }) => <SelectItem key={item} value={item} label={item} />}
             keyExtractor={(item) => item}
           />
         </SelectContent>
@@ -239,9 +235,7 @@ function Calendar(props: CalendarProps) {
           <FlatList
             data={years}
             renderItem={({ item }) => (
-              <SelectItem key={item} value={item.toString()} label={item.toString()}>
-                {item}
-              </SelectItem>
+              <SelectItem key={item} value={item.toString()} label={item.toString()} />
             )}
           />
         </SelectContent>
