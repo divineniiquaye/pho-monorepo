@@ -12,7 +12,9 @@
   "packageManager": "pnpm@10.15.0",
   "workspaces": [],
   "scripts": {
-    "build": "node scripts/run.mjs build",
+    "build": "node scripts/build.mjs",
+    "build:ios": "node scripts/build.mjs --platform ios",
+    "build:android": "node scripts/build.mjs --platform android",
     "dev": "node scripts/run.mjs dev",
     "test": "node scripts/run.mjs test",
     "deps": "node scripts/deps.mjs",
@@ -35,6 +37,7 @@
     "commander": "^14.0.0"
   },
   "devDependencies": {
+    "cross-env": "10.0.0",
     "prettier": "^3.6.2",
     "turbo": "^2.5.6"
   },

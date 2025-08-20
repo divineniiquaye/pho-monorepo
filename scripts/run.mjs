@@ -22,14 +22,18 @@ async function getApps() {
 }
 
 program
-    .description("Build/Run/Test specified app or all apps")
-    .argument("<type>", "type of build")
+    .description("Run/Test specified app or all apps")
+    .argument("<type>", "type of run (dev, test)")
     .argument("[app]", "app name from apps directory")
-    .option("--non-interactive", "Skip interactive prompt", false)
-    .option("-O, --only", "Exclude app from running")
+    .option("-O, --only", "Only run a specific app")
     .action(async (type, targetApp, options) => {
         try {
             const apps = await getApps();
+
+            if (!["dev", "test"].includes(type)) {
+                log(chalk.red(`Error: Invalid type '${type}'`));
+                process.exit(1);
+            }
 
             if (!targetApp && !options.nonInteractive) {
                 targetApp = await select({
@@ -53,7 +57,8 @@ program
                 );
                 process.exit(1);
             } else if (options.only) {
-                execSync(`pnpm --filter ./apps/${targetApp} run ${type}`, {
+                execSync(`pnpm run ${type}`, {
+                    cwd: `./apps/${targetApp}`,
                     stdio: "inherit",
                 });
             } else {

@@ -90,7 +90,6 @@
     "@types/lodash": "4.17.20",
     "@types/numeral": "2.0.5",
     "@types/react": "catalog:",
-    "cross-env": "10.0.0",
     "dotenv": "17.2.1",
     "expo-build-properties": "0.14.8",
     "expo-dev-client": "5.2.4",
