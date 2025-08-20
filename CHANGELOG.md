@@ -1,3 +1,50 @@
+# v0.2.19 (Wed Aug 20 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix(design-system): nextjs build error ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(web): updated next env TS file ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: updated _site's pnpm version in GH CI ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore: updated react native to 0.79.5 & pnpm lock ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(mobile): expo doctor fails to pass 16/17 ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(mobile): add a default value for sentry dsn in expo config ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved layout screen UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(mobile): add sentry integration ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(mobile): update font & background colors in theme constants ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(mobile): update build scripts & remove custom build logic ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(mobile): update Metro config with enhanced resolver & minifier ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(mobile): update EAS android production build config ([@divineniiquaye](https://github.com/divineniiquaye))
+- fear(mobile): refactor env management & cleanup native app config ([@divineniiquaye](https://github.com/divineniiquaye))
+- infra: update CI workflow and monorepo setup action ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(bottom-sheet): iOS modal sheet animation off by default ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: remove patch script use that of pnpm ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat: refactor build & run scripts ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix: Improve postinstall task execution and logging ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/typescript): add expo config utility & update package exports ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/typescript): update tsconfig extends paths ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): add icon customization to select trigger & item ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): improved marquee & added seperator ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): update Carousel types and dotClassName callback ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): refactor Input component and update variants ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): add 'as' prop to InputOTP UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added date input field UI ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): added typewriter UI component ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): add Geist font and update Tailwind config ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): update button styles and ripple logic ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): update Accordion types and add hideIndicator prop ([@divineniiquaye](https://github.com/divineniiquaye))
+- chore: bump deps ⚡️ ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/jest): added node jest config ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(t/jest): update jest dependencies to use catalog versions ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(mobile): refactor EAS build config to use base profile ([@divineniiquaye](https://github.com/divineniiquaye))
+- fix(design-system): render system bar when ready on layout ([@divineniiquaye](https://github.com/divineniiquaye))
+- feat(design-system): enhanced select UI value & item rendering ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.18 (Sat Jun 28 2025)
 
 #### ⚠️ Pushed to `main`
