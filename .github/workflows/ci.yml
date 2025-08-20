@@ -17,10 +17,10 @@ on:
                 default: all
                 options: [all, android, ios]
             profile:
-                description: EAS build profile (development/production/staging/simulator)
+                description: EAS build profile (development/production/staging)
                 type: choice
                 required: false
-                options: [development, production, staging, simulator]
+                options: [development, production, staging]
             build:
                 description: Force build even if the build number is the same
                 type: number
@@ -165,12 +165,11 @@ jobs:
                   {
                     echo "EAS_BUILD=$EAS_BUILD"
                     echo "CURRENT_BUILD=${{ github.event.inputs.build || '$CURRENT_BUILD' }}"
-                    echo "EAS_UPDATE_ENV=${{ github.ref_name == 'main' && 'production' || 'preview' }}"
-                    echo "EAS_UPDATE_BRANCH=${{ github.ref_name == 'main' && 'main' || 'staging' }}"
                   } >> $GITHUB_OUTPUT
 
             - name: 🛠️ Build on EAS
               continue-on-error: true # Remove this if you want to fail the build if EAS fails
+              if: ${{ steps.expo.outputs.EAS_BUILD == 'build' }}
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
                   # This can be removed and declared in your ENV_FILE directly
@@ -178,23 +177,20 @@ jobs:
                   EXPO_ACCOUNT_OWNER: ${{ vars.EXPO_ACCOUNT_OWNER }}
               run: |
                   AUTO_SUBMIT=${{ github.event.inputs.submit == 'true' && '--auto-submit' || '' }}
-                  if [[ ${{ steps.expo.outputs.EAS_BUILD }} == 'update' ]]; then pnpm run --filter=native prebuild --force; fi
-                  pnpm run --filter=native build ${{ github.event.inputs.profile || (github.ref_name == 'main' && 'production' || 'staging') }} \
-                    --platform ${{ steps.expo.outputs.EAS_BUILD == 'update' && 'android' || (github.event.inputs.platform || 'all') }} \
-                    --non-interactive \
-                    --no-wait \
+                  pnpm run build native -m ${{ github.event.inputs.profile || (github.ref_name == 'main' && 'production' || 'staging') }} \
+                    --platform ${{ github.event.inputs.platform || 'all' }} \
                     $AUTO_SUBMIT
                   gh variable set NATIVE_BUILD_NUMBER --body ${{ steps.expo.outputs.CURRENT_BUILD }}
 
             # In order not to push dev env to production, make sure to set envs in your expo account
             - name: 🚀 OTA Update
               if: ${{ steps.expo.outputs.EAS_BUILD == 'update' }}
-              working-directory: ./apps/mybitstore
+              working-directory: ./apps/native
               run: |
                   eas update --auto --json --non-interactive \
                     --platform ${{ github.event.inputs.platform || 'all' }} \
-                    --environment=${{ steps.expo.outputs.EAS_UPDATE_ENV }} \
-                    --branch=${{ steps.expo.outputs.EAS_UPDATE_BRANCH }}
+                    --environment=${{ github.ref_name == 'main' && 'production' || 'preview' }} \
+                    --branch=${{ github.ref_name == 'main' && 'main' || 'staging' }}
 
             # Uncomment this if you face an issue with eas update for android
             # and change --platform for OTA to ios
