@@ -82,16 +82,19 @@ const config: Omit<import("tailwindcss").Config, "content"> = {
                     border: "hsl(var(--sidebar-border))",
                     ring: "hsl(var(--sidebar-ring))",
                 },
-                "kp-input": "hsl(var(--kp-input))",
             },
             borderWidth: {
                 hairline: hairlineWidth(),
+            },
+            height: {
+                "13": "3.25rem", // 13 * 0.25rem = 3.25rem
+                "15": "3.75rem", // 15 * 0.25rem = 3.75rem
             },
             fontFamily: {
                 sans: [
                     platformSelect({
                         web: "var(--font-geist-sans)",
-                        default: "NunitoSans",
+                        default: "Geist",
                     }),
                     ...defaultTheme.fontFamily.sans,
                 ],
@@ -101,6 +104,13 @@ const config: Omit<import("tailwindcss").Config, "content"> = {
                         default: "RobotoMono",
                     }),
                     ...defaultTheme.fontFamily.mono,
+                ],
+                nunito: [
+                    platformSelect({
+                        web: "var(--font-nunito-sans)",
+                        default: "NunitoSans",
+                    }),
+                    ...defaultTheme.fontFamily.sans,
                 ],
             },
             keyframes: {
@@ -142,10 +152,10 @@ const config: Omit<import("tailwindcss").Config, "content"> = {
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
-                "caret-blink": "caret-blink 1.2s ease-out infinite",
-                wiggle: "wiggle 0.4s ease-out infinite",
-                buzz: "buzz 0.5s linear infinite",
-                shimmer: "shimmer 1s ease-out infinite",
+                "caret-blink": "caret-blink 1.2s ease-out",
+                wiggle: "wiggle 0.4s ease-out",
+                buzz: "buzz 0.5s linear",
+                shimmer: "shimmer 1s ease-out",
                 rubberband: "rubberband 1s ease-in-out",
             },
         },

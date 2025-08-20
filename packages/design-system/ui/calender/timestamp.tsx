@@ -84,7 +84,7 @@ const TimeComponent = ({
         >
           <Animated.View
             className={cn(
-              "h-[18px] w-[1.5px] animate-caret-blink bg-foreground duration-1000",
+              "h-[18px] w-[1.5px] animate-caret-blink repeat-infinite bg-foreground duration-1000",
               active && invalid && "bg-destructive",
             )}
           />
