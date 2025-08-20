@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 
+import { accessSync, constants } from "node:fs";
 import { execSync } from "node:child_process";
+
 const { log } = console;
 
 /**
  * Add more tasks here in the same format:
  * {
  *     name: "task name",
+ *     check: "path to check",
  *     description: "what this task does",
  *     command: "command to execute"
  * }
- * 
+ *
  * To use this file, add the following line to your package.json file:
  * "postinstall": "node scripts/postinstall.mjs"
  */
@@ -21,20 +24,20 @@ async function runPostinstallTasks() {
 
     for (const task of tasks) {
         try {
-            log(`🔧 ${task.name}`);
-            log("     " + task.description);
+            accessSync(task.check, constants.R_OK);
+        } catch (e) {
+            log(`✗ Skipping task for: ${task.name}`);
+            continue;
+        }
 
-            execSync(task.command, { stdio: "inherit" });
-
+        log(`[${task.name}]: ${task.description}`);
+        try {
+            execSync(task.command);
             log(`✓ Successfully completed: ${task.name}\n`);
         } catch (error) {
-            log(`✗ Failed: ${task.name}`);
-            log(`Error: ${error.message}\n`);
-            process.exit(1);
+            log(`✗ Failed to run task for: ${task.name}\n`);
         }
     }
-
-    log("✨ All postinstall tasks completed successfully!");
 }
 
 runPostinstallTasks().catch((error) => {
