@@ -1,3 +1,15 @@
+# v0.2.21 (Thu Aug 21 2025)
+
+#### ⚠️ Pushed to `main`
+
+- fix(t/typescript): build issue on postinstall ([@divineniiquaye](https://github.com/divineniiquaye))
+
+#### Authors: 1
+
+- Divine Niiquaye Ibok ([@divineniiquaye](https://github.com/divineniiquaye))
+
+---
+
 # v0.2.19 (Wed Aug 20 2025)
 
 #### ⚠️ Pushed to `main`
