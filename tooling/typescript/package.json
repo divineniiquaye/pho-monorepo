@@ -13,11 +13,14 @@
     "./react-native-library": "./react-native-library.json",
     "./nextjs": "./nextjs.json"
   },
-"scripts": {
-  "postinstall": "pnpm run build",
-  "clean": "rm -rf build node_modules",
-  "build": "tsc --project tsconfig.json"
-},
+  "scripts": {
+    "postinstall": "pnpm run build",
+    "clean": "rm -rf build node_modules",
+    "build": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "4.0.17"
+  },
   "devDependencies": {
     "@babel/core": "7.28.3",
     "@types/node": "24.3.0",
