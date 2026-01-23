@@ -69,7 +69,7 @@
     "expo-splash-screen": "0.30.10",
     "expo-system-ui": "5.0.10",
     "expo-updates": "0.28.17",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "numeral": "2.0.6",
     "react": "catalog:",
     "react-dom": "catalog:",
